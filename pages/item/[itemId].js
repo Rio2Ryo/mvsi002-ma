@@ -50,9 +50,9 @@ export default function AgentItemPage() {
       <HeroSection />
       <ConceptSection />
       <FeatureSection />
+      <Effects />
       <TestimonialSection />
       <ProductSection_2 />
-      <Effects />
       <GuaranteeSection />
       <FAQSection />
       <Footer />
