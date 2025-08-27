@@ -177,12 +177,12 @@ export default function ProductSection() {
                 </div>
 
                 <div style={{ marginBottom: "1rem" }}>
-                  <p style={{ fontSize: "0.75rem", color: "#6b7280", marginBottom: "0.25rem" }}>
+                  {/*<p style={{ fontSize: "0.75rem", color: "#6b7280", marginBottom: "0.25rem" }}>
                      {product.originalPrice}
                   </p>
                   <p style={{ fontSize: "0.75rem", color: "#6b7280", textDecoration: "line-through", marginBottom: "0.25rem" }}>
                     {product.originalPrice2}
-                  </p>
+                  </p>*/}
                   <p className="price" style={{ fontSize: "2rem", fontWeight: "300", marginBottom: "0.25rem", color: product.popular ? "#b8860b" : "#1f2937" }}>
                     {product.price}
                   </p>
