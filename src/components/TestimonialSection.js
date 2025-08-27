@@ -77,7 +77,7 @@ export default function TestimonialSection() {
             ))}
           </div>
 
-          <div className="survey-box">
+          {/*<div className="survey-box">
             <h3 className="survey-title">ご愛用者様アンケート結果</h3>
             <div className="survey-grid">
               {surveyResults.map((r, i) => (
@@ -93,7 +93,7 @@ export default function TestimonialSection() {
               ))}
             </div>
             <p className="note">※2024年10月実施 n=500</p>
-          </div>
+          </div>*/}
         </div>
       </section>
 

@@ -226,9 +226,9 @@ export default function Home() {
          <HeroSection />
          <ConceptSection />
          <FeatureSection />
+         <Effects />
          <TestimonialSection />
          <ProductSection />
-         <Effects />
          <GuaranteeSection />
          <FAQSection />
          <Footer />
