@@ -169,7 +169,7 @@ export default function ProductSection() {
         @media (max-width: 768px) {
           h2 { font-size: 1.45rem !important; }
           .price { font-size: 1.4rem !important; }
-          .p-title{font-size:1rem!important;}
+          .p-title{font-size:1rem!important;text-align:center!important;}
         }
       `}</style>
     </section>
