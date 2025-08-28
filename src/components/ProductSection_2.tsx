@@ -217,7 +217,7 @@ export default function ProductSection() {
             boxShadow: "0 6px 20px rgba(0,0,0,0.06)",
             padding: "2rem",
             lineHeight: 1.9,
-            color: "#1f2937",
+            color: "#b8860b",
             marginBottom: "3rem"
           }}
         >
