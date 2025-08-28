@@ -208,12 +208,40 @@ export default function ProductSection() {
             );
           })}
         </div>
+        {/* ▼ 追加：カード直下の説明ブロック（日本語のみ） */}
+        <div
+          style={{
+            backgroundColor: "#ffffff",
+            border: "1px solid #ececec",
+            borderRadius: "1rem",
+            boxShadow: "0 6px 20px rgba(0,0,0,0.06)",
+            padding: "2rem",
+            lineHeight: 1.9,
+            color: "#1f2937",
+            marginBottom: "3rem"
+          }}
+        >
+          <h3 className="p-title" style={{ textAlign:"center", fontSize: "1.25rem", fontWeight: 600, marginBottom: "0.75rem", color: "#111827" }}>
+            スマートに持ち運べるコンパクトケース
+          </h3>
+          <p style={{ marginBottom: "0.75rem" }}>
+            薄型設計のコンパクトケースで、いつでもどこでも手軽に持ち運び可能。ちょっとした外出時や、電車の中、汗ばむ夏の日でもサッと使えて、20時間続くテカリ改善を実現します。
+          </p>
+          <p style={{ marginBottom: "0.75rem" }}>
+            さらに、マザーベジタブル由来の殺菌作用により、パフやブラシも清潔な状態で使用可能。常に安心してお使いいただけます。
+          </p>
+          <p>
+            デザインはマットブラック仕様。男女問わず手に取りやすく、バッグやデスクに置いても違和感のないスタイリッシュな仕上がりです。
+          </p>
+        </div>
+        {/* ▲ 追加ここまで */}
       </div>
 
       <style jsx>{`
         @media (max-width: 768px) {
           h2 { font-size: 1.45rem !important; }
           .price { font-size: 1.4rem !important; }
+          .p-title{font-size:1rem!important;text-align:center!important;}
         }
       `}</style>
     </section>
