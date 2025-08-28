@@ -52,7 +52,7 @@ export default function ProductSection() {
     <section style={{ padding: "0.01rem 0.1rem 5rem 0.01rem", backgroundColor: "#f9fafb" }}>
       <div className="haba" style={{ maxWidth: "1280px", margin: "120px auto 0 auto", padding: "0 1rem" }}>
 
-                {/* 以下、成分と効果セクションが続く場合はこちらに追加 */}
+        {/* 成分・効果 */}
         <div style={{ marginTop: "2rem" }}>
           <h3 style={{ fontSize: "1.5rem", fontWeight: 300, marginBottom: "3rem", textAlign: "center", color: "#2d2d2d", letterSpacing: "0.05em" }}>成分・効果</h3>
 
@@ -87,6 +87,7 @@ export default function ProductSection() {
             </div>
           </div>
 
+          {/* 期待できる効果カード */}
           <div style={{
             backgroundColor: "#fff",
             borderRadius: "1.25rem",
@@ -96,6 +97,7 @@ export default function ProductSection() {
             boxShadow: "0 6px 16px rgba(0,0,0,0.08)"
           }}>
             <h4 style={{ fontSize: "1.2rem", fontWeight: 300, color: "#2d2d2d", marginBottom: "1.5rem", textAlign: "center" }}>期待できる効果</h4>
+
             <div className="effects-grid" style={{
               display: "grid",
               gridTemplateColumns: "1fr 1fr",
@@ -130,20 +132,38 @@ export default function ProductSection() {
                 </div>
               ))}
             </div>
+
+            {/* ▼ 追加：4つの効果の下に縦並び画像（gap 20px） */}
+            <div style={{
+              display: "flex",
+              flexDirection: "column",
+              gap: "20px",
+              marginTop: "2rem"
+            }}>
+              <img
+                src="/doc1.jpg"
+                alt="製品資料 1"
+                loading="lazy"
+                style={{ width: "100%", height: "auto", borderRadius: "0.75rem", display: "block" }}
+              />
+              <img
+                src="/doc2.jpg"
+                alt="製品資料 2"
+                loading="lazy"
+                style={{ width: "100%", height: "auto", borderRadius: "0.75rem", display: "block" }}
+              />
+            </div>
+            {/* ▲ 追加ここまで */}
           </div>
         </div>
 
-        
       </div>
       <style jsx>{`
   @media (max-width: 768px) {
-      .haba{margin: 60px auto 0 auto!important};
-    h3 {
-      font-size: 1.36rem !important;
-    }
-       div :global(.effects-grid) {
-      grid-template-columns: 1fr !important;
-    }
+    .haba{margin: 60px auto 0 auto!important}
+    h3 { font-size: 1.36rem !important; }
+    /* スマホで効果グリッドを1列に */
+    :global(.effects-grid) { grid-template-columns: 1fr !important; }
   }
 `}</style>
     </section>
