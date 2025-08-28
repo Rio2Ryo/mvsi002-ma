@@ -137,7 +137,7 @@ export default function ProductSection() {
       </div>
       <style jsx>{`
   @media (max-width: 768px) {
-      .haba{margin: "60px auto 0 auto"};
+      .haba{margin: 60px auto 0 auto};
     h3 {
       font-size: 1.36rem !important;
     }
