@@ -145,11 +145,11 @@ export default function ProductSection() {
             boxShadow: "0 6px 20px rgba(0,0,0,0.06)",
             padding: "2rem",
             lineHeight: 1.9,
-            color: "#b8860b",
+            color: "#1f2937",
             marginBottom: "3rem"
           }}
         >
-          <h3 className="p-title" style={{ textAlign:"center", fontSize: "1.25rem", fontWeight: 600, marginBottom: "0.75rem", color: "#111827" }}>
+          <h3 className="p-title" style={{ textAlign:"center", fontSize: "1.25rem", fontWeight: 600, marginBottom: "0.75rem", color: "#b8860b" }}>
             スマートに持ち運べるコンパクトケース
           </h3>
           <p style={{ marginBottom: "0.75rem" }}>
