@@ -149,8 +149,8 @@ export default function ProductSection() {
             marginBottom: "3rem"
           }}
         >
-          <h3 className="p-title" style={{ fontSize: "1.25rem", fontWeight: 600, marginBottom: "0.75rem", color: "#111827". }}>
-            スマートに持ち運べる<br></br>コンパクトケース
+          <h3 className="p-title" style={{ fontSize: "1.25rem", fontWeight: 600, marginBottom: "0.75rem", color: "#111827" }}>
+            スマートに持ち運べるコンパクトケース
           </h3>
           <p style={{ marginBottom: "0.75rem" }}>
             薄型設計のコンパクトケースで、いつでもどこでも手軽に持ち運び可能。ちょっとした外出時や、電車の中、汗ばむ夏の日でもサッと使えて、20時間続くテカリ改善を実現します。
@@ -169,7 +169,7 @@ export default function ProductSection() {
         @media (max-width: 768px) {
           h2 { font-size: 1.45rem !important; }
           .price { font-size: 1.4rem !important; }
-          .p-title{font-size:1rem!important;text-align:center;}
+          .p-title{font-size:1rem!important;}
         }
       `}</style>
     </section>
