@@ -149,7 +149,7 @@ export default function ProductSection() {
             marginBottom: "3rem"
           }}
         >
-          <h3 className="p-title" style={{ textAlign:"center", fontSize: "1.25rem", fontWeight: 600, marginBottom: "0.75rem", color: "#b8860b" }}>
+          <h3 className="p-title" style={{ textAlign:"center", fontSize: "1.25rem", fontWeight: 400, marginBottom: "0.75rem", color: "#b8860b" }}>
             スマートに持ち運べるコンパクトケース
           </h3>
           <p style={{ marginBottom: "0.75rem" }}>
