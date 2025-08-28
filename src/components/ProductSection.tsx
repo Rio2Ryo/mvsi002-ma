@@ -7,17 +7,6 @@ export default function ProductSection() {
   const [selectedSize, setSelectedSize] = useState("2g");
 
   const products = [
-    //{
-      //size: "500mg",
-      //slug: "trial-mvsi", // ← そのまま
-      //title: "お試しサイズ",
-      //description: "500mg - 約30日分",
-      //features: ["マザーベジタブル 500mg配合", "約30日分", "携帯に便利なコンパクトケース"],
-      //originalPrice: "3,300円",
-      //price: "2,200円",
-      //popular: false,
-      //image: "/item_pic1.jpg", // ← 画像を明示
-    //},
     {
       size: "2,000mg",
       slug: "standard-mvsi",
@@ -27,7 +16,7 @@ export default function ProductSection() {
       originalPrice: "6,600円",
       price: "3,600円",
       popular: true,
-      image: "/item_pic2.jpg", // ← 明示
+      image: "/item_pic2.jpg",
     },
     {
       size: "5,000mg",
@@ -38,7 +27,7 @@ export default function ProductSection() {
       originalPrice: "11,000円",
       price: "7,400円",
       popular: false,
-      image: "/item_pic3.jpg", // ← 明示
+      image: "/item_pic3.jpg",
     },
   ] as const;
 
@@ -55,9 +44,9 @@ export default function ProductSection() {
           <div style={{ width: "80px", height: "4px", backgroundColor: "#b8860b", margin: "0 auto" }} />
         </div>
 
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "2rem", marginBottom: "5rem" }}>
+        {/* カードグリッド */}
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "2rem", marginBottom: "2rem" }}>
           {products.map((product) => {
-            // itemId は固定で "mvsi"
             const internalHref = `/item/mvsi/${product.slug}`;
 
             return (
@@ -102,7 +91,7 @@ export default function ProductSection() {
 
                 <div style={{ marginBottom: "1.5rem" }}>
                   <img
-                    src={product.image} // ← ここを固定パスに
+                    src={product.image}
                     alt={`${product.size} 商品画像`}
                     style={{ width: "100%", aspectRatio: "1 / 1", objectFit: "cover", borderRadius: "1rem", backgroundColor: "#f3f4f6" }}
                   />
@@ -120,16 +109,12 @@ export default function ProductSection() {
                 </div>
 
                 <div style={{ marginBottom: "1rem" }}>
-                  {/*<p style={{ fontSize: "0.75rem", color: "#6b7280", marginBottom: "0.25rem" }}>
-                    通常価格 {product.originalPrice}
-                  </p>*/}
                   <p className="price" style={{ fontSize: "2rem", fontWeight: "300", marginBottom: "0.25rem", color: product.popular ? "#b8860b" : "#1f2937" }}>
                     {product.price}
                   </p>
                   <p style={{ fontSize: "0.75rem", color: "#9ca3af" }}>(税込)</p>
                 </div>
 
-                {/* 常に内部の動的ページへ遷移 */}
                 <Link href={internalHref} style={{ textDecoration: "none" }}>
                   <button
                     style={{
@@ -150,6 +135,34 @@ export default function ProductSection() {
             );
           })}
         </div>
+
+        {/* ▼ 追加：カード直下の説明ブロック（日本語のみ） */}
+        <div
+          style={{
+            backgroundColor: "#ffffff",
+            border: "1px solid #ececec",
+            borderRadius: "1rem",
+            boxShadow: "0 6px 20px rgba(0,0,0,0.06)",
+            padding: "2rem",
+            lineHeight: 1.9,
+            color: "#1f2937",
+            marginBottom: "3rem"
+          }}
+        >
+          <h3 style={{ fontSize: "1.25rem", fontWeight: 600, marginBottom: "0.75rem", color: "#111827" }}>
+            スマートに持ち運べるコンパクトケース
+          </h3>
+          <p style={{ marginBottom: "0.75rem" }}>
+            薄型設計のコンパクトケースで、いつでもどこでも手軽に持ち運び可能。ちょっとした外出時や、電車の中、汗ばむ夏の日でもサッと使えて、20時間続くテカリ改善を実現します。
+          </p>
+          <p style={{ marginBottom: "0.75rem" }}>
+            さらに、マザーベジタブル由来の殺菌作用により、パフやブラシも清潔な状態で使用可能。常に安心してお使いいただけます。
+          </p>
+          <p>
+            デザインはマットブラック仕様。男女問わず手に取りやすく、バッグやデスクに置いても違和感のないスタイリッシュな仕上がりです。
+          </p>
+        </div>
+        {/* ▲ 追加ここまで */}
       </div>
 
       <style jsx>{`
