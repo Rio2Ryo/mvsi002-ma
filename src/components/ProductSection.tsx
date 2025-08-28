@@ -149,7 +149,7 @@ export default function ProductSection() {
             marginBottom: "3rem"
           }}
         >
-          <h3 style={{ fontSize: "1.25rem", fontWeight: 600, marginBottom: "0.75rem", color: "#111827" }}>
+          <h3 className="p-title" style={{ fontSize: "1.25rem", fontWeight: 600, marginBottom: "0.75rem", color: "#111827" }}>
             スマートに持ち運べるコンパクトケース
           </h3>
           <p style={{ marginBottom: "0.75rem" }}>
@@ -169,6 +169,7 @@ export default function ProductSection() {
         @media (max-width: 768px) {
           h2 { font-size: 1.45rem !important; }
           .price { font-size: 1.4rem !important; }
+          .p-title{font-size:1rem!important;}
         }
       `}</style>
     </section>
