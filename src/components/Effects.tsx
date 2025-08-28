@@ -50,7 +50,7 @@ export default function ProductSection() {
 
   return (
     <section style={{ padding: "0.01rem 0.1rem 5rem 0.01rem", backgroundColor: "#f9fafb" }}>
-      <div style={{ maxWidth: "1280px", margin: "120px auto 0 auto", padding: "0 1rem" }}>
+      <div className="haba" style={{ maxWidth: "1280px", margin: "120px auto 0 auto", padding: "0 1rem" }}>
 
                 {/* 以下、成分と効果セクションが続く場合はこちらに追加 */}
         <div style={{ marginTop: "2rem" }}>
@@ -137,6 +137,7 @@ export default function ProductSection() {
       </div>
       <style jsx>{`
   @media (max-width: 768px) {
+      .haba{margin: "60px auto 0 auto"};
     h3 {
       font-size: 1.36rem !important;
     }
