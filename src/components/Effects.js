@@ -139,10 +139,11 @@ export default function ProductSection() {
             borderRadius: "1.25rem",
             padding: "2rem",
             maxWidth: "1224px",
-            margin: "0 auto",
+            margin: "0 auto 80px auto",
             boxShadow: "0 6px 16px rgba(0,0,0,0.08)"
           }}>
-                <h4 style={{ fontSize: "1.8rem", fontWeight: 700, color: "#2d2d2d", marginBottom: "1.5rem", textAlign: "center" }}>「顔のテカリを消す」効果はマザベジ形状ならでは</h4>
+                <h4 style={{ fontSize: "1.3rem", fontWeight: 600, color: "#b8860b", marginBottom: "1.5rem", textAlign: "center" }}>「顔のテカリを消す」効果はマザベジ形状ならでは</h4>
+                <p style={{ fontSize: "1rem", fontWeight: 600, color: "black", marginBottom: "1.5rem", textAlign: "center" }}>さっと10秒塗るだけで清潔感をゲット→デートや商談前の必須アイテムに</p>
 
           </div>
           <div style={{
@@ -150,11 +151,11 @@ export default function ProductSection() {
             borderRadius: "1.25rem",
             padding: "2rem",
             maxWidth: "1224px",
-            margin: "0 auto",
+            margin: "0 auto 80px auto",
             boxShadow: "0 6px 16px rgba(0,0,0,0.08)"
           }}>
-                <h4 style={{ fontSize: "1.8rem", fontWeight: 700, color: "#2d2d2d", marginBottom: "1.5rem", textAlign: "center" }}>睡眠前の「すっぴん」もトーンアップでナチュラルに</h4>
-
+                <h4 style={{ fontSize: "1.3rem", fontWeight: 600, color: "#b8860b", marginBottom: "1.5rem", textAlign: "center" }}>睡眠前の「すっぴん」もトーンアップでナチュラルに</h4>
+                <p style={{ fontSize: "1rem", fontWeight: 600, color: "black", marginBottom: "1.5rem", textAlign: "center" }}>塗る前だけでなく、化粧のできない医療や介護でも活躍。24時間綺麗に</p>
           </div>
 
         </div>
