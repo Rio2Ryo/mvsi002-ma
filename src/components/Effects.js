@@ -142,10 +142,10 @@ export default function ProductSection() {
             margin: "80px auto 80px auto",
             boxShadow: "0 6px 16px rgba(0,0,0,0.08)"
           }}>
-                <h4 style={{ fontSize: "1.3rem", fontWeight: 600, color: "#b8860b", marginBottom: "1.5rem", textAlign: "center" }}>「顔のテカリを消す」効果はマザベジ形状ならでは</h4>
+                <h4 className="add-title" style={{ fontSize: "1.3rem", fontWeight: 600, color: "#b8860b", marginBottom: "1.5rem", textAlign: "center" }}>「顔のテカリを消す」効果はマザベジ形状ならでは</h4>
                 
             {/* ▼ 追加：4つの効果の下に縦並び画像（gap 20px） */}
-            <div style={{
+            <div className="add-flex" style={{
               display: "flex",
               gap: "20px",
               justifyContent: "space-between",
@@ -210,7 +210,7 @@ export default function ProductSection() {
             margin: "80px auto 80px auto",
             boxShadow: "0 6px 16px rgba(0,0,0,0.08)"
           }}>
-                <h4 style={{ fontSize: "1.3rem", fontWeight: 600, color: "#b8860b", marginBottom: "1.5rem", textAlign: "center" }}>睡眠前の「すっぴん」もトーンアップでナチュラルに
+                <h4 className="add-title" style={{ fontSize: "1.3rem", fontWeight: 600, color: "#b8860b", marginBottom: "1.5rem", textAlign: "center" }}>睡眠前の「すっぴん」もトーンアップでナチュラルに
 </h4>
                 
             {/* ▼ 追加：4つの効果の下に縦並び画像（gap 20px） */}
@@ -280,6 +280,8 @@ export default function ProductSection() {
     h3 { font-size: 1.36rem !important; }
     /* スマホで効果グリッドを1列に */
     :global(.effects-grid) { grid-template-columns: 1fr !important; }
+    .add-title{font-size:1rem}
+    .add-flex{display:block}
   }
 `}</style>
     </section>
