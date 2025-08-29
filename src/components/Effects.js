@@ -143,7 +143,29 @@ export default function ProductSection() {
             boxShadow: "0 6px 16px rgba(0,0,0,0.08)"
           }}>
                 <h4 style={{ fontSize: "1.3rem", fontWeight: 600, color: "#b8860b", marginBottom: "1.5rem", textAlign: "center" }}>「顔のテカリを消す」効果はマザベジ形状ならでは</h4>
-                <p style={{ fontSize: "1rem", fontWeight: 600, color: "black", marginBottom: "1.5rem", textAlign: "center" }}>さっと10秒塗るだけで清潔感をゲット→デートや商談前の必須アイテムに</p>
+                
+            {/* ▼ 追加：4つの効果の下に縦並び画像（gap 20px） */}
+            <div style={{
+              display: "flex",
+              flexDirection: "column",
+              gap: "20px",
+              marginTop: "2rem"
+            }}>
+              <img
+                src="/doc1.jpg"
+                alt="製品資料 1"
+                loading="lazy"
+                style={{ width: "100%", height: "auto", borderRadius: "0.75rem", display: "block" }}
+              />
+              <img
+                src="/doc2.jpg"
+                alt="製品資料 2"
+                loading="lazy"
+                style={{ width: "100%", height: "auto", borderRadius: "0.75rem", display: "block" }}
+              />
+            </div>
+            {/* ▲ 追加ここまで */}
+                <p style={{ fontSize: "1rem", fontWeight: 400, color: "black", marginBottom: "1", textAlign: "center" }}>さっと10秒塗るだけで清潔感をゲット→デートや商談前の必須アイテムに</p>
 
           </div>
           <div style={{
@@ -155,7 +177,29 @@ export default function ProductSection() {
             boxShadow: "0 6px 16px rgba(0,0,0,0.08)"
           }}>
                 <h4 style={{ fontSize: "1.3rem", fontWeight: 600, color: "#b8860b", marginBottom: "1.5rem", textAlign: "center" }}>睡眠前の「すっぴん」もトーンアップでナチュラルに</h4>
-                <p style={{ fontSize: "1rem", fontWeight: 600, color: "black", marginBottom: "1.5rem", textAlign: "center" }}>塗る前だけでなく、化粧のできない医療や介護でも活躍。24時間綺麗に</p>
+                
+            {/* ▼ 追加：4つの効果の下に縦並び画像（gap 20px） */}
+            <div style={{
+              display: "flex",
+              flexDirection: "column",
+              gap: "20px",
+              marginTop: "2rem"
+            }}>
+              <img
+                src="/doc1.jpg"
+                alt="製品資料 1"
+                loading="lazy"
+                style={{ width: "100%", height: "auto", borderRadius: "0.75rem", display: "block" }}
+              />
+              <img
+                src="/doc2.jpg"
+                alt="製品資料 2"
+                loading="lazy"
+                style={{ width: "100%", height: "auto", borderRadius: "0.75rem", display: "block" }}
+              />
+            </div>
+            {/* ▲ 追加ここまで */}
+                <p style={{ fontSize: "1rem", fontWeight: 400, color: "black", marginBottom: "1rem", textAlign: "center" }}>塗る前だけでなく、化粧のできない医療や介護でも活躍。24時間綺麗に</p>
           </div>
 
         </div>
