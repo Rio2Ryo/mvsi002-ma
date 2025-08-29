@@ -173,7 +173,7 @@ export default function ProductSection() {
             </div>
             </div>
             
-            <div className=".one-b">
+            <div className="one-b">
             <p className="add-title" style={{ fontSize: "1.2rem", fontWeight: 600, color: "black", marginBottom: "1", textAlign: "center" }}>マザベジシリカ散布後</p>
               <img
                 src="/doc2.jpg"
@@ -242,7 +242,7 @@ export default function ProductSection() {
             </div>
             </div>
             
-            <div className=".one-b">
+            <div className="one-b">
             <p className="add-title" style={{ fontSize: "1.2rem", fontWeight: 600, color: "black", marginBottom: "1", textAlign: "center" }}>マザベジシリカ散布後</p>
               <img
                 src="/doc2.jpg"
@@ -286,7 +286,7 @@ export default function ProductSection() {
     .add-flex{display:block!important;}
     .sp{display:block}
     .one-b{margin-top:40px!important;}
-    .sec{padding-boyyom:0px!important;}
+    .sec{padding-bottom:0px!important;}
   }
 `}</style>
     </section>
