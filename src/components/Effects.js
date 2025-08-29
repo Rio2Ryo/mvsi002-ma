@@ -174,7 +174,7 @@ export default function ProductSection() {
             </div>
             
             <div className="one-b">
-            <p className="add-title" style={{ fontSize: "1.2rem", fontWeight: 600, color: "black", marginBottom: "1", textAlign: "center" }}>マザベジシリカ散布後</p>
+            <p className="add-title" style={{ fontSize: "1.2rem", fontWeight: 600, color: "black", marginBottom: "1", textAlign: "center" }}>マザベジシリカ塗布後</p>
               <img
                 src="/doc2.jpg"
                 alt="製品資料 2"
@@ -221,7 +221,7 @@ export default function ProductSection() {
               marginTop: "2rem"
             }}>
             <div>
-            <p className="add-title" style={{ fontSize: "1.2rem", fontWeight: 600, color: "black", marginBottom: "1", textAlign: "center" }}>皮脂の油分がある状態</p>
+            <p className="add-title" style={{ fontSize: "1.2rem", fontWeight: 600, color: "black", marginBottom: "1", textAlign: "center" }}>シワや毛穴がある状態</p>
               <img
                 src="/doc1.jpg"
                 alt="製品資料 1"
@@ -243,7 +243,7 @@ export default function ProductSection() {
             </div>
             
             <div className="one-b">
-            <p className="add-title" style={{ fontSize: "1.2rem", fontWeight: 600, color: "black", marginBottom: "1", textAlign: "center" }}>マザベジシリカ散布後</p>
+            <p className="add-title" style={{ fontSize: "1.2rem", fontWeight: 600, color: "black", marginBottom: "1", textAlign: "center" }}>マザベジシリカ塗布後</p>
               <img
                 src="/doc2.jpg"
                 alt="製品資料 2"
@@ -266,7 +266,7 @@ export default function ProductSection() {
               
             </div>
             {/* ▲ 追加ここまで */}
-                <p className="add-title" style={{ fontSize: "1.5rem", fontWeight: 600, color: "black", marginTop:"30px", marginBottom: "1", textAlign: "center" }}>塗る前だけでなく、化粧のできない<span className="sp" />医療や介護でも活躍。<span className="sp" />24時間綺麗に
+                <p className="add-title" style={{ fontSize: "1.5rem", fontWeight: 600, color: "black", marginTop:"30px", marginBottom: "1", textAlign: "center" }}>塗る前だけでなく、化粧のできない<span className="sp" />医療や介護でも活躍。24時間綺麗に
 
 </p>
 
@@ -286,7 +286,7 @@ export default function ProductSection() {
     .add-flex{display:block!important;}
     .sp{display:block}
     .one-b{margin-top:40px!important;}
-    .sec{padding-bottom:0px!important;}
+    .sec{padding-bottom:1px!important;}
   }
 `}</style>
     </section>
