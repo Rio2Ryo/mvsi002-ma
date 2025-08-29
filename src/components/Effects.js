@@ -49,7 +49,7 @@ export default function ProductSection() {
   ];
 
   return (
-    <section style={{ padding: "0.01rem 0.1rem 5rem 0.01rem", backgroundColor: "#f9fafb" }}>
+    <section className="sec" style={{ padding: "0.01rem 0.1rem 5rem 0.01rem", backgroundColor: "#f9fafb" }}>
       <div className="haba" style={{ maxWidth: "1280px", margin: "120px auto 0 auto", padding: "0 1rem" }}>
 
         {/* 成分・効果 */}
@@ -173,7 +173,7 @@ export default function ProductSection() {
             </div>
             </div>
             
-            <div>
+            <div className=".one-b">
             <p className="add-title" style={{ fontSize: "1.2rem", fontWeight: 600, color: "black", marginBottom: "1", textAlign: "center" }}>マザベジシリカ散布後</p>
               <img
                 src="/doc2.jpg"
@@ -214,7 +214,7 @@ export default function ProductSection() {
 </h4>
                 
             {/* ▼ 追加：4つの効果の下に縦並び画像（gap 20px） */}
-            <div style={{
+            <div className="add-flex" style={{
               display: "flex",
               gap: "20px",
               justifyContent: "space-between",
@@ -242,7 +242,7 @@ export default function ProductSection() {
             </div>
             </div>
             
-            <div>
+            <div className=".one-b">
             <p className="add-title" style={{ fontSize: "1.2rem", fontWeight: 600, color: "black", marginBottom: "1", textAlign: "center" }}>マザベジシリカ散布後</p>
               <img
                 src="/doc2.jpg"
@@ -286,6 +286,7 @@ export default function ProductSection() {
     .add-flex{display:block!important;}
     .sp{display:block}
     .one-b{margin-top:40px!important;}
+    .sec{padding-boyyom:0px!important;}
   }
 `}</style>
     </section>
