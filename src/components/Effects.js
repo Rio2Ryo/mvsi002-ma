@@ -142,7 +142,7 @@ export default function ProductSection() {
             margin: "80px auto 80px auto",
             boxShadow: "0 6px 16px rgba(0,0,0,0.08)"
           }}>
-                <h4 className="add-title" style={{ fontSize: "1.3rem", fontWeight: 600, color: "#b8860b", marginBottom: "1.5rem", textAlign: "center" }}>「顔のテカリを消す」効果はマザベジ形状ならでは</h4>
+                <h4 className="add-title" style={{ fontSize: "1.3rem", fontWeight: 600, color: "#b8860b", marginBottom: "1.5rem", textAlign: "center" }}>「顔のテカリを消す」効果は<span className="sp" />マザベジ形状ならでは</h4>
                 
             {/* ▼ 追加：4つの効果の下に縦並び画像（gap 20px） */}
             <div className="add-flex" style={{
@@ -151,8 +151,8 @@ export default function ProductSection() {
               justifyContent: "space-between",
               marginTop: "2rem"
             }}>
-            <div>
-            <p style={{ fontSize: "1.2rem", fontWeight: 600, color: "black", marginBottom: "1", textAlign: "center" }}>皮脂の油分がある状態</p>
+            <div className="one-b">
+            <p className="add-title" style={{ fontSize: "1.2rem", fontWeight: 600, color: "black", marginBottom: "1", textAlign: "center" }}>皮脂の油分がある状態</p>
               <img
                 src="/doc1.jpg"
                 alt="製品資料 1"
@@ -174,7 +174,7 @@ export default function ProductSection() {
             </div>
             
             <div>
-            <p style={{ fontSize: "1.2rem", fontWeight: 600, color: "black", marginBottom: "1", textAlign: "center" }}>マザベジシリカ散布後</p>
+            <p className="add-title" style={{ fontSize: "1.2rem", fontWeight: 600, color: "black", marginBottom: "1", textAlign: "center" }}>マザベジシリカ散布後</p>
               <img
                 src="/doc2.jpg"
                 alt="製品資料 2"
@@ -197,7 +197,7 @@ export default function ProductSection() {
               
             </div>
             {/* ▲ 追加ここまで */}
-                <p style={{ fontSize: "1.5rem", fontWeight: 600, color: "black", marginTop:"30px", marginBottom: "1", textAlign: "center" }}>さっと10秒塗るだけで清潔感をゲット→デートや商談前の必須アイテムに</p>
+                <p className="add-title" style={{ fontSize: "1.5rem", fontWeight: 600, color: "black", marginTop:"30px", marginBottom: "1", textAlign: "center" }}>さっと10秒塗るだけで清潔感をゲット→<span className="sp" />デートや商談前の必須アイテムに</p>
 
           </div>
           
@@ -221,7 +221,7 @@ export default function ProductSection() {
               marginTop: "2rem"
             }}>
             <div>
-            <p style={{ fontSize: "1.2rem", fontWeight: 600, color: "black", marginBottom: "1", textAlign: "center" }}>皮脂の油分がある状態</p>
+            <p className="add-title" style={{ fontSize: "1.2rem", fontWeight: 600, color: "black", marginBottom: "1", textAlign: "center" }}>皮脂の油分がある状態</p>
               <img
                 src="/doc1.jpg"
                 alt="製品資料 1"
@@ -243,7 +243,7 @@ export default function ProductSection() {
             </div>
             
             <div>
-            <p style={{ fontSize: "1.2rem", fontWeight: 600, color: "black", marginBottom: "1", textAlign: "center" }}>マザベジシリカ散布後</p>
+            <p className="add-title" style={{ fontSize: "1.2rem", fontWeight: 600, color: "black", marginBottom: "1", textAlign: "center" }}>マザベジシリカ散布後</p>
               <img
                 src="/doc2.jpg"
                 alt="製品資料 2"
@@ -266,7 +266,7 @@ export default function ProductSection() {
               
             </div>
             {/* ▲ 追加ここまで */}
-                <p style={{ fontSize: "1.5rem", fontWeight: 600, color: "black", marginTop:"30px", marginBottom: "1", textAlign: "center" }}>塗る前だけでなく、化粧のできない医療や介護でも活躍。24時間綺麗に
+                <p className="add-title" style={{ fontSize: "1.5rem", fontWeight: 600, color: "black", marginTop:"30px", marginBottom: "1", textAlign: "center" }}>塗る前だけでなく、化粧のできない<span className="sp" />医療や介護でも活躍。<span className="sp" />24時間綺麗に
 
 </p>
 
@@ -285,6 +285,7 @@ export default function ProductSection() {
     .add-title{font-size:1rem!important;}
     .add-flex{display:block!important;}
     .sp{display:block}
+    .one-b{margin-top:40px!important;}
   }
 `}</style>
     </section>
