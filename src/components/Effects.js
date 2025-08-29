@@ -200,45 +200,77 @@ export default function ProductSection() {
                 <p style={{ fontSize: "1.5rem", fontWeight: 600, color: "black", marginTop:"30px", marginBottom: "1", textAlign: "center" }}>さっと10秒塗るだけで清潔感をゲット→デートや商談前の必須アイテムに</p>
 
           </div>
+          
+
           <div style={{
             backgroundColor: "#fff",
             borderRadius: "1.25rem",
             padding: "2rem",
             maxWidth: "1224px",
-            margin: "0 auto 80px auto",
+            margin: "80px auto 80px auto",
             boxShadow: "0 6px 16px rgba(0,0,0,0.08)"
           }}>
-                <h4 style={{ fontSize: "1.3rem", fontWeight: 600, color: "#b8860b", marginBottom: "1.5rem", textAlign: "center" }}>睡眠前の「すっぴん」もトーンアップでナチュラルに</h4>
+                <h4 style={{ fontSize: "1.3rem", fontWeight: 600, color: "#b8860b", marginBottom: "1.5rem", textAlign: "center" }}>睡眠前の「すっぴん」もトーンアップでナチュラルに
+</h4>
                 
             {/* ▼ 追加：4つの効果の下に縦並び画像（gap 20px） */}
             <div style={{
               display: "flex",
               gap: "20px",
+              justifyContent: "space-between",
               marginTop: "2rem"
             }}>
-              <div>
-            <p style={{ fontSize: "0.8rem", fontWeight: 600, color: "black", marginBottom: "1", textAlign: "center" }}>皮脂の油分がある状態</p>
+            <div>
+            <p style={{ fontSize: "1.2rem", fontWeight: 600, color: "black", marginBottom: "1", textAlign: "center" }}>皮脂の油分がある状態</p>
               <img
-                src="/doc3.jpg"
+                src="/doc1.jpg"
                 alt="製品資料 1"
                 loading="lazy"
                 style={{ width: "98%", height: "auto", borderRadius: "0.75rem", }}
               />
-            </div>
-            <div>
-            <p style={{ fontSize: "0.8rem", fontWeight: 600, color: "black", marginBottom: "1", textAlign: "center" }}>マザベジシリカ散布後</p>
+              <div>
+              <div style={{
+              textAlign:"center",
+            }}>
               <img
-                src="/doc4.jpg"
+                src="/doc1-a.jpg"
+                alt="製品資料 1"
+                loading="lazy"
+                style={{ width: "86%", height: "auto", borderRadius: "0.75rem", }}
+              />
+              </div>
+            </div>
+            </div>
+            
+            <div>
+            <p style={{ fontSize: "1.2rem", fontWeight: 600, color: "black", marginBottom: "1", textAlign: "center" }}>マザベジシリカ散布後</p>
+              <img
+                src="/doc2.jpg"
                 alt="製品資料 2"
                 loading="lazy"
                 style={{ width: "98%", height: "auto", borderRadius: "0.75rem", }}
               />
+              <div>
+              <div style={{
+              textAlign:"center",
+            }}>
+              <img
+                src="/doc2-b.jpg"
+                alt="製品資料 2"
+                loading="lazy"
+                style={{ width: "86%", height: "auto", borderRadius: "0.75rem", }}
+              />
               </div>
+              </div>
+              </div>
+              
             </div>
             {/* ▲ 追加ここまで */}
-                <p style={{ fontSize: "1rem", fontWeight: 400, color: "black", marginBottom: "1rem", textAlign: "center" }}>塗る前だけでなく、化粧のできない医療や介護でも活躍。24時間綺麗に</p>
-          </div>
+                <p style={{ fontSize: "1.5rem", fontWeight: 600, color: "black", marginTop:"30px", marginBottom: "1", textAlign: "center" }}>塗る前だけでなく、化粧のできない医療や介護でも活躍。24時間綺麗に
 
+</p>
+
+          </div>
         </div>
 
       </div>
