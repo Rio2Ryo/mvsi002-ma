@@ -139,7 +139,7 @@ export default function ProductSection() {
             borderRadius: "1.25rem",
             padding: "2rem",
             maxWidth: "1224px",
-            margin: "0 auto 80px auto",
+            margin: "80px auto 80px auto",
             boxShadow: "0 6px 16px rgba(0,0,0,0.08)"
           }}>
                 <h4 style={{ fontSize: "1.3rem", fontWeight: 600, color: "#b8860b", marginBottom: "1.5rem", textAlign: "center" }}>「顔のテカリを消す」効果はマザベジ形状ならでは</h4>
@@ -152,21 +152,21 @@ export default function ProductSection() {
               marginTop: "2rem"
             }}>
             <div>
-            <p style={{ fontSize: "0.8rem", fontWeight: 600, color: "black", marginBottom: "1", textAlign: "center" }}>皮脂の油分がある状態</p>
+            <p style={{ fontSize: "1.2rem", fontWeight: 600, color: "black", marginBottom: "1", textAlign: "center" }}>皮脂の油分がある状態</p>
               <img
                 src="/doc1.jpg"
                 alt="製品資料 1"
                 loading="lazy"
-                style={{ width: "48%", height: "auto", borderRadius: "0.75rem", }}
+                style={{ width: "98%", height: "auto", borderRadius: "0.75rem", }}
               />
             </div>
             <div>
-            <p style={{ fontSize: "0.8rem", fontWeight: 600, color: "black", marginBottom: "1", textAlign: "center" }}>マザベジシリカ散布後</p>
+            <p style={{ fontSize: "1.2rem", fontWeight: 600, color: "black", marginBottom: "1", textAlign: "center" }}>マザベジシリカ散布後</p>
               <img
                 src="/doc2.jpg"
                 alt="製品資料 2"
                 loading="lazy"
-                style={{ width: "48%", height: "auto", borderRadius: "0.75rem", }}
+                style={{ width: "98%", height: "auto", borderRadius: "0.75rem", }}
               />
               </div>
             </div>
@@ -190,18 +190,24 @@ export default function ProductSection() {
               gap: "20px",
               marginTop: "2rem"
             }}>
+              <div>
+            <p style={{ fontSize: "0.8rem", fontWeight: 600, color: "black", marginBottom: "1", textAlign: "center" }}>皮脂の油分がある状態</p>
               <img
-                src="/doc1.jpg"
+                src="/doc3.jpg"
                 alt="製品資料 1"
                 loading="lazy"
-                style={{ width: "48%", height: "auto", borderRadius: "0.75rem" }}
+                style={{ width: "98%", height: "auto", borderRadius: "0.75rem", }}
               />
+            </div>
+            <div>
+            <p style={{ fontSize: "0.8rem", fontWeight: 600, color: "black", marginBottom: "1", textAlign: "center" }}>マザベジシリカ散布後</p>
               <img
-                src="/doc2.jpg"
+                src="/doc4.jpg"
                 alt="製品資料 2"
                 loading="lazy"
-                style={{ width: "48%", height: "auto", borderRadius: "0.75rem",  }}
+                style={{ width: "98%", height: "auto", borderRadius: "0.75rem", }}
               />
+              </div>
             </div>
             {/* ▲ 追加ここまで */}
                 <p style={{ fontSize: "1rem", fontWeight: 400, color: "black", marginBottom: "1rem", textAlign: "center" }}>塗る前だけでなく、化粧のできない医療や介護でも活躍。24時間綺麗に</p>
