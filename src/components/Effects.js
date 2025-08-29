@@ -132,28 +132,6 @@ export default function ProductSection() {
                 </div>
               ))}
             </div>
-
-            {/* ▼ 追加：4つの効果の下に縦並び画像（gap 20px） */}
-            <div style={{
-              display: "flex",
-              flexDirection: "column",
-              gap: "20px",
-              marginTop: "2rem"
-            }}>
-              <img
-                src="/doc1.jpg"
-                alt="製品資料 1"
-                loading="lazy"
-                style={{ width: "100%", height: "auto", borderRadius: "0.75rem", display: "block" }}
-              />
-              <img
-                src="/doc2.jpg"
-                alt="製品資料 2"
-                loading="lazy"
-                style={{ width: "100%", height: "auto", borderRadius: "0.75rem", display: "block" }}
-              />
-            </div>
-            {/* ▲ 追加ここまで */}
           </div>
         </div>
 
