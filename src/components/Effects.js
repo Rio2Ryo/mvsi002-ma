@@ -159,14 +159,12 @@ export default function ProductSection() {
                 loading="lazy"
                 style={{ width: "98%", height: "auto", borderRadius: "0.75rem", }}
               />
-              <div style={{
-              textAlign:"center",
-            }}>
+              <div>
               <img
                 src="/doc1-a.jpg"
                 alt="製品資料 1"
                 loading="lazy"
-                style={{ width: "50%", height: "auto", borderRadius: "0.75rem", }}
+                style={{ width: "98%", height: "auto", borderRadius: "0.75rem", }}
               />
             </div>
             </div>
@@ -179,21 +177,19 @@ export default function ProductSection() {
                 loading="lazy"
                 style={{ width: "98%", height: "auto", borderRadius: "0.75rem", }}
               />
-              <div style={{
-              textAlign:"center",
-            }}>
+              <div>
               <img
                 src="/doc2-b.jpg"
                 alt="製品資料 2"
                 loading="lazy"
-                style={{ width: "50%", height: "auto", borderRadius: "0.75rem", }}
+                style={{ width: "98%", height: "auto", borderRadius: "0.75rem", }}
               />
               </div>
               </div>
               
             </div>
             {/* ▲ 追加ここまで */}
-                <p style={{ fontSize: "1rem", fontWeight: 400, color: "black", marginBottom: "1", textAlign: "center" }}>さっと10秒塗るだけで清潔感をゲット→デートや商談前の必須アイテムに</p>
+                <p style={{ fontSize: "1.5rem", fontWeight: 600, color: "black", marginTop:"30px", marginBottom: "1", textAlign: "center" }}>さっと10秒塗るだけで清潔感をゲット→デートや商談前の必須アイテムに</p>
 
           </div>
           <div style={{
