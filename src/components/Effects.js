@@ -161,9 +161,25 @@ export default function ProductSection() {
               />
             </div>
             <div>
+              <img
+                src="/doc1-a.jpg"
+                alt="製品資料 1"
+                loading="lazy"
+                style={{ width: "98%", height: "auto", borderRadius: "0.75rem", }}
+              />
+            </div>
+            <div>
             <p style={{ fontSize: "1.2rem", fontWeight: 600, color: "black", marginBottom: "1", textAlign: "center" }}>マザベジシリカ散布後</p>
               <img
                 src="/doc2.jpg"
+                alt="製品資料 2"
+                loading="lazy"
+                style={{ width: "98%", height: "auto", borderRadius: "0.75rem", }}
+              />
+              </div>
+              <div>
+              <img
+                src="/doc2-b.jpg"
                 alt="製品資料 2"
                 loading="lazy"
                 style={{ width: "98%", height: "auto", borderRadius: "0.75rem", }}
