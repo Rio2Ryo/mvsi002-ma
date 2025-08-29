@@ -133,6 +133,30 @@ export default function ProductSection() {
               ))}
             </div>
           </div>
+
+          <div style={{
+            backgroundColor: "#fff",
+            borderRadius: "1.25rem",
+            padding: "2rem",
+            maxWidth: "1224px",
+            margin: "0 auto",
+            boxShadow: "0 6px 16px rgba(0,0,0,0.08)"
+          }}>
+                <h4 style={{ fontSize: "1.8rem", fontWeight: 700, color: "#2d2d2d", marginBottom: "1.5rem", textAlign: "center" }}>「顔のテカリを消す」効果はマザベジ形状ならでは</h4>
+
+          </div>
+          <div style={{
+            backgroundColor: "#fff",
+            borderRadius: "1.25rem",
+            padding: "2rem",
+            maxWidth: "1224px",
+            margin: "0 auto",
+            boxShadow: "0 6px 16px rgba(0,0,0,0.08)"
+          }}>
+                <h4 style={{ fontSize: "1.8rem", fontWeight: 700, color: "#2d2d2d", marginBottom: "1.5rem", textAlign: "center" }}>睡眠前の「すっぴん」もトーンアップでナチュラルに</h4>
+
+          </div>
+
         </div>
 
       </div>
