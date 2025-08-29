@@ -223,44 +223,26 @@ export default function ProductSection() {
             <div>
             <p className="add-title" style={{ fontSize: "1.2rem", fontWeight: 600, color: "black", marginBottom: "1", textAlign: "center" }}>シワや毛穴がある状態</p>
               <img
-                src="/doc1.jpg"
+                src="/doc3.jpg"
                 alt="製品資料 1"
                 loading="lazy"
                 style={{ width: "98%", height: "auto", borderRadius: "0.75rem", }}
               />
               <div>
-              <div style={{
-              textAlign:"center",
-            }}>
-              <img
-                src="/doc1-a.jpg"
-                alt="製品資料 1"
-                loading="lazy"
-                style={{ width: "86%", height: "auto", borderRadius: "0.75rem", }}
-              />
-              </div>
+              
             </div>
             </div>
             
             <div className="one-b">
             <p className="add-title" style={{ fontSize: "1.2rem", fontWeight: 600, color: "black", marginBottom: "1", textAlign: "center" }}>マザベジシリカ塗布後</p>
               <img
-                src="/doc2.jpg"
+                src="/doc4.jpg"
                 alt="製品資料 2"
                 loading="lazy"
                 style={{ width: "98%", height: "auto", borderRadius: "0.75rem", }}
               />
               <div>
-              <div style={{
-              textAlign:"center",
-            }}>
-              <img
-                src="/doc2-b.jpg"
-                alt="製品資料 2"
-                loading="lazy"
-                style={{ width: "86%", height: "auto", borderRadius: "0.75rem", }}
-              />
-              </div>
+              
               </div>
               </div>
               
