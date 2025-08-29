@@ -210,7 +210,7 @@ export default function ProductSection() {
             margin: "80px auto 80px auto",
             boxShadow: "0 6px 16px rgba(0,0,0,0.08)"
           }}>
-                <h4 className="add-title" style={{ fontSize: "1.3rem", fontWeight: 600, color: "#b8860b", marginBottom: "1.5rem", textAlign: "center" }}>睡眠前の「すっぴん」もトーンアップでナチュラルに
+                <h4 className="add-title" style={{ fontSize: "1.3rem", fontWeight: 600, color: "#b8860b", marginBottom: "1.5rem", textAlign: "center" }}>睡眠前の「すっぴん」も<span className="sp" />トーンアップでナチュラルに
 </h4>
                 
             {/* ▼ 追加：4つの効果の下に縦並び画像（gap 20px） */}
@@ -275,13 +275,16 @@ export default function ProductSection() {
 
       </div>
       <style jsx>{`
+.sp{display:none}
+
   @media (max-width: 768px) {
     .haba{margin: 60px auto 0 auto!important}
     h3 { font-size: 1.36rem !important; }
     /* スマホで効果グリッドを1列に */
     :global(.effects-grid) { grid-template-columns: 1fr !important; }
-    .add-title{font-size:1rem}
-    .add-flex{display:block}
+    .add-title{font-size:1rem!important;}
+    .add-flex{display:block!important;}
+    .sp{display:block}
   }
 `}</style>
     </section>
