@@ -181,7 +181,6 @@ export default function ProductSection() {
             {/* ▼ 追加：4つの効果の下に縦並び画像（gap 20px） */}
             <div style={{
               display: "flex",
-              flexDirection: "column",
               gap: "20px",
               marginTop: "2rem"
             }}>
@@ -189,13 +188,13 @@ export default function ProductSection() {
                 src="/doc1.jpg"
                 alt="製品資料 1"
                 loading="lazy"
-                style={{ width: "100%", height: "auto", borderRadius: "0.75rem", display: "block" }}
+                style={{ width: "100%", height: "auto", borderRadius: "0.75rem" }}
               />
               <img
                 src="/doc2.jpg"
                 alt="製品資料 2"
                 loading="lazy"
-                style={{ width: "100%", height: "auto", borderRadius: "0.75rem", display: "block" }}
+                style={{ width: "100%", height: "auto", borderRadius: "0.75rem",  }}
               />
             </div>
             {/* ▲ 追加ここまで */}
