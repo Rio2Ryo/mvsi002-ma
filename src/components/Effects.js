@@ -159,8 +159,7 @@ export default function ProductSection() {
                 loading="lazy"
                 style={{ width: "98%", height: "auto", borderRadius: "0.75rem", }}
               />
-            </div>
-            <div>
+              <div>
               <img
                 src="/doc1-a.jpg"
                 alt="製品資料 1"
@@ -168,6 +167,8 @@ export default function ProductSection() {
                 style={{ width: "98%", height: "auto", borderRadius: "0.75rem", }}
               />
             </div>
+            </div>
+            
             <div>
             <p style={{ fontSize: "1.2rem", fontWeight: 600, color: "black", marginBottom: "1", textAlign: "center" }}>マザベジシリカ散布後</p>
               <img
@@ -176,7 +177,6 @@ export default function ProductSection() {
                 loading="lazy"
                 style={{ width: "98%", height: "auto", borderRadius: "0.75rem", }}
               />
-              </div>
               <div>
               <img
                 src="/doc2-b.jpg"
@@ -185,6 +185,8 @@ export default function ProductSection() {
                 style={{ width: "98%", height: "auto", borderRadius: "0.75rem", }}
               />
               </div>
+              </div>
+              
             </div>
             {/* ▲ 追加ここまで */}
                 <p style={{ fontSize: "1rem", fontWeight: 400, color: "black", marginBottom: "1", textAlign: "center" }}>さっと10秒塗るだけで清潔感をゲット→デートや商談前の必須アイテムに</p>
