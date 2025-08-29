@@ -151,18 +151,24 @@ export default function ProductSection() {
               justifyContent: "space-between",
               marginTop: "2rem"
             }}>
+            <div>
+            <p style={{ fontSize: "0.8rem", fontWeight: 600, color: "black", marginBottom: "1", textAlign: "center" }}>皮脂の油分がある状態</p>
               <img
                 src="/doc1.jpg"
                 alt="製品資料 1"
                 loading="lazy"
                 style={{ width: "48%", height: "auto", borderRadius: "0.75rem", }}
               />
+            </div>
+            <div>
+            <p style={{ fontSize: "0.8rem", fontWeight: 600, color: "black", marginBottom: "1", textAlign: "center" }}>マザベジシリカ散布後</p>
               <img
                 src="/doc2.jpg"
                 alt="製品資料 2"
                 loading="lazy"
                 style={{ width: "48%", height: "auto", borderRadius: "0.75rem", }}
               />
+              </div>
             </div>
             {/* ▲ 追加ここまで */}
                 <p style={{ fontSize: "1rem", fontWeight: 400, color: "black", marginBottom: "1", textAlign: "center" }}>さっと10秒塗るだけで清潔感をゲット→デートや商談前の必須アイテムに</p>
