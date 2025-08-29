@@ -159,12 +159,14 @@ export default function ProductSection() {
                 loading="lazy"
                 style={{ width: "98%", height: "auto", borderRadius: "0.75rem", }}
               />
-              <div>
+              <div style={{
+              textAlign:"center",
+            }}>
               <img
                 src="/doc1-a.jpg"
                 alt="製品資料 1"
                 loading="lazy"
-                style={{ width: "98%", height: "auto", borderRadius: "0.75rem", }}
+                style={{ width: "50%", height: "auto", borderRadius: "0.75rem", }}
               />
             </div>
             </div>
@@ -177,12 +179,14 @@ export default function ProductSection() {
                 loading="lazy"
                 style={{ width: "98%", height: "auto", borderRadius: "0.75rem", }}
               />
-              <div>
+              <div style={{
+              textAlign:"center",
+            }}>
               <img
                 src="/doc2-b.jpg"
                 alt="製品資料 2"
                 loading="lazy"
-                style={{ width: "98%", height: "auto", borderRadius: "0.75rem", }}
+                style={{ width: "50%", height: "auto", borderRadius: "0.75rem", }}
               />
               </div>
               </div>
