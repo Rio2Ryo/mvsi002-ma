@@ -153,7 +153,7 @@ export default function ProductSection() {
             }}>
             <div className="one-b">
             <p className="add-title" style={{ fontSize: "1.2rem", fontWeight: 600, color: "black", marginBottom: "1", textAlign: "center" }}>皮脂の油分がある状態</p>
-              <img
+              <img className="spwidth"
                 src="/doc1.jpg"
                 alt="製品資料 1"
                 loading="lazy"
@@ -163,7 +163,7 @@ export default function ProductSection() {
               <div style={{
               textAlign:"center",
             }}>
-              <img
+              <img className="spwidth"
                 src="/doc1-a.jpg"
                 alt="製品資料 1"
                 loading="lazy"
@@ -179,7 +179,7 @@ export default function ProductSection() {
             
             <div className="one-b">
             <p className="add-title" style={{ fontSize: "1.2rem", fontWeight: 600, color: "black", marginBottom: "1", textAlign: "center" }}>マザベジシリカ塗布後</p>
-              <img
+              <img className="spwidth"
                 src="/doc2.jpg"
                 alt="製品資料 2"
                 loading="lazy"
@@ -189,7 +189,7 @@ export default function ProductSection() {
               <div style={{
               textAlign:"center",
             }}>
-              <img
+              <img className="spwidth"
                 src="/doc2-b.jpg"
                 alt="製品資料 2"
                 loading="lazy"
