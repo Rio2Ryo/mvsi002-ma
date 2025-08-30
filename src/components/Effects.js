@@ -210,7 +210,7 @@ export default function ProductSection() {
           </div>
           
 
-          <div style={{
+          <div className="spbottom" style={{
             backgroundColor: "#fff",
             borderRadius: "1.25rem",
             padding: "2rem",
@@ -286,6 +286,7 @@ export default function ProductSection() {
     .one-b{margin-top:40px!important;}
     .sec{padding-bottom:1px!important;}
     .spwidth{width:100%!important}
+    .spbottom{margin: 70px auto 30px auto!important;}
   }
 `}</style>
     </section>
