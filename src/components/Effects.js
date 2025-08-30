@@ -171,7 +171,7 @@ export default function ProductSection() {
               />
               </div>
             </div>
-            <div style={{ width: "86%", margin: "30px auto 0 auto" }}>
+            <div className="spwidth" style={{ width: "86%", margin: "30px auto 0 auto" }}>
             <p className="add-discription" style={{ fontSize: "1rem", fontWeight: 400, color: "black", marginBottom: "1", textAlign: "left" }}>肌のテカリの原因は、皮脂の油分が同じ形状であり、同じ方向に光が跳ね返るため</p>
             <p className="add-discription2" style={{marginTop:"30px", fontSize: "1rem", fontWeight: 400, color: "black", marginBottom: "1", textAlign: "left" }}><span style={{fontWeight:"600"}}>【ケミカルシリカを塗るリスク】</span><br/>薬品残りがあり肌のアレルギーリスクがあるほか、形状も同じなので肌に塗るとテカリが出る</p>
             </div>
@@ -197,7 +197,7 @@ export default function ProductSection() {
               />
               </div>
               </div>
-              <div style={{ width: "86%", margin: "30px auto 0 auto" }}>
+              <div className="spwidth" style={{ width: "86%", margin: "30px auto 0 auto" }}>
               <p className="add-discription" style={{ fontSize: "1rem", fontWeight: 400, color: "black", marginBottom: "1", textAlign: "left" }}>マザベジシリカは、天然の植物の形のためパウダーすべてに個性があり、微かな個性差がある。そのため、光の跳ね返りもランダムに</p>
               <p className="add-discription2" style={{marginTop:"30px", fontSize: "1rem", fontWeight: 400, color: "black", marginBottom: "1", textAlign: "left" }}><span style={{fontWeight:"600"}}>【マザベジシリカを塗るメリット】</span><br/>皮脂の油分を吸い取り、空気中の水分もキャッチ。潤いもあるのにテカらず、抗酸化作用で肌も清潔に</p>
             </div>
@@ -239,7 +239,7 @@ export default function ProductSection() {
               <div>
               
             </div>
-            <div style={{ width: "86%", margin: "30px auto 0 auto" }}>
+            <div className="spwidth" style={{ width: "86%", margin: "30px auto 0 auto" }}>
             <p className="add-discription" style={{ fontSize: "1rem", fontWeight: 400, color: "black", marginBottom: "1", textAlign: "left" }}>寝る前などのすっぴんの際にはどうしてもシワや毛穴が目立ってしまう</p>
             <p className="add-discription2" style={{marginTop:"20px", fontSize: "1rem", fontWeight: 400, color: "black", marginBottom: "1", textAlign: "left" }}><span style={{fontWeight:"600"}}>【ファンデーションを塗ると割れることも】</span><br/>寝る前に使用できないだけでなく、ファンデーションは粘土のようにまとまっているため、乾くと割れる</p>
             </div>
@@ -256,7 +256,7 @@ export default function ProductSection() {
               <div>
               
               </div>
-              <div style={{ width: "86%", margin: "30px auto 0 auto" }}>
+              <div className="spwidth" style={{ width: "86%", margin: "30px auto 0 auto" }}>
             <p className="add-discription" style={{ fontSize: "1rem", fontWeight: 400, color: "black", marginBottom: "1", textAlign: "left" }}>寝る前にも使えるマザベジシリカは、シワや毛穴にも入り込んで目立たせない</p>
             <p className="add-discription2" style={{marginTop:"20px", fontSize: "1rem", fontWeight: 400, color: "black", marginBottom: "1", textAlign: "left" }}><span style={{fontWeight:"600"}}>【マザベジシリカを塗るメリット】</span><br/>気になるところを隠しながらお肌を清潔に。またシリカは分かれているので「割れ」もない</p>
             </div>
@@ -285,6 +285,7 @@ export default function ProductSection() {
     .sp{display:block}
     .one-b{margin-top:40px!important;}
     .sec{padding-bottom:1px!important;}
+    .spwidth{width:100%!important}
   }
 `}</style>
     </section>
