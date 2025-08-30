@@ -139,7 +139,7 @@ export default function ProductSection() {
             borderRadius: "1.25rem",
             padding: "2rem",
             maxWidth: "1224px",
-            margin: "80px auto 80px auto",
+            margin: "80px auto 40px auto",
             boxShadow: "0 6px 16px rgba(0,0,0,0.08)"
           }}>
                 <h4 className="add-title" style={{ fontSize: "1.3rem", fontWeight: 600, color: "#b8860b", marginBottom: "1.5rem", textAlign: "center" }}>「顔のテカリを消す」効果は<span className="sp" />マザベジ形状ならでは</h4>
