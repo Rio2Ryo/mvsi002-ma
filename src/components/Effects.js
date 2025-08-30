@@ -193,6 +193,7 @@ export default function ProductSection() {
               />
               </div>
               </div>
+              <p className="add-discription" style={{ fontSize: "1rem", fontWeight: 400, color: "black", marginBottom: "1", textAlign: "left" }}>肌のテカリの原因は</p>
               </div>
               
             </div>
@@ -248,7 +249,7 @@ export default function ProductSection() {
               
             </div>
             {/* ▲ 追加ここまで */}
-                <p className="add-title" style={{ fontSize: "1.5rem", fontWeight: 600, color: "black", marginTop:"30px", marginBottom: "1", textAlign: "center" }}>塗る前だけでなく、化粧のできない<span className="sp" />医療や介護でも活躍。24時間綺麗に
+                <p className="add-title" style={{ fontSize: "1.5rem", fontWeight: 600, color: "black", marginTop:"30px", marginBottom: "1", textAlign: "center" }}>寝る前だけでなく、化粧のできない<span className="sp" />医療や介護でも活躍。24時間綺麗に
 
 </p>
 

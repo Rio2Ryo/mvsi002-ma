@@ -15,7 +15,7 @@ export default function ConceptSection() {
           <div style={styles.contentWrapper}>
             <div style={styles.textGroup}>
               <p style={styles.paragraph}>
-                Mother Vegetables Confidence MV-Si002は、
+                Mother Vegetables Confidenceは、
                 35億年前に誕生した地球最初の生命体を再現しました。
                 私たちはそれを「マザーベジタブル」と呼んでいます。
               </p>
