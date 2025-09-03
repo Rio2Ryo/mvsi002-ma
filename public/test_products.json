@@ -84,9 +84,9 @@
     "slug": "standard-test",
     "description": "2g - 約60日分",
     "originalprice": "5,500円",
-    "price": "3,300円",
+    "price": "100円",
     "ItemPic": "/item_pic2.jpg",
-    "wixProductId": "74e172a1-f417-78a4-3eae-b03823517123",
+    "wixProductId": "a465b175-92b0-eca1-7be8-849783f90b2c",
     "url": "https://www.dotpb.jp/product-page/standard-test"
   },
   {
@@ -94,9 +94,9 @@
     "slug": "large-test",
     "description": "35g - 約150日分",
     "originalprice": "8,800円",
-    "price": "5,500円",
+    "price": "100円",
     "ItemPic": "/item_pic3.jpg",
-    "wixProductId": "5074782e-1ea4-8588-2bc1-977458263566",
+    "wixProductId": "efa90001-3d03-df33-57bd-73fdde027317",
     "url": "https://www.dotpb.jp/product-page/large-test"
   }
 ]
