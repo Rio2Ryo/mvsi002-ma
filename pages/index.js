@@ -119,7 +119,7 @@ export default function Home() {
 
         const redirect = await myWixClient.redirects.createRedirectSession({
           ecomCheckout: { checkoutId },
-          thankYouPageUrl: "https://www.dotpb.jp/thank-you-page", // ✅ Wixサイト内のサンクス
+          callbacks: { postFlowUrl: window.location.href },
         });
         window.location = redirect.redirectSession.fullUrl;
       });

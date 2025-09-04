@@ -68,7 +68,7 @@ export default function Subscriptions() {
             // We also specify the postFlowUrl to be the current page URL. This is where the user will be redirected after the checkout flow.
             const redirect = await myWixClient.redirects.createRedirectSession({
                 paidPlansCheckout: {planId: plan._id},
-                thankYouPageUrl: "https://www.dotpb.jp/thank-you-page", // ✅ Wixサイト内のサンクス
+                callbacks: {postFlowUrl: window.location.href},
             });
             // We set the chosen plan in the state variable.
             setChosenPlan(plan._id);
