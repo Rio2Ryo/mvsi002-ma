@@ -131,17 +131,22 @@ export default function ProductDetailPage() {
 
   const checkout = async () => {
     try {
+      // 現在のカートからチェックアウトを作成
       const { checkoutId } =
         await myWixClient.currentCart.createCheckoutFromCurrentCart({
           channelType: "WEB",
         });
 
+      // ★★★ 修正点 ★★★
+      // 決済完了後のリダイレクト先をサンクスページのURLに変更
       const redirect = await myWixClient.redirects.createRedirectSession({
         ecomCheckout: { checkoutId },
-        callbacks: { postFlowUrl: window.location.href },
+        callbacks: { postFlowUrl: "https://www.dotpb.jp/thank-you-page" }, // ← ここを修正
       });
 
+      // 生成されたWixの決済ページURLにリダイレクト
       window.location = redirect.redirectSession.fullUrl;
+
     } catch (err) {
       console.error("チェックアウト失敗:", err);
     }
