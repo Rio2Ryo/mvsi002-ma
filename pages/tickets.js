@@ -116,7 +116,7 @@ export default function Tickets() {
                 // We also specify the postFlowUrl to be the current page URL. This is where the user will be redirected after the checkout flow.
                 const redirect = await myWixClient.redirects.createRedirectSession({
                     eventsCheckout: {eventSlug, reservationId: reservation._id},
-                    callbacks: {postFlowUrl: window.location.href},
+                    thankYouPageUrl: "https://www.dotpb.jp/thank-you-page", // ✅ Wixサイト内のサンクス
                 });
 
                 // We update the selected ticket in the state.
