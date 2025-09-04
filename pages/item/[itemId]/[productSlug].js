@@ -135,15 +135,18 @@ export default function ProductDetailPage() {
         await myWixClient.currentCart.createCheckoutFromCurrentCart({
           channelType: "WEB",
         });
-
+      console.log("checkoutId:", checkoutId);
+  
       const redirect = await myWixClient.redirects.createRedirectSession({
         ecomCheckout: { checkoutId },
-        callbacks: { postFlowUrl: window.location.href },
+        callbacks: { postFlowUrl: "https://www.dotpb.jp/thank-you-page" },
       });
-
-      window.location = redirect.redirectSession.fullUrl;
+      console.log("redirect fullUrl:", redirect?.redirectSession?.fullUrl);
+  
+      window.location.assign(redirect.redirectSession.fullUrl);
     } catch (err) {
-      console.error("チェックアウト失敗:", err);
+      // 何かあったら中身を丸ごと見る
+      console.error("チェックアウト失敗:", err?.response ?? err);
     }
   };
 
