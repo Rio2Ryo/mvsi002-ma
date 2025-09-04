@@ -1,8 +1,9 @@
+// pages/item/[itemId]/[productSlug].js
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { myWixClient } from "../../../src/lib/wixClient";
+import { myWixClient, ensureVisitorSession } from "../../../src/lib/wixClient"; // ★ ensure を追加
 import Cookies from "js-cookie";
 import Footer from "../../../src/components/Footer";
 
@@ -22,11 +23,16 @@ export default function ProductDetailPage() {
   // ★ 代理店JSONを保持（ItemPic 参照用）
   const [agentProducts, setAgentProducts] = useState([]);
 
+  // ====== 初期化：訪問者セッションを必ず確立してからデータ取得 ======
   useEffect(() => {
     if (!isReady || !query.itemId || !query.productSlug) return;
 
-    async function fetchData() {
+    (async () => {
       try {
+        // 1) 訪問者トークンを必ずセット（Cookie未設定でも自動発行）
+        await ensureVisitorSession();
+
+        // 2) 商品JSONの取得
         const agentId = String(query.itemId).toLowerCase();
         const slug = String(query.productSlug).toLowerCase();
 
@@ -34,12 +40,11 @@ export default function ProductDetailPage() {
         if (!res.ok) throw new Error("商品JSON取得失敗");
 
         const data = await res.json();
-        setAgentProducts(data); // ← ここで全件保持
+        setAgentProducts(data);
         const found = data.find((item) => item.slug?.toLowerCase() === slug);
         setProduct(found || null);
 
-        console.log("session cookie:", Cookies.get("session"));
-
+        // 3) カート取得
         try {
           const cartData = await myWixClient.currentCart.getCurrentCart();
           setCart(cartData);
@@ -47,7 +52,7 @@ export default function ProductDetailPage() {
           if (found) {
             const foundItem = cartData.lineItems?.find(
               (item) =>
-                item.catalogReference.catalogItemId === found.wixProductId
+                item.catalogReference?.catalogItemId === found.wixProductId
             );
             if (foundItem) {
               setQuantity(foundItem.quantity);
@@ -55,7 +60,7 @@ export default function ProductDetailPage() {
             }
           }
         } catch (err) {
-          console.warn("⚠ カート取得に失敗（未ログインの可能性）:", err);
+          console.warn("⚠ カート取得に失敗（未ログイン/未発行の可能性）:", err);
           setCart({ lineItems: [] });
         }
       } catch (error) {
@@ -64,16 +69,20 @@ export default function ProductDetailPage() {
         setCart({});
       } finally {
         setLoading(false);
+        // 開発用ログ
+        try {
+          console.log("session cookie:", Cookies.get("session"));
+        } catch {}
       }
-    }
-
-    fetchData();
+    })();
   }, [isReady, query.itemId, query.productSlug]);
 
   // サイドカート中は背景スクロールを止める
   useEffect(() => {
     document.body.style.overflow = isSideCartOpen ? "hidden" : "";
-    return () => { document.body.style.overflow = ""; };
+    return () => {
+      document.body.style.overflow = "";
+    };
   }, [isSideCartOpen]);
 
   const updateQuantity = async (newQty) => {
@@ -112,14 +121,14 @@ export default function ProductDetailPage() {
           });
         const addedItem = updatedCart.lineItems.find(
           (item) =>
-            item.catalogReference.catalogItemId === product.wixProductId
+            item.catalogReference?.catalogItemId === product.wixProductId
         );
         setCart(updatedCart);
         setQuantity(1);
-        setCartItemId(addedItem?._id);
+        setCartItemId(addedItem?._id || null);
       }
     } catch (err) {
-      console.error("数量変更失敗:", err);
+      console.error("数量変更失敗:", err?.response ?? err);
     }
   };
 
@@ -129,24 +138,31 @@ export default function ProductDetailPage() {
     setSideCartOpen(true);
   };
 
+  // ====== チェックアウト：Redirects の fullUrl にだけ遷移 ======
   const checkout = async () => {
     try {
+      await ensureVisitorSession(); // 念のため再確認
+
       const { checkoutId } =
         await myWixClient.currentCart.createCheckoutFromCurrentCart({
           channelType: "WEB",
         });
       console.log("checkoutId:", checkoutId);
-  
+
       const redirect = await myWixClient.redirects.createRedirectSession({
         ecomCheckout: { checkoutId },
         callbacks: { postFlowUrl: "https://www.dotpb.jp/thank-you-page" },
       });
-      console.log("redirect fullUrl:", redirect?.redirectSession?.fullUrl);
-  
-      window.location.assign(redirect.redirectSession.fullUrl);
+      const fullUrl = redirect?.redirectSession?.fullUrl;
+      console.log("redirect fullUrl:", fullUrl);
+
+      if (!fullUrl) throw new Error("Redirect URL が取得できませんでした。");
+
+      // 直アクセス禁止。必ずコードで遷移させる。
+      window.location.assign(fullUrl);
     } catch (err) {
-      // 何かあったら中身を丸ごと見る
       console.error("チェックアウト失敗:", err?.response ?? err);
+      alert("チェックアウトに失敗しました。もう一度お試しください。");
     }
   };
 
@@ -157,7 +173,7 @@ export default function ProductDetailPage() {
       setCartItemId(null);
       setQuantity(0);
     } catch (err) {
-      console.error("カートクリア失敗:", err);
+      console.error("カートクリア失敗:", err?.response ?? err);
     }
   };
 
@@ -181,7 +197,7 @@ export default function ProductDetailPage() {
         if (lineItemId === cartItemId) setQuantity(newQty);
       }
     } catch (err) {
-      console.error("サイドカート数量変更失敗:", err);
+      console.error("サイドカート数量変更失敗:", err?.response ?? err);
     }
   };
 
@@ -258,7 +274,9 @@ export default function ProductDetailPage() {
                 >
                   −
                 </button>
-                <div className="boxValue" aria-live="polite">{quantity}</div>
+                <div className="boxValue" aria-live="polite">
+                  {quantity}
+                </div>
                 <button
                   className="boxBtn plus"
                   aria-label="増やす"
@@ -324,7 +342,9 @@ export default function ProductDetailPage() {
       >
         <header className="sideCartHeader">
           <div>カート（{cart?.lineItems?.length || 0}点のアイテム）</div>
-          <button className="closeBtn" onClick={() => setSideCartOpen(false)}>×</button>
+          <button className="closeBtn" onClick={() => setSideCartOpen(false)}>
+            ×
+          </button>
         </header>
 
         <div className="sideCartBody">
@@ -345,7 +365,6 @@ export default function ProductDetailPage() {
                 </div>
                 <div className="liInfo">
                   <div className="liName">{li.productName?.original}</div>
-                  {/* 価格（片側に寄せたい場合はこの行を liRow に分けてください） */}
                   <div className="liPrice">{li.price?.formattedAmount || ""}</div>
 
                   {/* ▼ 数量UI */}
@@ -359,7 +378,9 @@ export default function ProductDetailPage() {
                       >
                         −
                       </button>
-                      <div className="liQtyNum" aria-live="polite">{li.quantity}</div>
+                      <div className="liQtyNum" aria-live="polite">
+                        {li.quantity}
+                      </div>
                       <button
                         className="liBtn"
                         aria-label="増やす"
@@ -376,7 +397,9 @@ export default function ProductDetailPage() {
         </div>
 
         <footer className="sideCartFooter">
-          <div className="subtotal">小計：{cart?.subtotal?.formattedAmount || ""}</div>
+          <div className="subtotal">
+            小計：{cart?.subtotal?.formattedAmount || ""}
+          </div>
           <button className="btn checkoutBtn" onClick={checkout}>
             ご購入手続きへ
           </button>
@@ -397,21 +420,58 @@ export default function ProductDetailPage() {
           gap: 32px;
         }
         @media (max-width: 640px) {
-          .grid { grid-template-columns: 1fr; }
+          .grid {
+            grid-template-columns: 1fr;
+          }
         }
 
-        .media img { width: 100%; border-radius: 12px; object-fit: cover; background: #f6f6f6; }
-        .info { display: flex; flex-direction: column; gap: 14px; }
-        .title { font-size: 28px; font-weight: 700; }
-        .lead { color: #374151; line-height: 1.9; font-size: 14px; }
+        .media img {
+          width: 100%;
+          border-radius: 12px;
+          object-fit: cover;
+          background: #f6f6f6;
+        }
+        .info {
+          display: flex;
+          flex-direction: column;
+          gap: 14px;
+        }
+        .title {
+          font-size: 28px;
+          font-weight: 700;
+        }
+        .lead {
+          color: #374151;
+          line-height: 1.9;
+          font-size: 14px;
+        }
 
-        .priceBlock { display: flex; align-items: baseline; gap: 14px; margin-top: 6px; }
-        .price, .original { font-size: 18px; }
-        .original { text-decoration: line-through; color: #9ca3af; }
-        .price { font-weight: 800; }
+        .priceBlock {
+          display: flex;
+          align-items: baseline;
+          gap: 14px;
+          margin-top: 6px;
+        }
+        .price,
+        .original {
+          font-size: 18px;
+        }
+        .original {
+          text-decoration: line-through;
+          color: #9ca3af;
+        }
+        .price {
+          font-weight: 800;
+        }
 
-        .qtyBlock { margin-top: 10px; }
-        .qtyLabel { font-weight: 700; margin-bottom: 8px; letter-spacing: .02em; }
+        .qtyBlock {
+          margin-top: 10px;
+        }
+        .qtyLabel {
+          font-weight: 700;
+          margin-bottom: 8px;
+          letter-spacing: 0.02em;
+        }
         .qtyBox {
           display: grid;
           grid-template-columns: 48px 64px 48px;
@@ -425,58 +485,163 @@ export default function ProductDetailPage() {
         }
         .boxBtn {
           all: unset;
-          display: flex; align-items: center; justify-content: center;
-          height: 100%; width: 100%;
-          cursor: pointer; font-size: 20px; user-select: none;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          height: 100%;
+          width: 100%;
+          cursor: pointer;
+          font-size: 20px;
+          user-select: none;
         }
-        .boxBtn:active { transform: translateY(0.5px); }
-        .boxBtn:disabled { color: #cbd5e1; cursor: not-allowed; }
-        .boxValue { text-align: center; font-size: 16px; font-weight: 600; }
+        .boxBtn:active {
+          transform: translateY(0.5px);
+        }
+        .boxBtn:disabled {
+          color: #cbd5e1;
+          cursor: not-allowed;
+        }
+        .boxValue {
+          text-align: center;
+          font-size: 16px;
+          font-weight: 600;
+        }
 
-        .actions { display: flex; flex-direction: column; gap: 12px; margin-top: 12px; }
-        .btn { width: 100%; height: 48px; border-radius: 9999px; border: none; font-size: 14px; cursor: pointer;
-               display: inline-flex; align-items: center; justify-content: center; text-decoration: none; }
-        .btn.add { background: #e5e7eb; color: #111827; }
-        .btn.buy { background: #000; color: #fff; }
-        .btn.back { background: #e8f3ff; color: #0f172a; border: 1px solid #cfe0ff; }
-        .acc { border-top: 1px solid #e5e7eb; padding-top: 12px; }
-        .accBody { padding: 8px 0 2px; color: #374151; font-size: 14px; line-height: 1.9; }
+        .actions {
+          display: flex;
+          flex-direction: column;
+          gap: 12px;
+          margin-top: 12px;
+        }
+        .btn {
+          width: 100%;
+          height: 48px;
+          border-radius: 9999px;
+          border: none;
+          font-size: 14px;
+          cursor: pointer;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          text-decoration: none;
+        }
+        .btn.add {
+          background: #e5e7eb;
+          color: #111827;
+        }
+        .btn.buy {
+          background: #000;
+          color: #fff;
+        }
+        .btn.back {
+          background: #e8f3ff;
+          color: #0f172a;
+          border: 1px solid #cfe0ff;
+        }
+        .acc {
+          border-top: 1px solid #e5e7eb;
+          padding-top: 12px;
+        }
+        .accBody {
+          padding: 8px 0 2px;
+          color: #374151;
+          font-size: 14px;
+          line-height: 1.9;
+        }
 
         /* ===== サイドカート ===== */
         .sideCartBackdrop {
-          position: fixed; inset: 0; background: rgba(0,0,0,.45);
-          opacity: 0; pointer-events: none; transition: opacity .25s ease; z-index: 1000;
+          position: fixed;
+          inset: 0;
+          background: rgba(0, 0, 0, 0.45);
+          opacity: 0;
+          pointer-events: none;
+          transition: opacity 0.25s ease;
+          z-index: 1000;
         }
-        .sideCartBackdrop.open { opacity: 1; pointer-events: auto; }
+        .sideCartBackdrop.open {
+          opacity: 1;
+          pointer-events: auto;
+        }
         .sideCart {
-          position: fixed; top: 0; right: 0; width: 380px; max-width: 90vw; height: 100vh; background: #fff;
-          box-shadow: -8px 0 24px rgba(0,0,0,.1); transform: translateX(100%); transition: transform .25s ease;
-          z-index: 1001; display: flex; flex-direction: column;
+          position: fixed;
+          top: 0;
+          right: 0;
+          width: 380px;
+          max-width: 90vw;
+          height: 100vh;
+          background: #fff;
+          box-shadow: -8px 0 24px rgba(0, 0, 0, 0.1);
+          transform: translateX(100%);
+          transition: transform 0.25s ease;
+          z-index: 1001;
+          display: flex;
+          flex-direction: column;
         }
-        .sideCart.open { transform: translateX(0); }
+        .sideCart.open {
+          transform: translateX(0);
+        }
 
         .sideCartHeader {
-          display: flex; justify-content: space-between; align-items: center;
-          padding: 16px; font-weight: 700; border-bottom: 1px solid #eee;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding: 16px;
+          font-weight: 700;
+          border-bottom: 1px solid #eee;
         }
-        .closeBtn { background: transparent; border: none; font-size: 24px; cursor: pointer; line-height: 1; }
+        .closeBtn {
+          background: transparent;
+          border: none;
+          font-size: 24px;
+          cursor: pointer;
+          line-height: 1;
+        }
 
-        .sideCartBody { padding: 8px 16px; overflow-y: auto; flex: 1; }
-        .empty { color: #6b7280; padding: 16px 0; }
+        .sideCartBody {
+          padding: 8px 16px;
+          overflow-y: auto;
+          flex: 1;
+        }
+        .empty {
+          color: #6b7280;
+          padding: 16px 0;
+        }
 
         .lineItem {
-          display: grid; grid-template-columns: 72px 1fr; gap: 12px; align-items: center;
-          padding: 12px 0; border-bottom: 1px solid #f1f5f9;
+          display: grid;
+          grid-template-columns: 72px 1fr;
+          gap: 12px;
+          align-items: center;
+          padding: 12px 0;
+          border-bottom: 1px solid #f1f5f9;
         }
-        .thumb img, .ph {
-          width: 72px; height: 72px; border-radius: 8px; object-fit: cover; background: #f3f4f6;
+        .thumb img,
+        .ph {
+          width: 72px;
+          height: 72px;
+          border-radius: 8px;
+          object-fit: cover;
+          background: #f3f4f6;
         }
-        .liInfo { display: flex; flex-direction: column; gap: 8px; }
-        .liName { font-size: 14px; font-weight: 600; }
-        .liPrice { font-size: 13px; color: #374151; }
+        .liInfo {
+          display: flex;
+          flex-direction: column;
+          gap: 8px;
+        }
+        .liName {
+          font-size: 14px;
+          font-weight: 600;
+        }
+        .liPrice {
+          font-size: 13px;
+          color: #374151;
+        }
 
-        /* ▼ 数量UI（画像②の見た目） */
-        .liQty { margin-top: 2px; }
+        /* ▼ 数量UI */
+        .liQty {
+          margin-top: 2px;
+        }
         .liQtyBox {
           display: grid;
           grid-template-columns: 40px 56px 40px;
@@ -491,15 +656,34 @@ export default function ProductDetailPage() {
         .liBtn {
           all: unset;
           height: 100%;
-          display: flex; align-items: center; justify-content: center;
-          cursor: pointer; font-size: 18px; color: #111827;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+          font-size: 18px;
+          color: #111827;
         }
-        .liBtn:disabled { color: #cbd5e1; cursor: not-allowed; }
-        .liQtyNum { text-align: center; font-weight: 700; }
+        .liBtn:disabled {
+          color: #cbd5e1;
+          cursor: not-allowed;
+        }
+        .liQtyNum {
+          text-align: center;
+          font-weight: 700;
+        }
 
-        .sideCartFooter { border-top: 1px solid #eee; padding: 12px 16px 16px; }
-        .subtotal { font-weight: 700; margin-bottom: 10px; }
-        .checkoutBtn { background: #000; color: #fff; }
+        .sideCartFooter {
+          border-top: 1px solid #eee;
+          padding: 12px 16px 16px;
+        }
+        .subtotal {
+          font-weight: 700;
+          margin-bottom: 10px;
+        }
+        .checkoutBtn {
+          background: #000;
+          color: #fff;
+        }
       `}</style>
     </>
   );
