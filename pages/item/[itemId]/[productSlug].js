@@ -132,20 +132,17 @@ export default function ProductDetailPage() {
   const checkout = async () => {
     try {
       const { checkoutId } =
-        await myWixClient.currentCart.createCheckoutFromCurrentCart({
-          channelType: "WEB",
-        });
-
-      const redirect = await myWixClient.redirects.createRedirectSession({
-        ecomCheckout: { checkoutId },
-        callbacks: { postFlowUrl: window.location.href },
-      });
-
-      window.location = redirect.redirectSession.fullUrl;
+        await myWixClient.currentCart.createCheckoutFromCurrentCart({ channelType: "WEB" });
+  
+      const res = await fetch(`/api/checkout-redirect?checkoutId=${encodeURIComponent(checkoutId)}`);
+      const { url } = await res.json();
+  
+      window.location.href = url; // Wixチェックアウト → 完了 → サンクスページ
     } catch (err) {
       console.error("チェックアウト失敗:", err);
     }
   };
+  
 
   const clearCart = async () => {
     try {
