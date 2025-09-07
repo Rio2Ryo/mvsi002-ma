@@ -108,5 +108,67 @@
       "footer": "不仅睡前可用，也适用于无法化妆的",
       "footerTail": "医疗/护理场景。全天 24 小时保持美丽。"
     }
+  },
+  {
+  "testimonials": {
+    "sectionLabel": "Testimoni",
+    "sectionTitle": "Apa kata pengguna sebenar",
+    "badgeBefore": "Sebelum",
+    "badgeAfter": "Selepas",
+    "badgeBeforeShort": "Before",
+    "badgeAfterShort": "After",
+    "modal": { "alt": "Imej zum" },
+    "items": [
+      {
+        "name": "Wanita 50-an — 3 minggu",
+        "comment": "Seiring usia, tompok pada pipi dan lingkaran bawah mata sukar ditutup dengan solekan dan saya hilang keyakinan. Selepas menemui Mother Vegetables, kira-kira 3 minggu kemudian kulit kelihatan jauh berbeza. Tumpuan pada pipi dilitupi lembut dan seakan pudar, kawasan mata juga kurang kusam. Nada kulit keseluruhan jadi lebih cerah dan sekata. Sesuai digunakan untuk kulit matang."
+      },
+      {
+        "name": "Wanita 20-an — 1 bulan",
+        "comment": "Sejak mula menggunakan Mother Vegetables, keadaan kulit benar-benar berubah. Pori pipi mengecil, kemerahan dan bintik kecil semakin tenang. Tekstur lebih licin, hasilnya tampak semula jadi—seolah-olah kulit asli menjadi lebih cantik. Solekan pagi tahan lebih lama dan perlu ‘touch-up’ jauh berkurang. Ia menggabungkan solekan dan penjagaan kulit—kini keperluan harian saya."
+      },
+      {
+        "name": "Wanita 80-an — 1 bulan",
+        "comment": "Kerana sering berada di luar semasa muda, lengan saya banyak tompok dan lebam, membuatkan saya rasa berusia. Saya hampir berputus asa, tetapi selepas saranan anak, saya cuba ini. Tidak lama kemudian, tompok dan lebam yang gelap kelihatan semakin pudar, tona kulit juga lebih sekata. Kekasaran pada lengan rasa lebih licin. Jika dijaga dengan betul, kulit tetap memberi respons, tanpa mengira usia."
+      }
+    ],
+    "survey": {
+      "title": "Keputusan Tinjauan Pengguna",
+      "items": ["Kurang rosak/‘breakdown’", "Keadaan kulit lebih baik", "Kesan bak porselin", "Mahu beli semula"],
+      "note": "Tinjauan Okt 2024, n=500"
+    }
+  }
+}
+src/locales/zh.json（簡体字）
+json
+Copy code
+{
+  "testimonials": {
+    "sectionLabel": "用户之声",
+    "sectionTitle": "真实用户反馈",
+    "badgeBefore": "使用前",
+    "badgeAfter": "使用后",
+    "badgeBeforeShort": "Before",
+    "badgeAfterShort": "After",
+    "modal": { "alt": "放大图片" },
+    "items": [
+      {
+        "name": "50多岁女性—使用3周",
+        "comment": "随着年龄增长，脸颊色斑和眼下黑眼圈即使上妆也难以遮住，我逐渐失去素颜自信。使用 Mother Vegetables 大约3周后，肤况有了明显变化。介意的脸颊色斑被柔和遮盖，甚至感觉在慢慢变淡；黑眼圈与暗沉也缓解，整体肤色更明亮、更均匀。成熟肌也能轻松使用。"
+      },
+      {
+        "name": "20多岁女性—使用1个月",
+        "comment": "开始使用 Mother Vegetables 后，皮肤状态真的变好了。困扰已久的脸颊毛孔变紧致，泛红与小疹子也安定下来。肤质更细滑、妆效自然，看起来就像素肌本身变美了。早上的妆能持久到很晚，补妆次数明显减少。它同时兼顾妆效与护理，是我每天离不开的单品。"
+      },
+      {
+        "name": "80多岁女性—使用1个月",
+        "comment": "年轻时常在户外，手臂逐渐出现许多斑与淤印，让我感到衰老，不免在意。本以为无可奈何，但在女儿建议下开始使用。过了一段时间，深色斑和淤印逐渐变淡，肤色也比以前更均匀。手臂的粗糙感也变得更顺滑。只要认真护理，肌肤无论年龄都能给出回应。"
+      }
+    ],
+    "survey": {
+      "title": "用户问卷结果",
+      "items": ["脱妆减少", "肤况改善", "呈现瓷感肌", "愿意回购"],
+      "note": "2024年10月调研 n=500"
+    }
   }
 }

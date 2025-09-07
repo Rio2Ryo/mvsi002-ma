@@ -99,5 +99,33 @@
       "footer": "Not only before sleep—useful in",
       "footerTail": "medical/care settings where makeup isn’t possible. 24-hour beauty."
     }
+  },
+  "testimonials": {
+    "sectionLabel": "Testimonials",
+    "sectionTitle": "What real users are saying",
+    "badgeBefore": "Before",
+    "badgeAfter": "After",
+    "badgeBeforeShort": "Before",
+    "badgeAfterShort": "After",
+    "modal": { "alt": "Zoomed image" },
+    "items": [
+      {
+        "name": "Woman in her 50s — 3 weeks",
+        "comment": "As I aged, dark spots on my cheeks and under-eye circles couldn’t be fully covered with makeup, and I lost confidence in my bare skin. After discovering Mother Vegetables, about three weeks in my skin looked noticeably different. The cheek spots that bothered me were softly blurred and even seemed to fade. The darkness and dullness around my eyes eased, and my overall tone became brighter and more even. It’s easy to use on mature skin."
+      },
+      {
+        "name": "Woman in her 20s — 1 month",
+        "comment": "Since I started using Mother Vegetables, my skin condition truly changed. The cheek pores that bothered me tightened, and redness and tiny bumps calmed down. My texture feels smoother and the finish looks natural—like my bare skin itself became prettier. My morning makeup lasts much longer and I touch up far less. It delivers makeup and skincare at once, so it’s now a daily essential."
+      },
+      {
+        "name": "Woman in her 80s — 1 month",
+        "comment": "Because I spent a lot of time outdoors when I was young, I ended up with many spots and bruises on my arms and felt my age. I had given up, but my daughter recommended this. After a while, the dark spots and bruises gradually looked lighter and my tone seemed more even. The roughness on my arms feels smoother too. If you care for your skin properly, it really responds—no matter your age."
+      }
+    ],
+    "survey": {
+      "title": "User Survey Results",
+      "items": ["Less makeup breakdown", "Better skin condition", "Porcelain-like finish", "Want to repurchase"],
+      "note": "Survey in Oct 2024, n=500"
+    }
   }
 }

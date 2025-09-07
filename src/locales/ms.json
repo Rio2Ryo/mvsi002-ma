@@ -108,5 +108,33 @@
       "footer": "Bukan hanya sebelum tidur—berguna dalam",
       "footerTail": "perubatan/penjagaan di mana solekan tidak dibenarkan. Cantik 24 jam."
     }
+  },
+  "testimonials": {
+    "sectionLabel": "Testimoni",
+    "sectionTitle": "Apa kata pengguna sebenar",
+    "badgeBefore": "Sebelum",
+    "badgeAfter": "Selepas",
+    "badgeBeforeShort": "Before",
+    "badgeAfterShort": "After",
+    "modal": { "alt": "Imej zum" },
+    "items": [
+      {
+        "name": "Wanita 50-an — 3 minggu",
+        "comment": "Seiring usia, tompok pada pipi dan lingkaran bawah mata sukar ditutup dengan solekan dan saya hilang keyakinan. Selepas menemui Mother Vegetables, kira-kira 3 minggu kemudian kulit kelihatan jauh berbeza. Tumpuan pada pipi dilitupi lembut dan seakan pudar, kawasan mata juga kurang kusam. Nada kulit keseluruhan jadi lebih cerah dan sekata. Sesuai digunakan untuk kulit matang."
+      },
+      {
+        "name": "Wanita 20-an — 1 bulan",
+        "comment": "Sejak mula menggunakan Mother Vegetables, keadaan kulit benar-benar berubah. Pori pipi mengecil, kemerahan dan bintik kecil semakin tenang. Tekstur lebih licin, hasilnya tampak semula jadi—seolah-olah kulit asli menjadi lebih cantik. Solekan pagi tahan lebih lama dan perlu ‘touch-up’ jauh berkurang. Ia menggabungkan solekan dan penjagaan kulit—kini keperluan harian saya."
+      },
+      {
+        "name": "Wanita 80-an — 1 bulan",
+        "comment": "Kerana sering berada di luar semasa muda, lengan saya banyak tompok dan lebam, membuatkan saya rasa berusia. Saya hampir berputus asa, tetapi selepas saranan anak, saya cuba ini. Tidak lama kemudian, tompok dan lebam yang gelap kelihatan semakin pudar, tona kulit juga lebih sekata. Kekasaran pada lengan rasa lebih licin. Jika dijaga dengan betul, kulit tetap memberi respons, tanpa mengira usia."
+      }
+    ],
+    "survey": {
+      "title": "Keputusan Tinjauan Pengguna",
+      "items": ["Kurang rosak/‘breakdown’", "Keadaan kulit lebih baik", "Kesan bak porselin", "Mahu beli semula"],
+      "note": "Tinjauan Okt 2024, n=500"
+    }
   }
 }
