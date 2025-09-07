@@ -167,5 +167,19 @@
       "p2": "Sifat antibakteria daripada Mother Vegetables membolehkan puff dan berus digunakan secara bersih.",
       "p3": "Reka bentuk hitam matte sesuai untuk semua dan tampak bergaya dalam beg atau di meja anda."
     }
+  },
+  "guarantee": {
+    "title": "Jaminan Pulangan 30 Hari",
+    "desc1": "Jika tidak serasi dengan kulit anda,",
+    "desc2": "pemulangan penuh dalam 30 hari selepas penerimaan.",
+    "items": ["Penghantaran percuma", "Gred kuasi-ubat yang dipercayai", "Sokongan kakitangan pakar"],
+    "cta": "Cuba sekarang dengan yakin"
+  },
+  "guarantee": {
+    "title": "30天退款保证",
+    "desc1": "若与肌肤不相符，",
+    "desc2": "自收货之日起30天内可全额退款。",
+    "items": ["免运费", "值得信赖的药妆级标准", "专业人员支持"],
+    "cta": "放心立即试用"
   }
 }

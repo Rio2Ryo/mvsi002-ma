@@ -158,5 +158,12 @@
       "p2": "With antibacterial properties derived from Mother Vegetables, your puff and brush can be used hygienically.",
       "p3": "Matte black design suits all genders and looks stylish in your bag or on your desk."
     }
+  },
+  "guarantee": {
+    "title": "30-Day Money-Back Guarantee",
+    "desc1": "If it doesn’t suit your skin,",
+    "desc2": "get a full refund within 30 days of delivery.",
+    "items": ["Free shipping", "Quasi-drug grade you can trust", "Expert support"],
+    "cta": "Try it now with confidence"
   }
 }
