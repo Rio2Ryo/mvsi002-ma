@@ -1,1 +1,21 @@
-{ "ui": { "lang": { "label": "Language", "ja": "Japanese", "en": "English", "ms": "Malay", "zh": "Chinese" } }, "hero": {} }
+{ "ui": { "lang": { "label": "Language", "ja": "Japanese", "en": "English", "ms": "Malay", "zh": "Chinese" } }, 
+"hero": {
+    "limited": "Limited Release",
+    "badge": "LUXURY FACE POWDER",
+    "heading1": "Just ",
+    "seconds": "5 seconds",
+    "heading2": " in the morning,",
+    "heading3": " confidence for 24 hours.",
+    "subcopy1": "Confidence in bare skin unlocks your beauty.",
+    "subcopy2": "3.5 billion years of vitality for porcelain-smooth skin.",
+    "label": "Meets quasi-drug ingredient standards",
+    "productName": "Mother Vegetables Confidence",
+    "productCode": "MV-Si002",
+    "buy": "Buy Now",
+    "details": "Learn More",
+    "icon1": "Ready in 5 seconds",
+    "icon2": "24-hour hold",
+    "icon3": "Quasi-drug grade",
+    "scroll": "SCROLL"
+  }
+}

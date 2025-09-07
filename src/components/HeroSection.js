@@ -1,24 +1,25 @@
 "use client";
 import { useEffect, useState } from "react";
-import { useI18n } from "../lib/i18n"; // ★ 既存の i18n を使用
+import { useI18n } from "../lib/i18n";
 
 export default function HeroSection() {
   const [isVisible, setIsVisible] = useState(false);
-  const { lang, setLang } = useI18n(); // ★ 現在言語と切替
+  const { t, lang, setLang } = useI18n();
 
-  useEffect(() => {
-    setIsVisible(true);
-  }, []);
+  // 翻訳ヘルパ（未翻訳キーはフォールバック表示）
+  const tx = (key, fb) => {
+    const v = t ? t(key) : undefined;
+    return v && v !== key ? v : fb;
+  };
+
+  useEffect(() => setIsVisible(true), []);
 
   const LangBtn = ({ code, label }) => (
     <button
       onClick={() => setLang(code)}
       aria-pressed={lang === code}
       title={label}
-      style={{
-        ...styles.langBtn,
-        ...(lang === code ? styles.langBtnActive : {}),
-      }}
+      style={{ ...styles.langBtn, ...(lang === code ? styles.langBtnActive : {}) }}
     >
       {label}
     </button>
@@ -34,8 +35,10 @@ export default function HeroSection() {
         <LangBtn code="zh" label="ZH" />
       </header>
 
-      {/* 右上のバッジ */}
-      <div className="limitedBadge" style={styles.limitedBadge}>限定販売中</div>
+      {/* 右上のバッジ（翻訳適用） */}
+      <div className="limitedBadge" style={styles.limitedBadge}>
+        {tx("hero.limited", "限定販売中")}
+      </div>
 
       <section style={styles.section}>
         {/* 背景 */}
@@ -104,25 +107,37 @@ export default function HeroSection() {
               <div style={styles.badgeWrapper}>
                 <div style={styles.badgeGradient}>
                   <div style={styles.badgeInner}>
-                    <p style={styles.badgeText}>LUXURY FACE POWDER</p>
+                    <p style={styles.badgeText}>
+                      {tx("hero.badge", "LUXURY FACE POWDER")}
+                    </p>
                   </div>
                 </div>
               </div>
 
               <h1 style={styles.heading}>
-                朝の<span style={styles.highlight}>5秒</span>で、<br />
-                <span style={{ fontWeight: 400 }}>24時間の自信を。</span>
+                {tx("hero.heading1", "朝の")}
+                <span style={styles.highlight}>{tx("hero.seconds", "5秒")}</span>
+                {tx("hero.heading2", "で、")}
+                <br />
+                <span style={{ fontWeight: 400 }}>
+                  {tx("hero.heading3", "24時間の自信を。")}
+                </span>
               </h1>
 
               <p style={styles.subCopy}>
-                素肌への自信が、あなたの美しさを解放する。<br />
-                35億年の生命力で、陶器のような美肌へ。
+                {tx("hero.subcopy1", "素肌への自信が、あなたの美しさを解放する。")}
+                <br />
+                {tx("hero.subcopy2", "35億年の生命力で、陶器のような美肌へ。")}
               </p>
 
               <div style={styles.productInfo}>
-                <p style={styles.label}>医薬部外品原料規格をクリア</p>
-                <h2 style={styles.productName}>Mother Vegetables Confidence</h2>
-                <p style={styles.productCode}>MV-Si002</p>
+                <p style={styles.label}>
+                  {tx("hero.label", "医薬部外品原料規格をクリア")}
+                </p>
+                <h2 style={styles.productName}>
+                  {tx("hero.productName", "Mother Vegetables Confidence")}
+                </h2>
+                <p style={styles.productCode}>{tx("hero.productCode", "MV-Si002")}</p>
               </div>
 
               <div className="ctaContainer" style={styles.ctaContainer}>
@@ -132,7 +147,7 @@ export default function HeroSection() {
                   }
                   style={styles.ctaButton}
                 >
-                  <span style={styles.ctaText}>購入する</span>
+                  <span style={styles.ctaText}>{tx("hero.buy", "購入する")}</span>
                 </button>
                 <button
                   onClick={() =>
@@ -140,34 +155,30 @@ export default function HeroSection() {
                   }
                   style={styles.secondaryButton}
                 >
-                  詳細を見る
+                  {tx("hero.details", "詳細を見る")}
                 </button>
               </div>
 
-              <div style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: "40px", marginTop: "32px" }}>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  gap: "40px",
+                  marginTop: "32px",
+                }}
+              >
                 <div style={styles.iconBlock}>
-                  <div style={styles.iconCircle}>
-                    <svg viewBox="0 0 24 24" fill="currentColor" width={32} height={32} style={{ color: "#B8860B" }}>
-                      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/>
-                    </svg>
-                  </div>
-                  <p style={styles.iconText}>朝5秒で完成</p>
+                  <div style={styles.iconCircle}>{/* icon svg */}</div>
+                  <p style={styles.iconText}>{tx("hero.icon1", "朝5秒で完成")}</p>
                 </div>
                 <div style={styles.iconBlock}>
-                  <div style={styles.iconCircle}>
-                    <svg viewBox="0 0 24 24" fill="currentColor" width={32} height={32} style={{ color: "#B8860B" }}>
-                      <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-                    </svg>
-                  </div>
-                  <p style={styles.iconText}>24時間キープ</p>
+                  <div style={styles.iconCircle}>{/* icon svg */}</div>
+                  <p style={styles.iconText}>{tx("hero.icon2", "24時間キープ")}</p>
                 </div>
                 <div style={styles.iconBlock}>
-                  <div style={styles.iconCircle}>
-                    <svg viewBox="0 0 24 24" fill="currentColor" width={32} height={32} style={{ color: "#B8860B" }}>
-                      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
-                    </svg>
-                  </div>
-                  <p style={styles.iconText}>医薬部外品</p>
+                  <div style={styles.iconCircle}>{/* icon svg */}</div>
+                  <p style={styles.iconText}>{tx("hero.icon3", "医薬部外品")}</p>
                 </div>
               </div>
             </div>
@@ -176,8 +187,18 @@ export default function HeroSection() {
 
         {/* スクロールインジケータ */}
         <div style={styles.scrollIndicator}>
-          <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "0.5rem", color: "#bbb" }}>
-            <p style={{ writingMode: "vertical-rl", fontSize: "12px", letterSpacing: "2px" }}>SCROLL</p>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              gap: "0.5rem",
+              color: "#bbb",
+            }}
+          >
+            <p style={{ writingMode: "vertical-rl", fontSize: "12px", letterSpacing: "2px" }}>
+              {tx("hero.scroll", "SCROLL")}
+            </p>
             <div style={styles.scrollLine}>
               <div style={styles.scrollDot} />
             </div>

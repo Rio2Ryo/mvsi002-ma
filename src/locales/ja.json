@@ -1,1 +1,21 @@
-{ "ui": { "lang": { "label": "言語", "ja": "日本語", "en": "English", "ms": "Malay", "zh": "中文" } }, "hero": {} }
+{ "ui": { "lang": { "label": "言語", "ja": "日本語", "en": "English", "ms": "Malay", "zh": "中文" } }, 
+"hero": {
+    "limited": "限定販売中",
+    "badge": "LUXURY FACE POWDER",
+    "heading1": "朝の",
+    "seconds": "5秒",
+    "heading2": "で、",
+    "heading3": "24時間の自信を。",
+    "subcopy1": "素肌への自信が、あなたの美しさを解放する。",
+    "subcopy2": "35億年の生命力で、陶器のような美肌へ。",
+    "label": "医薬部外品原料規格をクリア",
+    "productName": "Mother Vegetables Confidence",
+    "productCode": "MV-Si002",
+    "buy": "購入する",
+    "details": "詳細を見る",
+    "icon1": "朝5秒で完成",
+    "icon2": "24時間キープ",
+    "icon3": "医薬部外品",
+    "scroll": "SCROLL"
+  }
+}
