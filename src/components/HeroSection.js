@@ -95,10 +95,10 @@ export default function HeroSection() {
           <div style={styles.overlay} />
         </div>
 
-        {/* ロゴ（オーバーレイより上に配置） */}
+        {/* ロゴ（SVG）— オーバーレイより上に配置 */}
         <div style={styles.logoWrap}>
           <Image
-            src="/MV_LOGO.png" // /public/MV_LOGO.png に配置（大文字小文字厳密）
+            src="/MV_LOGO.svg" // /public/MV_LOGO.svg に配置（大文字小文字厳密）
             alt={tx("hero.alt.logo", "Mother Vegetables Confidence")}
             width={520}
             height={180}
@@ -161,20 +161,36 @@ export default function HeroSection() {
                 </button>
               </div>
 
+              {/* ▼ あなたが指定した3つのSVGアイコン（そのまま組み込み） */}
               <div style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: "40px", marginTop: "32px" }}>
                 <div style={styles.iconBlock}>
-                  <div style={styles.iconCircle}>{/* アイコン */}</div>
+                  <div style={styles.iconCircle}>
+                    <svg viewBox="0 0 24 24" fill="currentColor" width="32" height="32" style={{ color: "#B8860B" }} aria-hidden="true">
+                      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/>
+                    </svg>
+                  </div>
                   <p style={styles.iconText}>{tx("hero.icon1", "朝5秒で完成")}</p>
                 </div>
+
                 <div style={styles.iconBlock}>
-                  <div style={styles.iconCircle}>{/* アイコン */}</div>
+                  <div style={styles.iconCircle}>
+                    <svg viewBox="0 0 24 24" fill="currentColor" width="32" height="32" style={{ color: "#B8860B" }} aria-hidden="true">
+                      <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                    </svg>
+                  </div>
                   <p style={styles.iconText}>{tx("hero.icon2", "24時間キープ")}</p>
                 </div>
+
                 <div style={styles.iconBlock}>
-                  <div style={styles.iconCircle}>{/* アイコン */}</div>
+                  <div style={styles.iconCircle}>
+                    <svg viewBox="0 0 24 24" fill="currentColor" width="32" height="32" style={{ color: "#B8860B" }} aria-hidden="true">
+                      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                    </svg>
+                  </div>
                   <p style={styles.iconText}>{tx("hero.icon3", "医薬部外品")}</p>
                 </div>
               </div>
+              {/* ▲ SVGアイコンここまで */}
             </div>
           </div>
         </div>
@@ -185,9 +201,7 @@ export default function HeroSection() {
             <p style={{ writingMode: "vertical-rl", fontSize: "12px", letterSpacing: "2px" }}>
               {tx("hero.scroll", "SCROLL")}
             </p>
-            <div style={styles.scrollLine}>
-              <div style={styles.scrollDot} />
-            </div>
+            <div style={styles.scrollLine}><div style={styles.scrollDot} /></div>
           </div>
         </div>
 
@@ -226,7 +240,7 @@ export default function HeroSection() {
 }
 
 const styles = {
-  /* ── 追加: ヘッダーと言語ボタン ────────────────────── */
+  /* ── ヘッダーと言語ボタン ────────────────────── */
   headerBar: {
     position: "fixed",
     top: "12px",
@@ -258,7 +272,7 @@ const styles = {
     background: "linear-gradient(90deg,#B8860B,#D4C4B0)",
   },
 
-  /* ── 追加: ロゴ配置 ─────────────────────────────── */
+  /* ── ロゴ配置 ─────────────────────────────── */
   logoWrap: {
     position: "absolute",
     zIndex: 5, // overlay(2)・content(3) より上

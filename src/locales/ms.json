@@ -1,18 +1,30 @@
 {
   "ui": {
-    "lang": { "label": "Bahasa", "ja": "Jepun", "en": "Inggeris", "ms": "Melayu", "zh": "Cina" }
+    "lang": {
+      "label": "Bahasa",
+      "ja": "Jepun",
+      "en": "Inggeris",
+      "ms": "Melayu",
+      "zh": "Cina"
+    }
   },
   "hero": {
-    "brand": "Mother Vegetables",
-    "title": "Confidence",
-    "tagline": "Serbuk silika organik sepenuhnya yang lahir daripada Mother Vegetables",
-    "catch1": "Pilihan anda",
-    "catch2": "menyuburkan kulit dan juga Bumi",
-    "body": "Lahir daripada Mother Vegetables, Mazavegi Confidence ialah satu-satunya silika organik di dunia yang lembut pada kulit sambil membantu memulihkan alam sekitar.\n\nPenjagaan kulit generasi baharu—yang memupuk kecantikan anda dan masa depan planet ini pada masa yang sama.\n\nKelembutan untuk kulit anda menjadi kelembutan untuk Bumi. Semuanya bermula dengan pilihan anda.",
-    "alt": {
-      "powder": "Serbuk Confidence",
-      "logo": "Logo Mother Vegetables Confidence",
-      "earth": "Imej Bumi"
-    }
+    "limited": "Jualan Terhad",
+    "badge": "BEDAK MUKA MEWAH",
+    "heading1": "Hanya ",
+    "seconds": "5 saat",
+    "heading2": " pada waktu pagi,",
+    "heading3": " keyakinan selama 24 jam.",
+    "subcopy1": "Keyakinan pada kulit semula jadi menyerlahkan kecantikan anda.",
+    "subcopy2": "Tenaga 3.5 bilion tahun untuk kulit licin bak porselin.",
+    "label": "Memenuhi piawaian bahan gred kuasi-ubat",
+    "productName": "Mother Vegetables Confidence",
+    "productCode": "MV-Si002",
+    "buy": "Beli Sekarang",
+    "details": "Lihat Butiran",
+    "icon1": "Siap dalam 5 saat",
+    "icon2": "Tahan 24 jam",
+    "icon3": "Gred kuasi-ubat",
+    "scroll": "SKROL"
   }
 }
