@@ -45,5 +45,59 @@
         "description": "An organic formula that meets quasi-drug ingredient standards. Derived from the earliest plant life—safe even for sensitive skin."
       }
     ]
+  },
+  "product": {
+    "labels": {
+      "section": "Ingredients & Effects",
+      "mainIngredient": "Key Ingredient",
+      "expectedEffects": "Expected Benefits"
+    },
+    "ingredient": {
+      "name": "Mother Vegetables",
+      "description": "Earth’s earliest lifeform, born 3.5 billion years ago",
+      "details": "Its unique adsorption keeps skin beautiful for 24 hours."
+    },
+    "effects": [
+      { "title": "Prevents makeup breakdown", "description": "Absorbs sweat and shine to keep your look intact." },
+      { "title": "Porcelain clarity", "description": "Ultra-fine particles refine texture for a porcelain finish." },
+      { "title": "Tone-up effect", "description": "Brightens the complexion with a natural glow." },
+      { "title": "Skincare benefits", "description": "Protects while smoothing and conditioning the skin." }
+    ],
+    "extra1": {
+      "title": "Only Mazavegi’s structure",
+      "titleTail": "cancels facial shine",
+      "left": {
+        "title": "When sebum oil is present",
+        "p1": "Shine occurs because uniform sebum shapes reflect light in the same direction.",
+        "riskLabel": "[Risk of chemical silica]",
+        "p2": "Residual chemicals may irritate skin; uniform particles reflect light and cause shine."
+      },
+      "right": {
+        "title": "After applying Mazavegi silica",
+        "p1": "Natural plant-like particles each differ slightly, scattering light randomly.",
+        "benefitLabel": "[Benefits of Mazavegi silica]",
+        "p2": "Absorbs sebum and captures ambient moisture—hydrated yet matte; antioxidants keep skin clean."
+      },
+      "footer": "Get a clean look in 10 seconds → ",
+      "footerTail": "a must before dates or business meetings."
+    },
+    "extra2": {
+      "title": "Before sleep, bare skin",
+      "titleTail": "still looks naturally brighter",
+      "left": {
+        "title": "Wrinkles & pores visible",
+        "p1": "Bare skin before bed tends to show wrinkles and pores.",
+        "riskLabel": "[Foundation can crack]",
+        "p2": "Not for bedtime, and clay-like foundation can dry and crack."
+      },
+      "right": {
+        "title": "After applying Mazavegi silica",
+        "p1": "Usable before sleep; fills micro-gaps so wrinkles and pores look less visible.",
+        "benefitLabel": "[Benefits of Mazavegi silica]",
+        "p2": "Conceals concerns while keeping skin clean. Discrete particles mean no cracking."
+      },
+      "footer": "Not only before sleep—useful in",
+      "footerTail": "medical/care settings where makeup isn’t possible. 24-hour beauty."
+    }
   }
 }

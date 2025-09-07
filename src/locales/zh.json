@@ -54,5 +54,59 @@
         "description": "符合药妆级原料标准的有机配方，源自最早的植物生命，对敏感肌也友好。"
       }
     ]
+  },
+  "product": {
+    "labels": {
+      "section": "成分与功效",
+      "mainIngredient": "主要成分",
+      "expectedEffects": "可期待的效果"
+    },
+    "ingredient": {
+      "name": "Mother Vegetables",
+      "description": "约35亿年前诞生的地球最初生命体",
+      "details": "独特的吸附作用，让美丽维持 24 小时。"
+    },
+    "effects": [
+      { "title": "防止脱妆", "description": "强力吸附汗水与油光，避免妆面崩坏。" },
+      { "title": "通透瓷感", "description": "极细颗粒细致平滑肤质，呈现瓷感光泽。" },
+      { "title": "提亮肤色", "description": "自然提亮，使肌肤更显明亮。"},
+      { "title": "护肤功效", "description": "在修饰同时保护肌肤，令肤况更匀净。"}
+    ],
+    "extra1": {
+      "title": "Mazavegi 的结构",
+      "titleTail": "能抑制面部油光",
+      "left": {
+        "title": "存在皮脂油分时",
+        "p1": "油光的原因在于皮脂形状趋于一致，使光线同方向反射。",
+        "riskLabel": "【化学二氧化硅的风险】",
+        "p2": "可能残留药剂并引发过敏；颗粒一致也会造成反光、显油光。"
+      },
+      "right": {
+        "title": "涂抹 Mazavegi 硅之后",
+        "p1": "天然植物般的不规则颗粒使光线散射更随机。",
+        "benefitLabel": "【Mazavegi 硅的优点】",
+        "p2": "吸收皮脂并锁住空气水分——保湿却不泛油；抗氧化让肌肤更洁净。"
+      },
+      "footer": "10 秒迅速提升清爽感 → ",
+      "footerTail": "约会或商务前的必备。"
+    },
+    "extra2": {
+      "title": "睡前素颜",
+      "titleTail": "也能自然提亮",
+      "left": {
+        "title": "皱纹与毛孔明显",
+        "p1": "睡前素颜时，皱纹与毛孔更容易显现。",
+        "riskLabel": "【粉底可能“开裂”】",
+        "p2": "不适合睡前使用；粉底如黏土般干后易裂。"
+      },
+      "right": {
+        "title": "涂抹 Mazavegi 硅之后",
+        "p1": "可用于睡前，填充细小纹理与毛孔，降低可见度。",
+        "benefitLabel": "【Mazavegi 硅的优点】",
+        "p2": "遮盖在意部位同时保持清洁；颗粒独立，不会“开裂”。"
+      },
+      "footer": "不仅睡前可用，也适用于无法化妆的",
+      "footerTail": "医疗/护理场景。全天 24 小时保持美丽。"
+    }
   }
 }

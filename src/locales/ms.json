@@ -54,5 +54,59 @@
         "description": "Formula organik yang memenuhi piawaian bahan gred kuasi-ubat. Berasal daripada kehidupan tumbuhan terawal—sesuai untuk kulit sensitif."
       }
     ]
+  },
+   "product": {
+    "labels": {
+      "section": "Bahan & Kesan",
+      "mainIngredient": "Bahan Utama",
+      "expectedEffects": "Kelebihan Dijangka"
+    },
+    "ingredient": {
+      "name": "Mother Vegetables",
+      "description": "Bentuk kehidupan terawal di bumi, lahir 3.5 bilion tahun lalu",
+      "details": "Penyerapan uniknya mengekalkan kecantikan sehingga 24 jam."
+    },
+    "effects": [
+      { "title": "Cegah solekan rosak", "description": "Menyerap peluh dan kilap agar solekan kekal." },
+      { "title": "Kejelasan bak porselin", "description": "Partikel halus merapikan tekstur kulit untuk kemasan porselin." },
+      { "title": "Kesan tona lebih cerah", "description": "Mencerahkan kulit dengan sinar semula jadi." },
+      { "title": "Manfaat penjagaan kulit", "description": "Melindungi sambil melicinkan dan merapikan kulit." }
+    ],
+    "extra1": {
+      "title": "Struktur Mazavegi",
+      "titleTail": "yang menghapuskan kilap wajah",
+      "left": {
+        "title": "Apabila minyak sebum hadir",
+        "p1": "Kilap berlaku kerana bentuk sebum seragam memantulkan cahaya searah.",
+        "riskLabel": "[Risiko silika kimia]",
+        "p2": "Sisa bahan kimia boleh menyebabkan iritasi; partikel seragam memantulkan cahaya dan menghasilkan kilap."
+      },
+      "right": {
+        "title": "Selepas menyapu silika Mazavegi",
+        "p1": "Partikel semula jadi tidak seragam, pantulan cahaya menjadi rawak.",
+        "benefitLabel": "[Kelebihan silika Mazavegi]",
+        "p2": "Menyerap sebum dan menangkap lembapan; lembap namun matte, antioksidan menjaga kulit bersih."
+      },
+      "footer": "Nampak kemas dalam 10 saat → ",
+      "footerTail": "wajib sebelum janji temu atau mesyuarat."
+    },
+    "extra2": {
+      "title": "Sebelum tidur, kulit tanpa solekan",
+      "titleTail": "tetap tampak semula jadi lebih cerah",
+      "left": {
+        "title": "Kedut & pori kelihatan",
+        "p1": "Sebelum tidur, kedut dan pori lebih mudah kelihatan.",
+        "riskLabel": "[Alas mekap boleh merekah]",
+        "p2": "Tidak sesuai sebelum tidur; alas mekap seperti tanah liat boleh kering dan merekah."
+      },
+      "right": {
+        "title": "Selepas menyapu silika Mazavegi",
+        "p1": "Boleh digunakan sebelum tidur; mengisi ruang mikro agar kurang kelihatan.",
+        "benefitLabel": "[Kelebihan silika Mazavegi]",
+        "p2": "Menutup bahagian yang mengganggu sambil menjaga kebersihan kulit; partikel berasingan, tiada rekahan."
+      },
+      "footer": "Bukan hanya sebelum tidur—berguna dalam",
+      "footerTail": "perubatan/penjagaan di mana solekan tidak dibenarkan. Cantik 24 jam."
+    }
   }
 }
