@@ -175,11 +175,22 @@
     "items": ["Penghantaran percuma", "Gred kuasi-ubat yang dipercayai", "Sokongan kakitangan pakar"],
     "cta": "Cuba sekarang dengan yakin"
   },
-  "guarantee": {
-    "title": "30天退款保证",
-    "desc1": "若与肌肤不相符，",
-    "desc2": "自收货之日起30天内可全额退款。",
-    "items": ["免运费", "值得信赖的药妆级标准", "专业人员支持"],
-    "cta": "放心立即试用"
+   "faq": {
+    "label": "Soalan Lazim",
+    "title": "Soalan Lazim",
+    "items": [
+      {
+        "q": "Adakah sesuai untuk kulit sensitif?",
+        "a": "Ya. Formulanya memenuhi piawaian bahan gred kuasi-ubat dan lembut untuk kulit sensitif."
+      },
+      {
+        "q": "Bila masa sesuai untuk digunakan?",
+        "a": "Gunakan pada mana-mana langkah daripada selepas penjagaan kulit sehingga kemasan solekan—di atas primer atau selepas foundation, ikut kesesuaian."
+      },
+      {
+        "q": "Berapa lama tahan?",
+        "a": "Dengan penggunaan sekali sehari: 500 mg ≈ 30 hari, 2,000 mg ≈ 60 hari, 5,000 mg ≈ 150 hari."
+      }
+    ]
   }
 }

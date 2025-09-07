@@ -165,5 +165,23 @@
     "desc2": "get a full refund within 30 days of delivery.",
     "items": ["Free shipping", "Quasi-drug grade you can trust", "Expert support"],
     "cta": "Try it now with confidence"
+  },
+  "faq": {
+    "label": "FAQ",
+    "title": "Frequently Asked Questions",
+    "items": [
+      {
+        "q": "Is it suitable for sensitive skin?",
+        "a": "Yes. The formula meets quasi-drug ingredient standards and is gentle enough for sensitive skin."
+      },
+      {
+        "q": "When should I use it?",
+        "a": "Use it at any step from after skincare to makeup finishing—over primer or after foundation, whenever you like."
+      },
+      {
+        "q": "How long does one pack last?",
+        "a": "With once-daily use: 500 mg ≈ 30 days, 2,000 mg ≈ 60 days, 5,000 mg ≈ 150 days."
+      }
+    ]
   }
 }
