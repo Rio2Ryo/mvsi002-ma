@@ -33,5 +33,26 @@
     "p1": "Mother Vegetables Confidence meniru semula bentuk kehidupan terawal di bumi yang lahir 3.5 bilion tahun lalu. Kami menamakannya “Mother Vegetables”.",
     "p2": "Rasakan misteri kehidupan pertama pada kulit anda. Daya lekatan yang hebat membantu mengawal peluh dan rasa melekit sepanjang hari, mengekalkan kulit licin dan cantik.",
     "p3": "Formula organik yang memenuhi piawaian bahan gred kuasi-ubat dan mesra kulit. Hanya 5 saat setiap pagi untuk kulit cerah bak porselin."
+  },
+  "features": {
+    "label": "CIRI-CIRI",
+    "title": "Mengapa ia terus menjadi pilihan",
+    "items": [
+      {
+        "title": "Siap dalam 5 saat",
+        "subtitle": "Walau pagi yang sibuk",
+        "description": "Mother Vegetables merebak sekata hanya dengan satu sentuhan, memberi kemasan porselin seakan jurusolek profesional."
+      },
+      {
+        "title": "Tahan cantik 24 jam",
+        "subtitle": "Menawan hingga malam",
+        "description": "Teknologi lekatan kami tahan peluh dan sebum, malah tidak mudah rosak di bawah pelitup muka. Kecantikan pagi kekal hingga malam."
+      },
+      {
+        "title": "Lembut pada kulit",
+        "subtitle": "Memenuhi piawaian bahan kuasi-ubat",
+        "description": "Formula organik yang memenuhi piawaian bahan gred kuasi-ubat. Berasal daripada kehidupan tumbuhan terawal—sesuai untuk kulit sensitif."
+      }
+    ]
   }
 }
