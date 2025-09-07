@@ -151,7 +151,7 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>Mother Vegetables Confidence MV-Si002 | 24時間崩れない陶器肌へ</title>
+        <title>Mother Vegetables Confidence MV-Si002 | 24-hour flawless porcelain skin</title>
       </Head>
 
       <main data-testid={testIds.COMMERCE_PAGE.CONTAINER}

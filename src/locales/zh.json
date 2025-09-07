@@ -1,0 +1,18 @@
+{
+  "ui": {
+    "lang": { "label": "语言", "ja": "日语", "en": "英语", "ms": "马来语", "zh": "中文" }
+  },
+  "hero": {
+    "brand": "Mother Vegetables",
+    "title": "Confidence",
+    "tagline": "源自 Mother Vegetables 的纯有机二氧化硅粉",
+    "catch1": "你的选择，",
+    "catch2": "同时滋养肌肤与地球",
+    "body": "源自 Mother Vegetables 的 Mazavegi Confidence，是全球唯一能温和呵护肌肤、并助力环境修复的有机硅。\n\n全新的护肤方式——在成就你的美的同时，也守护地球的未来。\n\n对肌肤的温柔，也成为对地球的温柔。一切从你的选择开始。",
+    "alt": {
+      "powder": "Confidence 粉末",
+      "logo": "Mother Vegetables Confidence 标志",
+      "earth": "地球图像"
+    }
+  }
+}
