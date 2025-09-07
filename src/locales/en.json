@@ -183,5 +183,15 @@
         "a": "With once-daily use: 500 mg ≈ 30 days, 2,000 mg ≈ 60 days, 5,000 mg ≈ 150 days."
       }
     ]
+  },
+    "footer": {
+    "brand": "Mother Vegetables Confidence",
+    "model": "MV-Si002",
+    "company": "dotpb Co.,Ltd.",
+    "zip": "103-0026",
+    "address": "Kabutocho Daiichi Heiwa Bldg. 3F, 5-1 Nihonbashi-Kabutocho, Chuo-ku, Tokyo, Japan",
+    "emailText": "info@dotpb.jp",
+    "legalText": "Legal Notice (Specified Commercial Transactions Act)",
+    "copyright": "Copyright © 2025 dotpb Co.,Ltd. All Rights Reserved."
   }
 }

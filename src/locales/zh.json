@@ -192,5 +192,15 @@
         "a": "按每天一次使用：500 mg≈30天，2,000 mg≈60天，5,000 mg≈150天。"
       }
     ]
+  },
+  "footer": {
+    "brand": "Mother Vegetables Confidence",
+    "model": "MV-Si002",
+    "company": "dotpb株式会社",
+    "zip": "103-0026",
+    "address": "日本东京都中央区日本桥兜町5-1 兜町第一平和大楼3层",
+    "emailText": "info@dotpb.jp",
+    "legalText": "依据特定商业交易法的标示",
+    "copyright": "版权 © 2025 dotpb Co.,Ltd. 保留所有权利。"
   }
 }
