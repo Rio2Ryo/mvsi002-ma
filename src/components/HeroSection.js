@@ -95,18 +95,6 @@ export default function HeroSection() {
           <div style={styles.overlay} />
         </div>
 
-        {/* ロゴ（SVG）— オーバーレイより上に配置 */}
-        <div style={styles.logoWrap}>
-          <Image
-            src="/MV_LOGO.svg" // /public/MV_LOGO.svg に配置（大文字小文字厳密）
-            alt={tx("hero.alt.logo", "Mother Vegetables Confidence")}
-            width={520}
-            height={180}
-            priority
-            sizes="(max-width: 768px) 70vw, 520px"
-            style={{ width: "min(70vw, 520px)", height: "auto" }}
-          />
-        </div>
 
         {/* コンテンツ（本文） */}
         <div style={styles.contentWrapper}>
