@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import { useI18n } from "../lib/i18n";
 
 export default function HeroSection() {
@@ -41,7 +42,7 @@ export default function HeroSection() {
       </div>
 
       <section style={styles.section}>
-        {/* 背景 */}
+        {/* 背景（下層） */}
         <div style={styles.backgroundContainer}>
           <div style={styles.baseBackground} />
           <div style={styles.visualLayer}>
@@ -94,7 +95,20 @@ export default function HeroSection() {
           <div style={styles.overlay} />
         </div>
 
-        {/* コンテンツ */}
+        {/* ロゴ（オーバーレイより上に配置） */}
+        <div style={styles.logoWrap}>
+          <Image
+            src="/MV_LOGO.png" // /public/MV_LOGO.png に配置（大文字小文字厳密）
+            alt={tx("hero.alt.logo", "Mother Vegetables Confidence")}
+            width={520}
+            height={180}
+            priority
+            sizes="(max-width: 768px) 70vw, 520px"
+            style={{ width: "min(70vw, 520px)", height: "auto" }}
+          />
+        </div>
+
+        {/* コンテンツ（本文） */}
         <div style={styles.contentWrapper}>
           <div style={styles.content}>
             <div
@@ -107,9 +121,7 @@ export default function HeroSection() {
               <div style={styles.badgeWrapper}>
                 <div style={styles.badgeGradient}>
                   <div style={styles.badgeInner}>
-                    <p style={styles.badgeText}>
-                      {tx("hero.badge", "LUXURY FACE POWDER")}
-                    </p>
+                    <p style={styles.badgeText}>{tx("hero.badge", "LUXURY FACE POWDER")}</p>
                   </div>
                 </div>
               </div>
@@ -119,9 +131,7 @@ export default function HeroSection() {
                 <span style={styles.highlight}>{tx("hero.seconds", "5秒")}</span>
                 {tx("hero.heading2", "で、")}
                 <br />
-                <span style={{ fontWeight: 400 }}>
-                  {tx("hero.heading3", "24時間の自信を。")}
-                </span>
+                <span style={{ fontWeight: 400 }}>{tx("hero.heading3", "24時間の自信を。")}</span>
               </h1>
 
               <p style={styles.subCopy}>
@@ -131,53 +141,37 @@ export default function HeroSection() {
               </p>
 
               <div style={styles.productInfo}>
-                <p style={styles.label}>
-                  {tx("hero.label", "医薬部外品原料規格をクリア")}
-                </p>
-                <h2 style={styles.productName}>
-                  {tx("hero.productName", "Mother Vegetables Confidence")}
-                </h2>
+                <p style={styles.label}>{tx("hero.label", "医薬部外品原料規格をクリア")}</p>
+                <h2 style={styles.productName}>{tx("hero.productName", "Mother Vegetables Confidence")}</h2>
                 <p style={styles.productCode}>{tx("hero.productCode", "MV-Si002")}</p>
               </div>
 
               <div className="ctaContainer" style={styles.ctaContainer}>
                 <button
-                  onClick={() =>
-                    document.getElementById("product")?.scrollIntoView({ behavior: "smooth" })
-                  }
+                  onClick={() => document.getElementById("product")?.scrollIntoView({ behavior: "smooth" })}
                   style={styles.ctaButton}
                 >
                   <span style={styles.ctaText}>{tx("hero.buy", "購入する")}</span>
                 </button>
                 <button
-                  onClick={() =>
-                    document.getElementById("features")?.scrollIntoView({ behavior: "smooth" })
-                  }
+                  onClick={() => document.getElementById("features")?.scrollIntoView({ behavior: "smooth" })}
                   style={styles.secondaryButton}
                 >
                   {tx("hero.details", "詳細を見る")}
                 </button>
               </div>
 
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  gap: "40px",
-                  marginTop: "32px",
-                }}
-              >
+              <div style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: "40px", marginTop: "32px" }}>
                 <div style={styles.iconBlock}>
-                  <div style={styles.iconCircle}>{/* icon svg */}</div>
+                  <div style={styles.iconCircle}>{/* アイコン */}</div>
                   <p style={styles.iconText}>{tx("hero.icon1", "朝5秒で完成")}</p>
                 </div>
                 <div style={styles.iconBlock}>
-                  <div style={styles.iconCircle}>{/* icon svg */}</div>
+                  <div style={styles.iconCircle}>{/* アイコン */}</div>
                   <p style={styles.iconText}>{tx("hero.icon2", "24時間キープ")}</p>
                 </div>
                 <div style={styles.iconBlock}>
-                  <div style={styles.iconCircle}>{/* icon svg */}</div>
+                  <div style={styles.iconCircle}>{/* アイコン */}</div>
                   <p style={styles.iconText}>{tx("hero.icon3", "医薬部外品")}</p>
                 </div>
               </div>
@@ -187,15 +181,7 @@ export default function HeroSection() {
 
         {/* スクロールインジケータ */}
         <div style={styles.scrollIndicator}>
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              gap: "0.5rem",
-              color: "#bbb",
-            }}
-          >
+          <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "0.5rem", color: "#bbb" }}>
             <p style={{ writingMode: "vertical-rl", fontSize: "12px", letterSpacing: "2px" }}>
               {tx("hero.scroll", "SCROLL")}
             </p>
@@ -205,6 +191,7 @@ export default function HeroSection() {
           </div>
         </div>
 
+        {/* styled-jsx（アニメーション＆レスポンシブ） */}
         <style jsx>{`
           @keyframes float {
             0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
@@ -219,6 +206,12 @@ export default function HeroSection() {
             0%, 100% { transform: translateY(0); }
             50% { transform: translateY(100%); }
           }
+          @keyframes pulse {
+            0%,100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+          }
+
+          /* ✅ モバイル用フォントサイズ調整 */
           @media (max-width: 768px) {
             h1 { font-size: 2.2rem !important; line-height: 1.3 !important; }
             h2 { font-size: 1.3rem !important; line-height: 1.3 !important; }
@@ -263,6 +256,16 @@ const styles = {
     color: "#111",
     fontWeight: 700,
     background: "linear-gradient(90deg,#B8860B,#D4C4B0)",
+  },
+
+  /* ── 追加: ロゴ配置 ─────────────────────────────── */
+  logoWrap: {
+    position: "absolute",
+    zIndex: 5, // overlay(2)・content(3) より上
+    top: "64px",
+    left: "50%",
+    transform: "translateX(-50%)",
+    pointerEvents: "none",
   },
 
   /* ── 既存スタイル ───────────────────────────── */
