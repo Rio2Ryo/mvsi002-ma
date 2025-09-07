@@ -136,5 +136,36 @@
       "items": ["脱妆减少", "肤况改善", "呈现瓷感肌", "愿意回购"],
       "note": "2024年10月调研 n=500"
     }
+  },
+   "lineup": {
+    "label": "产品阵容",
+    "titleLine1": "Mother Vegetables Confidence",
+    "titleLine2": "MV-Si002 产品阵容",
+    "popular": "人气No.1",
+    "cta": "立即购买",
+    "taxIncluded": "（含税）",
+    "imageAlt": "商品图片",
+    "cards": [
+      {
+        "title": "标准款",
+        "description": "2,000mg — 约60天",
+        "features": ["Mother Vegetables 2,000mg", "约60天", "便携式小巧外盒"],
+        "originalPrice": "¥6,600",
+        "price": "173.59CNY"
+      },
+      {
+        "title": "超值大容量",
+        "description": "5,000mg — 约150天",
+        "features": ["Mother Vegetables 5,000mg", "约150天", "大容量奢华外盒"],
+        "originalPrice": "¥11,000",
+        "price": "356.82CNY"
+      }
+    ],
+    "extra": {
+      "title": "便携小巧的精致外盒",
+      "p1": "纤薄设计，随身携带更轻松。无论外出、乘车或夏日出汗时，轻轻一抹即可长效抑制油光，维持约20小时清爽。",
+      "p2": "源自 Mother Vegetables 的抑菌特性，让粉扑和刷具保持洁净，安心使用。",
+      "p3": "磨砂黑设计，男女皆宜；无论放在包内还是办公桌上都显得利落时尚。"
+    }
   }
 }

@@ -136,5 +136,36 @@
       "items": ["Kurang rosak/‘breakdown’", "Keadaan kulit lebih baik", "Kesan bak porselin", "Mahu beli semula"],
       "note": "Tinjauan Okt 2024, n=500"
     }
+  },
+  "lineup": {
+    "label": "Barisan Produk",
+    "titleLine1": "Mother Vegetables Confidence",
+    "titleLine2": "Senarai MV-Si002",
+    "popular": "Paling Popular",
+    "cta": "Beli Sekarang",
+    "taxIncluded": "(termasuk cukai)",
+    "imageAlt": "imej produk",
+    "cards": [
+      {
+        "title": "Saiz Standard",
+        "description": "2,000mg — kira-kira 60 hari",
+        "features": ["Mother Vegetables 2,000mg", "±60 hari", "Bekas kompakt mudah dibawa"],
+        "originalPrice": "¥6,600",
+        "price": "102.37MYR"
+      },
+      {
+        "title": "Saiz Besar Berbaloi",
+        "description": "5,000mg — kira-kira 150 hari",
+        "features": ["Mother Vegetables 5,000mg", "±150 hari", "Bekas mewah bersaiz besar"],
+        "originalPrice": "¥11,000",
+        "price": "210.43MYR"
+      }
+    ],
+    "extra": {
+      "title": "Bekas kompakt yang mudah dibawa",
+      "p1": "Reka bentuk nipis memudahkan dibawa ke mana-mana. Sentuhan ringkas membantu mengurangkan kilap sehingga 20 jam.",
+      "p2": "Sifat antibakteria daripada Mother Vegetables membolehkan puff dan berus digunakan secara bersih.",
+      "p3": "Reka bentuk hitam matte sesuai untuk semua dan tampak bergaya dalam beg atau di meja anda."
+    }
   }
 }

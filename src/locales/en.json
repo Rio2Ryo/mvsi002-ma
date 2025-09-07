@@ -127,5 +127,36 @@
       "items": ["Less makeup breakdown", "Better skin condition", "Porcelain-like finish", "Want to repurchase"],
       "note": "Survey in Oct 2024, n=500"
     }
+  },
+  "lineup": {
+    "label": "Product Lineup",
+    "titleLine1": "Mother Vegetables Confidence",
+    "titleLine2": "MV-Si002 Lineup",
+    "popular": "Most Popular",
+    "cta": "Buy Now",
+    "taxIncluded": "(tax incl.)",
+    "imageAlt": "product image",
+    "cards": [
+      {
+        "title": "Standard Size",
+        "description": "2,000mg — about 60 days",
+        "features": ["Mother Vegetables 2,000mg", "About 60 days", "Compact case for easy carry"],
+        "originalPrice": "¥6,600",
+        "price": "$24.48"
+      },
+      {
+        "title": "Large Value Size",
+        "description": "5,000mg — about 150 days",
+        "features": ["Mother Vegetables 5,000mg", "About 150 days", "Special large luxury case"],
+        "originalPrice": "¥11,000",
+        "price": "$50.31"
+      }
+    ],
+    "extra": {
+      "title": "Compact case for smart portability",
+      "p1": "Slim design lets you carry it anywhere. Even on quick outings, on the train, or hot summer days, a quick touch reduces shine for up to 20 hours.",
+      "p2": "With antibacterial properties derived from Mother Vegetables, your puff and brush can be used hygienically.",
+      "p3": "Matte black design suits all genders and looks stylish in your bag or on your desk."
+    }
   }
 }
