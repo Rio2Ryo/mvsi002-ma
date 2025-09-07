@@ -17,5 +17,12 @@
     "icon2": "24-hour hold",
     "icon3": "Quasi-drug grade",
     "scroll": "SCROLL"
+  },
+  "concept": {
+    "label": "CONCEPT",
+    "h1": { "part1": "From 3.5 billion years ago,", "gold": "the power of life", "part2": "—to your skin" },
+    "p1": "Mother Vegetables Confidence recreates the Earth’s earliest lifeform, born 3.5 billion years ago. We call it “Mother Vegetables.”",
+    "p2": "Feel the mystery of the first life on your own skin. Superb adhesion controls sweat and tackiness through the day, keeping your skin smooth and beautiful.",
+    "p3": "An organic formula that meets quasi-drug ingredient standards and is gentle on skin. In just 5 seconds each morning, achieve clear, porcelain-like skin."
   }
 }
