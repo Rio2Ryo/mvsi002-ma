@@ -141,15 +141,15 @@
         "title": "Standard Size",
         "description": "2,000mg — about 60 days",
         "features": ["Mother Vegetables 2,000mg", "About 60 days", "Compact case for easy carry"],
-        "originalPrice": "¥6,600",
+        "originalPrice": "$44.88",
         "price": "$24.48"
       },
       {
         "title": "Large Value Size",
         "description": "5,000mg — about 150 days",
         "features": ["Mother Vegetables 5,000mg", "About 150 days", "Special large luxury case"],
-        "originalPrice": "¥11,000",
-        "price": "$50.31"
+        "originalPrice": "$74.80",
+        "price": "$50.32"
       }
     ],
     "extra": {

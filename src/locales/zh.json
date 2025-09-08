@@ -150,15 +150,15 @@
         "title": "标准款",
         "description": "2,000mg — 约60天",
         "features": ["Mother Vegetables 2,000mg", "约60天", "便携式小巧外盒"],
-        "originalPrice": "¥6,600",
-        "price": "173.59CNY"
+        "originalPrice": "320.10CNY",
+        "price": "174.60CNY"
       },
       {
         "title": "超值大容量",
         "description": "5,000mg — 约150天",
         "features": ["Mother Vegetables 5,000mg", "约150天", "大容量奢华外盒"],
-        "originalPrice": "¥11,000",
-        "price": "356.82CNY"
+        "originalPrice": "533.50CNY",
+        "price": "358.90CNY"
       }
     ],
     "extra": {
