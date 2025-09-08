@@ -336,7 +336,7 @@ export default function ProductSection() {
             className="p-title"
             style={{
               textAlign: "center",
-              fontSize: "1.25rem",
+              fontSize: "1.3rem",
               fontWeight: 400,
               marginBottom: "0.75rem",
               color: "#b8860b",
