@@ -13,6 +13,8 @@ import styles from "@/styles/app.module.css";
 import { useAsyncHandler } from "@/src/hooks/async-handler";
 import { useClient } from "@/internal/providers/client-provider";
 import { useModal } from "@/internal/providers/modal-provider";
+import { useI18n } from "@/src/lib/i18n";
+import { useRouter } from "next/router";
 import HeroSection from "../src/components/HeroSection";
 import ConceptSection from "../src/components/ConceptSection";
 import FeatureSection from "../src/components/FeatureSection";
@@ -34,6 +36,9 @@ const myWixClient = createClient({
 });
 
 export default function Home() {
+  const router = useRouter();
+  const { lang, setLang } = useI18n(); // ← 既存の i18n
+  const SUPPORTED = ["ja", "en", "ms", "zh"];
   const [productList, setProductList] = useState([]);
   const [cart, setCart] = useState({});
   const [isLoading, setIsLoading] = useState(true);
@@ -147,6 +152,35 @@ export default function Home() {
     fetchProducts();
     fetchCart();
   }, []);
+
+   // --- 初回：URL 先頭セグメントから言語を検出して setLang
+ useEffect(() => {
+   if (typeof window === "undefined") return;
+    const segs = window.location.pathname.split("/").filter(Boolean);
+   const maybe = (segs[0] || "").toLowerCase();
+   if (SUPPORTED.includes(maybe)) {
+     if (maybe !== lang) setLang(maybe);   } else {
+      if (lang !== "ja") setLang("ja");
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+ }, []);
+  // --- 言語が変わったら URL を /{lang}/ 形式に付け替える（ja は /）
+ useEffect(() => {
+   if (typeof window === "undefined") return;
+   const { pathname, search, hash } = window.location;
+   const segs = pathname.split("/").filter(Boolean);
+   const hasLocale = SUPPORTED.includes((segs[0] || "").toLowerCase());
+   const rest = hasLocale ? segs.slice(1) : segs; // 先頭の言語セグメントを外した残り
+   // 今回は「メインページ」の要望なので、残りパスはそのまま維持
+   const restPath = rest.join("/");
+   const targetPath =
+     (lang === "ja" ? "/" : `/${lang}/`) + (restPath ? `${restPath}/` : "");
+   const current = pathname.endsWith("/") ? pathname : pathname + "/";
+   const target = targetPath.endsWith("/") ? targetPath : targetPath + "/";
+   if (current + search + hash !== target + search + hash) {
+     window.history.replaceState(null, "", target + search + hash);
+   }
+}, [lang]);
 
   return (
     <>
