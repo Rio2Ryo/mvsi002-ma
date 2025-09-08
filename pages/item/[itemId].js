@@ -1,7 +1,6 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import Link from "next/link";
-import Head from "next/head"; // ✅ 追加
+import Head from "next/head";
 
 import HeroSection from "../../src/components/HeroSection";
 import ConceptSection from "../../src/components/ConceptSection";
@@ -14,18 +13,19 @@ import FAQSection from "../../src/components/FAQSection";
 import Footer from "../../src/components/Footer";
 
 export default function AgentItemPage() {
-  const { query } = useRouter();
+  const { isReady, query } = useRouter();
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (!query.itemId) return;
+    if (!isReady || !query.itemId) return;
 
     async function fetchProducts() {
-      const agentId = query.itemId.toLowerCase();
+      const agentId = String(query.itemId).toLowerCase(); // ← 厳密に文字列化
 
       try {
-        const res = await fetch(`/${agentId}_products.json`);
+        // ルート相対（/xxx.json）。自作サイトは言語プレフィックスを付けない
+        const res = await fetch(`/${agentId}_products.json`, { cache: "no-store" });
         if (!res.ok) throw new Error("データ取得失敗");
 
         const data = await res.json();
@@ -39,7 +39,7 @@ export default function AgentItemPage() {
     }
 
     fetchProducts();
-  }, [query.itemId]);
+  }, [isReady, query.itemId]);
 
   return (
     <div>
@@ -52,6 +52,8 @@ export default function AgentItemPage() {
       <FeatureSection />
       <Effects />
       <TestimonialSection />
+      {/* ProductSection_2 が内部で取得しているならそのまま。
+          ここで取得した products を使う場合は props を渡す実装に合わせてください。 */}
       <ProductSection_2 />
       <GuaranteeSection />
       <FAQSection />

@@ -14,7 +14,7 @@ import { useAsyncHandler } from "@/src/hooks/async-handler";
 import { useClient } from "@/internal/providers/client-provider";
 import { useModal } from "@/internal/providers/modal-provider";
 import { useI18n } from "@/src/lib/i18n";
-import { useRouter } from "next/router";
+// import { useRouter } from "next/router"; // ← 不要なので削除
 import HeroSection from "../src/components/HeroSection";
 import ConceptSection from "../src/components/ConceptSection";
 import FeatureSection from "../src/components/FeatureSection";
@@ -24,7 +24,6 @@ import Effects from "../src/components/Effects";
 import GuaranteeSection from "../src/components/GuaranteeSection";
 import FAQSection from "../src/components/FAQSection";
 import Footer from "../src/components/Footer";
-
 
 const myWixClient = createClient({
   modules: { products, currentCart, redirects },
@@ -36,8 +35,8 @@ const myWixClient = createClient({
 });
 
 export default function Home() {
-  const router = useRouter();
-  const { lang, setLang } = useI18n(); // ← 既存の i18n
+  // const router = useRouter(); // ← 不要なので削除
+  const { lang, setLang } = useI18n(); // 既存の i18n（URLは書き換えない）
   const SUPPORTED = ["ja", "en", "ms", "zh"];
   const [productList, setProductList] = useState([]);
   const [cart, setCart] = useState({});
@@ -126,7 +125,7 @@ export default function Home() {
           ecomCheckout: { checkoutId },
           callbacks: { postFlowUrl: window.location.href },
         });
-        window.location = redirect.redirectSession.fullUrl;
+        window.location = redirect.redirectSession.fullUrl; // ← Wix側で言語付きパスになるのはOK
       });
     } catch (error) {
       openModal("premium", {
@@ -153,34 +152,12 @@ export default function Home() {
     fetchCart();
   }, []);
 
-   // --- 初回：URL 先頭セグメントから言語を検出して setLang
- useEffect(() => {
-   if (typeof window === "undefined") return;
-    const segs = window.location.pathname.split("/").filter(Boolean);
-   const maybe = (segs[0] || "").toLowerCase();
-   if (SUPPORTED.includes(maybe)) {
-     if (maybe !== lang) setLang(maybe);   } else {
-      if (lang !== "ja") setLang("ja");
-    }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
- }, []);
-  // --- 言語が変わったら URL を /{lang}/ 形式に付け替える（ja は /）
- useEffect(() => {
-   if (typeof window === "undefined") return;
-   const { pathname, search, hash } = window.location;
-   const segs = pathname.split("/").filter(Boolean);
-   const hasLocale = SUPPORTED.includes((segs[0] || "").toLowerCase());
-   const rest = hasLocale ? segs.slice(1) : segs; // 先頭の言語セグメントを外した残り
-   // 今回は「メインページ」の要望なので、残りパスはそのまま維持
-   const restPath = rest.join("/");
-   const targetPath =
-     (lang === "ja" ? "/" : `/${lang}/`) + (restPath ? `${restPath}/` : "");
-   const current = pathname.endsWith("/") ? pathname : pathname + "/";
-   const target = targetPath.endsWith("/") ? targetPath : targetPath + "/";
-   if (current + search + hash !== target + search + hash) {
-     window.history.replaceState(null, "", target + search + hash);
-   }
-}, [lang]);
+  // ✅ URLは一切いじらない。初期言語だけ <html lang> を参照（自作サイトは常に無印パス）
+  useEffect(() => {
+    if (typeof document === "undefined") return;
+    const htmlLang = (document.documentElement.lang || "").toLowerCase();
+    if (SUPPORTED.includes(htmlLang)) setLang(htmlLang);
+  }, [setLang]);
 
   return (
     <>
@@ -189,9 +166,9 @@ export default function Home() {
       </Head>
 
       <main data-testid={testIds.COMMERCE_PAGE.CONTAINER}
-      className="relative min-h-screen"
+        className="relative min-h-screen"
       >
-         {/*<div>
+        {/* <div>
           <h2>Choose Products:</h2>
           {isLoading ? (
             <p>Loading products...</p>
@@ -222,8 +199,8 @@ export default function Home() {
               </Link>
             </div>
           )}
-        </div>*/}
-         {/*<div>
+        </div> */}
+        {/* <div>
           <h2>My Cart:</h2>
           {cart.lineItems?.length > 0 && (
             <div className={styles.column}>
@@ -256,16 +233,16 @@ export default function Home() {
               </button>
             </div>
           )}
-        </div>*/}
-         <HeroSection />
-         <ConceptSection />
-         <FeatureSection />
-         <Effects />
-         <TestimonialSection />
-         <ProductSection />
-         <GuaranteeSection />
-         <FAQSection />
-         <Footer />
+        </div> */}
+        <HeroSection />
+        <ConceptSection />
+        <FeatureSection />
+        <Effects />
+        <TestimonialSection />
+        <ProductSection />
+        <GuaranteeSection />
+        <FAQSection />
+        <Footer />
       </main>
     </>
   );
