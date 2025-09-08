@@ -202,5 +202,37 @@
     "emailText": "info@dotpb.jp",
     "legalText": "依据特定商业交易法的标示",
     "copyright": "版权 © 2025 dotpb Co.,Ltd. 保留所有权利。"
+  },
+  "pdp": {
+    "head": { "titleSuffix": "Mother Vegetables Confidence MV-Si002" },
+    "loading": "加载中…",
+    "notFound": "未找到商品",
+    "lead": { "note": "含 Mother Vegetables 的新型粉扑式化妆盒。轻便易携，适合补妆、日常护理与睡前使用。" },
+    "quantity": {
+      "label": "数量",
+      "ariaChange": "更改数量",
+      "ariaDecrease": "减少",
+      "ariaIncrease": "增加"
+    },
+    "buttons": {
+      "addToCart": "加入购物车",
+      "buyNow": "立即购买",
+      "backToList": "保持购物车并返回列表"
+    },
+    "details": {
+      "productInfo": "商品信息",
+      "returns": "退换货政策",
+      "shipping": "配送信息",
+      "returnsBody": "退货期限：收货后7日内。\n运费：初始瑕疵由本店承担；因顾客原因退货，运费由顾客承担。",
+      "shippingBody": "运费：日本国内通常免邮（冲绳¥1,500）。\n海外运费另计。\n下单次日发货（周末及节假日除外）。"
+    },
+    "sidecart": {
+      "header": "购物车",
+      "items": " 件商品",
+      "empty": "购物车为空",
+      "subtotal": "小计：",
+      "checkout": "去结算"
+    },
+    "title": { "productNameLabel": "商品名：" }
   }
 }

@@ -9,33 +9,28 @@ import Footer from "../../../src/components/Footer";
 import { myWixClient } from "../../../src/lib/wixClient";
 import { useI18n } from "../../../src/lib/i18n";
 
-/* JSONの多言語フィールドを優先的に拾うヘルパー
-   例) pickLang(rec, "price", "en") => rec.price_en || rec.price || null */
-const pickLang = (rec, base, lang) => (rec?.[`${base}_${lang}`] ?? rec?.[base] ?? null);
+// JSONの多言語フィールドを優先して返すヘルパー
+const pickLang = (rec, base, lang) => rec?.[`${base}_${lang}`] ?? rec?.[base] ?? null;
 
 export default function ProductDetailPage() {
   const router = useRouter();
   const { isReady, query } = router;
 
   const { t, lang } = useI18n();
-  const tx = (k, fb) => {
-    const v = t ? t(k) : undefined;
-    return v && v !== k ? v : fb;
-  };
+  const tx = (k, fb) => (t?.(k) && t(k) !== k ? t(k) : fb);
 
-  const [product, setProduct] = useState(null);     // ← JSON 1件（raw）
-  const [agentProducts, setAgentProducts] = useState([]); // サイドカートサムネ用に全件保持
+  const [product, setProduct] = useState(null);       // JSON 1件（raw）
+  const [agentProducts, setAgentProducts] = useState([]); // サイドカート用に全件
   const [cart, setCart] = useState({});
   const [cartItemId, setCartItemId] = useState(null);
   const [quantity, setQuantity] = useState(0);
   const [loading, setLoading] = useState(true);
   const [isSideCartOpen, setSideCartOpen] = useState(false);
 
-  // JSON 取得
   useEffect(() => {
     if (!isReady || !query.itemId || !query.productSlug) return;
 
-    async function fetchData() {
+    (async () => {
       try {
         const agentId = String(query.itemId).toLowerCase();
         const slug = String(query.productSlug).toLowerCase();
@@ -48,11 +43,9 @@ export default function ProductDetailPage() {
         const found = data.find((item) => item.slug?.toLowerCase() === slug);
         setProduct(found || null);
 
-        // Wixカート
         try {
           const cartData = await myWixClient.currentCart.getCurrentCart();
           setCart(cartData);
-
           if (found) {
             const foundItem = cartData.lineItems?.find(
               (li) => li.catalogReference?.catalogItemId === found.wixProductId
@@ -62,110 +55,76 @@ export default function ProductDetailPage() {
               setCartItemId(foundItem._id);
             }
           }
-        } catch (err) {
-          console.warn("⚠ カート取得に失敗:", err);
+        } catch (e) {
           setCart({ lineItems: [] });
         }
-      } catch (error) {
-        console.error("データ取得エラー:", error);
+      } catch (e) {
+        console.error(e);
         setProduct(null);
         setCart({});
       } finally {
         setLoading(false);
       }
-    }
-
-    fetchData();
+    })();
   }, [isReady, query.itemId, query.productSlug]);
 
-  // サイドカート中は背景スクロールを止める
   useEffect(() => {
     document.body.style.overflow = isSideCartOpen ? "hidden" : "";
     return () => { document.body.style.overflow = ""; };
   }, [isSideCartOpen]);
 
-  // 表示用：JSONから言語別フィールドを優先して取り出す
+  // ▼ ここで「JSON由来の全テキスト」を言語優先で作る（足りなければ辞書にフォールバック）
   const lp = useMemo(() => {
     if (!product) return null;
-    return {
-      name:        pickLang(product, "name",        lang) ?? product.name,
-      description: pickLang(product, "description", lang) ?? product.description,
-      price:       pickLang(product, "price",       lang) ?? product.price,
-      original:    pickLang(product, "originalprice",  lang) ?? product.originalprice,
-      original2:   pickLang(product, "originalprice2", lang) ?? product.originalprice2,
-      image:       product.ItemPic || "/item_pic3.jpg"
-    };
+
+    const name        = pickLang(product, "name",        lang) ?? product.name ?? "";
+    const description = pickLang(product, "description", lang) ?? "";
+    const price       = pickLang(product, "price",       lang) ?? product.price ?? "";
+    const original    = pickLang(product, "originalprice",  lang) ?? product.originalprice ?? "";
+    const original2   = pickLang(product, "originalprice2", lang) ?? product.originalprice2 ?? "";
+    const lead        = pickLang(product, "lead", lang) // JSONに lead / lead_en… があれば使う
+                      ?? tx("pdp.lead.note",
+                           "世界最古かつ最高品質とされる「マザーベジタブル」を贅沢に配合した、新発想のパフ型化粧品ケース。軽量で持ち運びやすく、外出前のメイク直しやお出かけ後の肌ケア、就寝前のリラックスタイムなど、あらゆるシーンで手軽にご使用いただけます。");
+    const image = product.ItemPic || "/item_pic3.jpg";
+
+    return { name, description, price, original, original2, lead, image };
   }, [product, lang]);
 
-  // 数量変更（Wix）
   const updateQuantity = async (newQty) => {
-    if (!product || !product.wixProductId) return;
-    if (newQty < 0) return;
+    if (!product?.wixProductId || newQty < 0) return;
     try {
       if (newQty === 0 && cartItemId) {
         await myWixClient.currentCart.removeLineItemFromCurrentCart(cartItemId);
-        setQuantity(0);
-        setCartItemId(null);
-        const updatedCart = await myWixClient.currentCart.getCurrentCart();
-        setCart(updatedCart);
+        setQuantity(0); setCartItemId(null);
+        const updated = await myWixClient.currentCart.getCurrentCart();
+        setCart(updated);
         return;
       }
       if (cartItemId) {
-        const { cart: updatedCart } =
-          await myWixClient.currentCart.updateCurrentCartLineItemQuantity([
-            { _id: cartItemId, quantity: newQty },
-          ]);
-        setQuantity(newQty);
-        setCart(updatedCart);
+        const { cart: updated } =
+          await myWixClient.currentCart.updateCurrentCartLineItemQuantity([{ _id: cartItemId, quantity: newQty }]);
+        setQuantity(newQty); setCart(updated);
       } else {
-        const { cart: updatedCart } =
+        const { cart: updated } =
           await myWixClient.currentCart.addToCurrentCart({
-            lineItems: [{
-              catalogReference: {
-                appId: "1380b703-ce81-ff05-f115-39571d94dfcd",
-                catalogItemId: product.wixProductId,
-              },
-              quantity: 1,
-            }],
+            lineItems: [{ catalogReference: { appId: "1380b703-ce81-ff05-f115-39571d94dfcd", catalogItemId: product.wixProductId }, quantity: 1 }]
           });
-        const addedItem = updatedCart.lineItems.find(
-          (li) => li.catalogReference?.catalogItemId === product.wixProductId
-        );
-        setCart(updatedCart);
-        setQuantity(1);
-        setCartItemId(addedItem?._id || null);
+        const added = updated.lineItems.find(li => li.catalogReference?.catalogItemId === product.wixProductId);
+        setCart(updated); setQuantity(1); setCartItemId(added?._id || null);
       }
-    } catch (err) {
-      console.error("数量変更失敗:", err);
-    }
+    } catch (e) { console.error(e); }
   };
 
-  const handleAddToCart = async () => {
-    await updateQuantity(quantity > 0 ? quantity : 1);
-    setSideCartOpen(true);
-  };
+  const handleAddToCart = async () => { await updateQuantity(quantity > 0 ? quantity : 1); setSideCartOpen(true); };
 
   const checkout = async () => {
     try {
-      const { checkoutId } =
-        await myWixClient.currentCart.createCheckoutFromCurrentCart({ channelType: "WEB" });
+      const { checkoutId } = await myWixClient.currentCart.createCheckoutFromCurrentCart({ channelType: "WEB" });
       const redirect = await myWixClient.redirects.createRedirectSession({
-        ecomCheckout: { checkoutId },
-        callbacks: { postFlowUrl: "https://www.dotpb.jp/thank-you-page" },
+        ecomCheckout: { checkoutId }, callbacks: { postFlowUrl: "https://www.dotpb.jp/thank-you-page" }
       });
       window.location = redirect.redirectSession.fullUrl;
-    } catch (err) {
-      console.error("チェックアウト失敗:", err);
-    }
-  };
-
-  const clearCart = async () => {
-    try {
-      await myWixClient.currentCart.deleteCurrentCart();
-      setCart({}); setCartItemId(null); setQuantity(0);
-    } catch (err) {
-      console.error("カートクリア失敗:", err);
-    }
+    } catch (e) { console.error(e); }
   };
 
   const changeLineItemQty = async (lineItemId, newQty) => {
@@ -176,19 +135,14 @@ export default function ProductDetailPage() {
         setCart(updated);
         if (lineItemId === cartItemId) { setCartItemId(null); setQuantity(0); }
       } else {
-        const { cart: updatedCart } =
-          await myWixClient.currentCart.updateCurrentCartLineItemQuantity([
-            { _id: lineItemId, quantity: newQty },
-          ]);
-        setCart(updatedCart);
+        const { cart: updated } =
+          await myWixClient.currentCart.updateCurrentCartLineItemQuantity([{ _id: lineItemId, quantity: newQty }]);
+        setCart(updated);
         if (lineItemId === cartItemId) setQuantity(newQty);
       }
-    } catch (err) {
-      console.error("サイドカート数量変更失敗:", err);
-    }
+    } catch (e) { console.error(e); }
   };
 
-  // サイドカートのサムネ
   const getThumbSrc = (li) => {
     const wixId = li?.catalogReference?.catalogItemId;
     const match = (agentProducts || []).find((p) => p.wixProductId === wixId);
@@ -203,7 +157,6 @@ export default function ProductDetailPage() {
       </>
     );
   }
-
   if (!product || !lp) {
     return (
       <>
@@ -221,53 +174,42 @@ export default function ProductDetailPage() {
 
       <div className="page">
         <div className="grid">
-          {/* 左：商品画像 */}
+          {/* 左：画像 */}
           <div className="media">
             <img src={lp.image} alt={lp.name} />
           </div>
 
-          {/* 右：情報パネル */}
+          {/* 右：情報 */}
           <div className="info">
+            {/* タイトル（JSON優先） */}
             <h1 className="title">{lp.name}</h1>
 
-            <p className="lead">
-              {tx(
-                "pdp.lead.note",
-                "世界最古かつ最高品質とされる「マザーベジタブル」を贅沢に配合した、新発想のパフ型化粧品ケース。軽量で持ち運びやすく、外出前のメイク直しやお出かけ後の肌ケア、就寝前のリラックスタイムなど、あらゆるシーンで手軽にご使用いただけます。"
-              )}
-            </p>
+            {/* リード（JSON lead_* → 辞書） */}
+            <p className="lead">{lp.lead}</p>
 
-            {/* 価格 */}
+            {/* 価格（price_* / originalprice_* / originalprice2_*） */}
             <div className="priceBlock">
-              {lp.original && <div className="original">{lp.original}</div>}
+              {lp.original  && <div className="original">{lp.original}</div>}
               {lp.original2 && <div className="original">{lp.original2}</div>}
               <div className="price">{lp.price}</div>
             </div>
 
-            {/* 数量コントロール */}
+            {/* 数量UI */}
             <div className="qtyBlock">
               <div className="qtyLabel">{tx("pdp.quantity.label", "数量")}</div>
               <div className="qtyBox" role="group" aria-label={tx("pdp.quantity.ariaChange", "数量を変更")}>
-                <button
-                  className="boxBtn minus"
-                  aria-label={tx("pdp.quantity.ariaDecrease", "減らす")}
-                  onClick={() => updateQuantity(quantity - 1)}
-                  disabled={quantity <= 0}
-                >
-                  −
-                </button>
+                <button className="boxBtn minus"
+                        aria-label={tx("pdp.quantity.ariaDecrease", "減らす")}
+                        onClick={() => updateQuantity(quantity - 1)}
+                        disabled={quantity <= 0}>−</button>
                 <div className="boxValue" aria-live="polite">{quantity}</div>
-                <button
-                  className="boxBtn plus"
-                  aria-label={tx("pdp.quantity.ariaIncrease", "増やす")}
-                  onClick={() => updateQuantity(quantity + 1)}
-                >
-                  +
-                </button>
+                <button className="boxBtn plus"
+                        aria-label={tx("pdp.quantity.ariaIncrease", "増やす")}
+                        onClick={() => updateQuantity(quantity + 1)}>+</button>
               </div>
             </div>
 
-            {/* アクションボタン */}
+            {/* アクション */}
             <div className="actions">
               <button className="btn add" onClick={handleAddToCart}>
                 {tx("pdp.buttons.addToCart", "カートに追加する")}
@@ -280,32 +222,28 @@ export default function ProductDetailPage() {
               </Link>
             </div>
 
-            {/* アコーディオン：商品情報 */}
+            {/* 詳細：商品情報（説明もJSONで切替） */}
             <details className="acc" open>
               <summary>{tx("pdp.details.productInfo", "商品情報")}</summary>
               <div className="accBody">
-                <div>{tx("pdp.title.productNameLabel", "商品名:")}{lp.name}</div>
-                <div>{lp.description}</div>
+                <div>{tx("pdp.title.productNameLabel", "商品名: ")}{lp.name}</div>
+                {lp.description && <div>{lp.description}</div>}
               </div>
             </details>
 
             <details className="acc">
               <summary>{tx("pdp.details.returns", "返品・返金ポリシー")}</summary>
               <div className="accBody">
-                {tx(
-                  "pdp.details.returnsBody",
-                  "返品期限：商品到着より7日以内\n返品時の送料負担：初期不良の場合は当店負担／お客様都合の場合はお客様負担"
-                )}
+                {tx("pdp.details.returnsBody",
+                    "返品期限：商品到着より7日以内\n返品時の送料負担：初期不良の場合は当店負担／お客様都合の場合はお客様負担")}
               </div>
             </details>
 
             <details className="acc">
               <summary>{tx("pdp.details.shipping", "商品の配送について")}</summary>
               <div className="accBody">
-                {tx(
-                  "pdp.details.shippingBody",
-                  "配送料金：国内は基本送料無料（※沖縄は1,500円）\n※海外は別途計算\nご注文から翌日に発送（土日祝除く）"
-                )}
+                {tx("pdp.details.shippingBody",
+                    "配送料金：国内は基本送料無料（※沖縄は1,500円）\n※海外は別途計算\nご注文から翌日に発送（土日祝除く）")}
               </div>
             </details>
           </div>
@@ -313,60 +251,31 @@ export default function ProductDetailPage() {
       </div>
 
       {/* サイドカート */}
-      <div
-        className={`sideCartBackdrop ${isSideCartOpen ? "open" : ""}`}
-        onClick={() => setSideCartOpen(false)}
-      />
-      <aside
-        className={`sideCart ${isSideCartOpen ? "open" : ""}`}
-        role="dialog"
-        aria-modal="true"
-        onClick={(e) => e.stopPropagation()}
-      >
+      <div className={`sideCartBackdrop ${isSideCartOpen ? "open" : ""}`} onClick={() => setSideCartOpen(false)} />
+      <aside className={`sideCart ${isSideCartOpen ? "open" : ""}`} role="dialog" aria-modal="true" onClick={(e) => e.stopPropagation()}>
         <header className="sideCartHeader">
-          <div>
-            {tx("pdp.sidecart.header", "カート")}（{cart?.lineItems?.length || 0}{tx("pdp.sidecart.items", "点のアイテム")}）
-          </div>
+          <div>{tx("pdp.sidecart.header", "カート")}（{cart?.lineItems?.length || 0}{tx("pdp.sidecart.items", "点のアイテム")}）</div>
           <button className="closeBtn" onClick={() => setSideCartOpen(false)}>×</button>
         </header>
 
         <div className="sideCartBody">
-          {(cart?.lineItems || []).length === 0 && (
-            <div className="empty">{tx("pdp.sidecart.empty", "カートは空です")}</div>
-          )}
+          {(cart?.lineItems || []).length === 0 && <div className="empty">{tx("pdp.sidecart.empty", "カートは空です")}</div>}
 
           {(cart?.lineItems || []).map((li) => {
             const thumb = getThumbSrc(li);
             return (
               <div className="lineItem" key={li._id}>
-                <div className="thumb">
-                  {thumb ? (
-                    <img src={thumb} alt={li.productName?.original || "item"} />
-                  ) : (
-                    <div className="ph" />
-                  )}
-                </div>
+                <div className="thumb">{thumb ? <img src={thumb} alt={li.productName?.original || "item"} /> : <div className="ph" />}</div>
                 <div className="liInfo">
                   <div className="liName">{li.productName?.original}</div>
                   <div className="liPrice">{li.price?.formattedAmount || ""}</div>
                   <div className="liQty">
                     <div className="liQtyBox" role="group" aria-label={tx("pdp.quantity.ariaChange", "数量を変更")}>
-                      <button
-                        className="liBtn"
-                        aria-label={tx("pdp.quantity.ariaDecrease", "減らす")}
-                        onClick={() => changeLineItemQty(li._id, li.quantity - 1)}
-                        disabled={li.quantity <= 1}
-                      >
-                        −
-                      </button>
+                      <button className="liBtn" aria-label={tx("pdp.quantity.ariaDecrease", "減らす")}
+                              onClick={() => changeLineItemQty(li._id, li.quantity - 1)} disabled={li.quantity <= 1}>−</button>
                       <div className="liQtyNum" aria-live="polite">{li.quantity}</div>
-                      <button
-                        className="liBtn"
-                        aria-label={tx("pdp.quantity.ariaIncrease", "増やす")}
-                        onClick={() => changeLineItemQty(li._id, li.quantity + 1)}
-                      >
-                        ＋
-                      </button>
+                      <button className="liBtn" aria-label={tx("pdp.quantity.ariaIncrease", "増やす")}
+                              onClick={() => changeLineItemQty(li._id, li.quantity + 1)}>＋</button>
                     </div>
                   </div>
                 </div>
@@ -377,30 +286,25 @@ export default function ProductDetailPage() {
 
         <footer className="sideCartFooter">
           <div className="subtotal">{tx("pdp.sidecart.subtotal", "小計：")}{cart?.subtotal?.formattedAmount || ""}</div>
-          <button className="btn checkoutBtn" onClick={checkout}>
-            {tx("pdp.sidecart.checkout", "ご購入手続きへ")}
-          </button>
+          <button className="btn checkoutBtn" onClick={checkout}>{tx("pdp.sidecart.checkout", "ご購入手続きへ")}</button>
         </footer>
       </aside>
 
       <Footer />
 
-      {/* 省略なしのスタイルはそのまま */}
+      {/* スタイルは元のまま */}
       <style jsx>{`
         .page { max-width: 1200px; margin: 2.7rem auto 10px auto; padding: 24px 16px 64px; }
         .grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 32px; }
         @media (max-width: 640px) { .grid { grid-template-columns: 1fr; } }
-
         .media img { width: 100%; border-radius: 12px; object-fit: cover; background: #f6f6f6; }
         .info { display: flex; flex-direction: column; gap: 14px; }
         .title { font-size: 28px; font-weight: 700; }
         .lead { color: #374151; line-height: 1.9; font-size: 14px; }
-
         .priceBlock { display: flex; align-items: baseline; gap: 14px; margin-top: 6px; }
         .price, .original { font-size: 18px; }
         .original { text-decoration: line-through; color: #9ca3af; }
         .price { font-weight: 800; }
-
         .qtyBlock { margin-top: 10px; }
         .qtyLabel { font-weight: 700; margin-bottom: 8px; letter-spacing: .02em; }
         .qtyBox { display: grid; grid-template-columns: 48px 64px 48px; align-items: center; height: 44px; border: 1px solid #111; border-radius: 4px; overflow: hidden; background: #fff; width: 160px; }
@@ -408,7 +312,6 @@ export default function ProductDetailPage() {
         .boxBtn:active { transform: translateY(0.5px); }
         .boxBtn:disabled { color: #cbd5e1; cursor: not-allowed; }
         .boxValue { text-align: center; font-size: 16px; font-weight: 600; }
-
         .actions { display: flex; flex-direction: column; gap: 12px; margin-top: 12px; }
         .btn { width: 100%; height: 48px; border-radius: 9999px; border: none; font-size: 14px; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; text-decoration: none; }
         .btn.add { background: #e5e7eb; color: #111827; }
@@ -416,7 +319,6 @@ export default function ProductDetailPage() {
         .btn.back { background: #e8f3ff; color: #0f172a; border: 1px solid #cfe0ff; }
         .acc { border-top: 1px solid #e5e7eb; padding-top: 12px; }
         .accBody { padding: 8px 0 2px; color: #374151; font-size: 14px; line-height: 1.9; }
-
         .sideCartBackdrop { position: fixed; inset: 0; background: rgba(0,0,0,.45); opacity: 0; pointer-events: none; transition: opacity .25s ease; z-index: 1000; }
         .sideCartBackdrop.open { opacity: 1; pointer-events: auto; }
         .sideCart { position: fixed; top: 0; right: 0; width: 380px; max-width: 90vw; height: 100vh; background: #fff; box-shadow: -8px 0 24px rgba(0,0,0,.1); transform: translateX(100%); transition: transform .25s ease; z-index: 1001; display: flex; flex-direction: column; }

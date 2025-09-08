@@ -202,5 +202,37 @@
     "emailText": "info@dotpb.jp",
     "legalText": "Notis Undang-undang (Akta Transaksi Komersial Tertentu)",
     "copyright": "Hak Cipta © 2025 dotpb Co.,Ltd. Semua Hak Terpelihara."
+  },
+  "pdp": {
+    "head": { "titleSuffix": "Mother Vegetables Confidence MV-Si002" },
+    "loading": "Memuat...",
+    "notFound": "Produk tiada",
+    "lead": { "note": "Bekas kosmetik gaya puff dengan Mother Vegetables. Ringan dan mudah dibawa untuk touch-up, penjagaan lembut, dan sebelum tidur." },
+    "quantity": {
+      "label": "Kuantiti",
+      "ariaChange": "Ubah kuantiti",
+      "ariaDecrease": "Kurangkan",
+      "ariaIncrease": "Tambah"
+    },
+    "buttons": {
+      "addToCart": "Tambah ke Troli",
+      "buyNow": "Beli Sekarang",
+      "backToList": "Kekal troli & kembali ke senarai"
+    },
+    "details": {
+      "productInfo": "Maklumat Produk",
+      "returns": "Polisi Pemulangan & Bayaran Balik",
+      "shipping": "Maklumat Penghantaran",
+      "returnsBody": "Tempoh pulangan: dalam 7 hari selepas penerimaan.\nKos penghantaran pulangan: kami tanggung bagi kecacatan awal; selain itu ditanggung pelanggan.",
+      "shippingBody": "Penghantaran: Dalam negara biasanya percuma (¥1,500 untuk Okinawa).\nLuar negara dikira berasingan.\nDihantar keesokan hari bekerja (kecuali hujung minggu/cuti)."
+    },
+    "sidecart": {
+      "header": "Troli",
+      "items": " item",
+      "empty": "Troli kosong",
+      "subtotal": "Jumlah kecil: ",
+      "checkout": "Teruskan Pembelian"
+    },
+    "title": { "productNameLabel": "Nama produk: " }
   }
 }
