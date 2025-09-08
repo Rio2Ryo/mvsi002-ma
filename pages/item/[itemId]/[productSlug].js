@@ -13,7 +13,7 @@ import { useI18n } from "../../../src/lib/i18n";
 const pickLang = (rec, base, lang) => rec?.[`${base}_${lang}`] ?? rec?.[base] ?? null;
 
 /* ===== Wixカート遷移の共通定数とユーティリティ ===== */
-const BASE = "https://dotpb.jp"; // www混在は禁止（英語UIは /en 維持）
+const BASE = "https://dotpb.jp"; // Wix側のapex。www混在は禁止
 const LANG_PREFIX = {
   ja: "",
   en: "/en",
@@ -60,7 +60,7 @@ export default function ProductDetailPage() {
   const { t, lang } = useI18n();
   const tx = (k, fb) => (t?.(k) && t(k) !== k ? t(k) : fb);
 
-  const [product, setProduct] = useState(null); // JSON 1件（raw）
+  const [product, setProduct] = useState(null);       // JSON 1件（raw）
   const [agentProducts, setAgentProducts] = useState([]); // サイドカート用に全件
   const [cart, setCart] = useState({});
   const [cartItemId, setCartItemId] = useState(null);
@@ -109,28 +109,25 @@ export default function ProductDetailPage() {
     })();
   }, [isReady, query.itemId, query.productSlug]);
 
+  // サイドカート中は背景スクロールを止める
   useEffect(() => {
     document.body.style.overflow = isSideCartOpen ? "hidden" : "";
-    return () => {
-      document.body.style.overflow = "";
-    };
+    return () => { document.body.style.overflow = ""; };
   }, [isSideCartOpen]);
 
   // ▼ ここで「JSON由来の全テキスト」を言語優先で作る（足りなければ辞書にフォールバック）
   const lp = useMemo(() => {
     if (!product) return null;
 
-    const name = pickLang(product, "name", lang) ?? product.name ?? "";
+    const name        = pickLang(product, "name",        lang) ?? product.name ?? "";
     const description = pickLang(product, "description", lang) ?? "";
-    const price = pickLang(product, "price", lang) ?? product.price ?? "";
-    const original = pickLang(product, "originalprice", lang) ?? product.originalprice ?? "";
-    const original2 = pickLang(product, "originalprice2", lang) ?? product.originalprice2 ?? "";
-    const lead =
+    const price       = pickLang(product, "price",       lang) ?? product.price ?? "";
+    const original    = pickLang(product, "originalprice",  lang) ?? product.originalprice ?? "";
+    const original2   = pickLang(product, "originalprice2", lang) ?? product.originalprice2 ?? "";
+    const lead        =
       pickLang(product, "lead", lang) ??
-      tx(
-        "pdp.lead.note",
-        "世界最古かつ最高品質とされる「マザーベジタブル」を贅沢に配合した、新発想のパフ型化粧品ケース。軽量で持ち運びやすく、外出前のメイク直しやお出かけ後の肌ケア、就寝前のリラックスタイムなど、あらゆるシーンで手軽にご使用いただけます。"
-      );
+      tx("pdp.lead.note",
+         "世界最古かつ最高品質とされる「マザーベジタブル」を贅沢に配合した、新発想のパフ型化粧品ケース。軽量で持ち運びやすく、外出前のメイク直しやお出かけ後の肌ケア、就寝前のリラックスタイムなど、あらゆるシーンで手軽にご使用いただけます。");
     const image = product.ItemPic || "/item_pic3.jpg";
 
     return { name, description, price, original, original2, lead, image };
@@ -155,17 +152,18 @@ export default function ProductDetailPage() {
         setQuantity(newQty);
         setCart(updated);
       } else {
-        const { cart: updated } = await myWixClient.currentCart.addToCurrentCart({
-          lineItems: [
-            {
-              catalogReference: {
-                appId: "1380b703-ce81-ff05-f115-39571d94dfcd",
-                catalogItemId: product.wixProductId,
+        const { cart: updated } =
+          await myWixClient.currentCart.addToCurrentCart({
+            lineItems: [
+              {
+                catalogReference: {
+                  appId: "1380b703-ce81-ff05-f115-39571d94dfcd",
+                  catalogItemId: product.wixProductId,
+                },
+                quantity: 1,
               },
-              quantity: 1,
-            },
-          ],
-        });
+            ],
+          });
         const added = updated.lineItems.find(
           (li) => li.catalogReference?.catalogItemId === product.wixProductId
         );
@@ -174,7 +172,7 @@ export default function ProductDetailPage() {
         setCartItemId(added?._id || null);
       }
     } catch (e) {
-      console.error(e);
+      console.error("数量更新失敗:", e);
     }
   };
 
@@ -186,23 +184,21 @@ export default function ProductDetailPage() {
   /* ===== URLクエリ方式で Wix のカートへ遷移 =====
      - 単品：?add=PID:QTY
      - 複数：?sync=PID1:Q1,PID2:Q2...&replace=1
-     - 言語: ja="", en="/en", ms="/ms", zh="/zh"
+     - 言語: ja="", en="/en", ms="/ms", zh="/zh"（←Wixに飛ぶ時だけ付与）
   */
   const checkout = async () => {
-    // 何も素材が無ければ無視
     if (!product?.wixProductId && !Array.isArray(cart?.lineItems)) return;
 
-    // 言語ごとにプレフィックスを決定（未知のlangは無印扱い）
+    // Wix側ページの言語パス（自作サイトでは付けない）
     const prefix = LANG_PREFIX[lang] ?? "";
     const CART_PATH = `${prefix}/cart-page`;
 
     // 現在の state / API から PID:QTY の配列を生成
     const pairs = await buildPairsFromStateOrApi(cart, product, quantity);
-    if (pairs.length === 0) return; // 念のため
+    if (pairs.length === 0) return;
 
     // 遷移URLを構築
     const u = new URL(CART_PATH, BASE);
-
     if (pairs.length === 1) {
       const { pid, qty } = pairs[0];
       u.searchParams.set("add", `${pid}:${qty}`);
@@ -212,7 +208,7 @@ export default function ProductDetailPage() {
       u.searchParams.set("replace", "1");
     }
 
-    // Wix 側の /cart-page(多言語) へ遷移（Veloでクエリ解釈→カート反映）
+    // Wix 側の /cart-page(多言語) へ遷移（Veloが add/sync を解釈してカート反映）
     window.location.assign(u.toString());
   };
 
@@ -235,7 +231,7 @@ export default function ProductDetailPage() {
         if (lineItemId === cartItemId) setQuantity(newQty);
       }
     } catch (e) {
-      console.error(e);
+      console.error("サイドカート数量変更失敗:", e);
     }
   };
 
@@ -249,9 +245,7 @@ export default function ProductDetailPage() {
     return (
       <>
         <Head>
-          <title>
-            {tx("pdp.head.titleSuffix", "Mother Vegetables Confidence MV-Si002")}
-          </title>
+          <title>{tx("pdp.head.titleSuffix", "Mother Vegetables Confidence MV-Si002")}</title>
         </Head>
         <p className="pageLoading">{tx("pdp.loading", "Loading...")}</p>
       </>
@@ -261,9 +255,7 @@ export default function ProductDetailPage() {
     return (
       <>
         <Head>
-          <title>
-            {tx("pdp.head.titleSuffix", "Mother Vegetables Confidence MV-Si002")}
-          </title>
+          <title>{tx("pdp.head.titleSuffix", "Mother Vegetables Confidence MV-Si002")}</title>
         </Head>
         <p className="notFound">{tx("pdp.notFound", "Product not found")}</p>
       </>
@@ -273,12 +265,7 @@ export default function ProductDetailPage() {
   return (
     <>
       <Head>
-        <title>
-          {`${lp.name} | ${tx(
-            "pdp.head.titleSuffix",
-            "Mother Vegetables Confidence MV-Si002"
-          )}`}
-        </title>
+        <title>{`${lp.name} | ${tx("pdp.head.titleSuffix", "Mother Vegetables Confidence MV-Si002")}`}</title>
       </Head>
 
       <div className="page">
@@ -306,11 +293,7 @@ export default function ProductDetailPage() {
             {/* 数量UI */}
             <div className="qtyBlock">
               <div className="qtyLabel">{tx("pdp.quantity.label", "数量")}</div>
-              <div
-                className="qtyBox"
-                role="group"
-                aria-label={tx("pdp.quantity.ariaChange", "数量を変更")}
-              >
+              <div className="qtyBox" role="group" aria-label={tx("pdp.quantity.ariaChange", "数量を変更")}>
                 <button
                   className="boxBtn minus"
                   aria-label={tx("pdp.quantity.ariaDecrease", "減らす")}
@@ -319,9 +302,7 @@ export default function ProductDetailPage() {
                 >
                   −
                 </button>
-                <div className="boxValue" aria-live="polite">
-                  {quantity}
-                </div>
+                <div className="boxValue" aria-live="polite">{quantity}</div>
                 <button
                   className="boxBtn plus"
                   aria-label={tx("pdp.quantity.ariaIncrease", "増やす")}
@@ -340,12 +321,10 @@ export default function ProductDetailPage() {
               <button className="btn buy" onClick={checkout}>
                 {tx("pdp.buttons.buyNow", "今すぐ購入")}
               </button>
+
               <Link href={`/item/${query.itemId}`} legacyBehavior>
                 <a className="btn back">
-                  {tx(
-                    "pdp.buttons.backToList",
-                    "カートの状態を維持して商品一覧に戻る"
-                  )}
+                  {tx("pdp.buttons.backToList", "カートの状態を維持して商品一覧に戻る")}
                 </a>
               </Link>
             </div>
@@ -362,20 +341,16 @@ export default function ProductDetailPage() {
             <details className="acc">
               <summary>{tx("pdp.details.returns", "返品・返金ポリシー")}</summary>
               <div className="accBody">
-                {tx(
-                  "pdp.details.returnsBody",
-                  "返品期限：商品到着より7日以内\n返品時の送料負担：初期不良の場合は当店負担／お客様都合の場合はお客様負担"
-                )}
+                {tx("pdp.details.returnsBody",
+                  "返品期限：商品到着より7日以内\n返品時の送料負担：初期不良の場合は当店負担／お客様都合の場合はお客様負担")}
               </div>
             </details>
 
             <details className="acc">
               <summary>{tx("pdp.details.shipping", "商品の配送について")}</summary>
               <div className="accBody">
-                {tx(
-                  "pdp.details.shippingBody",
-                  "配送料金：国内は基本送料無料（※沖縄は1,500円）\n※海外は別途計算\nご注文から翌日に発送（土日祝除く）"
-                )}
+                {tx("pdp.details.shippingBody",
+                  "配送料金：国内は基本送料無料（※沖縄は1,500円）\n※海外は別途計算\nご注文から翌日に発送（土日祝除く）")}
               </div>
             </details>
           </div>
@@ -395,9 +370,7 @@ export default function ProductDetailPage() {
       >
         <header className="sideCartHeader">
           <div>
-            {tx("pdp.sidecart.header", "カート")}（
-            {cart?.lineItems?.length || 0}
-            {tx("pdp.sidecart.items", "点のアイテム")}）
+            {tx("pdp.sidecart.header", "カート")}（{cart?.lineItems?.length || 0}{tx("pdp.sidecart.items", "点のアイテム")}）
           </div>
           <button className="closeBtn" onClick={() => setSideCartOpen(false)}>×</button>
         </header>
@@ -412,21 +385,14 @@ export default function ProductDetailPage() {
             return (
               <div className="lineItem" key={li._id}>
                 <div className="thumb">
-                  {thumb ? (
-                    <img src={thumb} alt={li.productName?.original || "item"} />
-                  ) : (
-                    <div className="ph" />
-                  )}
+                  {thumb ? <img src={thumb} alt={li.productName?.original || "item"} /> : <div className="ph" />}
                 </div>
                 <div className="liInfo">
                   <div className="liName">{li.productName?.original}</div>
                   <div className="liPrice">{li.price?.formattedAmount || ""}</div>
+
                   <div className="liQty">
-                    <div
-                      className="liQtyBox"
-                      role="group"
-                      aria-label={tx("pdp.quantity.ariaChange", "数量を変更")}
-                    >
+                    <div className="liQtyBox" role="group" aria-label={tx("pdp.quantity.ariaChange", "数量を変更")}>
                       <button
                         className="liBtn"
                         aria-label={tx("pdp.quantity.ariaDecrease", "減らす")}
@@ -435,9 +401,7 @@ export default function ProductDetailPage() {
                       >
                         −
                       </button>
-                      <div className="liQtyNum" aria-live="polite">
-                        {li.quantity}
-                      </div>
+                      <div className="liQtyNum" aria-live="polite">{li.quantity}</div>
                       <button
                         className="liBtn"
                         aria-label={tx("pdp.quantity.ariaIncrease", "増やす")}
@@ -466,7 +430,7 @@ export default function ProductDetailPage() {
 
       <Footer />
 
-      {/* スタイルは元のまま */}
+      {/* スタイルは元のまま（typo修正） */}
       <style jsx>{`
         .page { max-width: 1200px; margin: 2.7rem auto 10px auto; padding: 24px 16px 64px; }
         .grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 32px; }
@@ -481,35 +445,50 @@ export default function ProductDetailPage() {
         .price { font-weight: 800; }
         .qtyBlock { margin-top: 10px; }
         .qtyLabel { font-weight: 700; margin-bottom: 8px; letter-spacing: .02em; }
-        .qtyBox { display: grid; grid-template-columns: 48px 64px 48px; align-items: center; height: 44px; border: 1px solid #111; border-radius: 4px; overflow: hidden; background: #fff; width: 160px; }
-        .boxBtn { all: unset; display: flex; align-items: center; justify-content: center; height: 100%; width: 100%; cursor: pointer; font-size: 20px; user-select: none; }
+        .qtyBox { display: grid; grid-template-columns: 48px 64px 48px; align-items: center; height: 44px;
+                 border: 1px solid #111; border-radius: 4px; overflow: hidden; background: #fff; width: 160px; }
+        .boxBtn { all: unset; display: flex; align-items: center; justify-content: center; height: 100%; width: 100%;
+                  cursor: pointer; font-size: 20px; user-select: none; }
         .boxBtn:active { transform: translateY(0.5px); }
         .boxBtn:disabled { color: #cbd5e1; cursor: not-allowed; }
         .boxValue { text-align: center; font-size: 16px; font-weight: 600; }
+
         .actions { display: flex; flex-direction: column; gap: 12px; margin-top: 12px; }
-        .btn { width: 100%; height: 48px; border-radius: 9999px; border: none; font-size: 14px; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; text-decoration: none; }
+        .btn { width: 100%; height: 48px; border-radius: 9999px; border: none; font-size: 14px; cursor: pointer;
+               display: inline-flex; align-items: center; justify-content: center; text-decoration: none; }
         .btn.add { background: #e5e7eb; color: #111827; }
         .btn.buy { background: #000; color: #fff; }
         .btn.back { background: #e8f3ff; color: #0f172a; border: 1px solid #cfe0ff; }
-        .acc { border-top: 1px solid #e5e7eb; paddingトップ: 12px; }
+
+        .acc { border-top: 1px solid #e5e7eb; padding-top: 12px; }  /* ← 修正 */
         .accBody { padding: 8px 0 2px; color: #374151; font-size: 14px; line-height: 1.9; }
-        .sideCartBackdrop { position: fixed; inset: 0; background: rgba(0,0,0,.45); opacity: 0; pointer-events: none; transition: opacity .25s ease; z-index: 1000; }
+
+        .sideCartBackdrop { position: fixed; inset: 0; background: rgba(0,0,0,.45); opacity: 0; pointer-events: none;
+                            transition: opacity .25s ease; z-index: 1000; }
         .sideCartBackdrop.open { opacity: 1; pointer-events: auto; }
-        .sideCart { position: fixed; top: 0; right: 0; width: 380px; max-width: 90vw; height: 100vh; background: #fff; box-shadow: -8px 0 24px rgba(0,0,0,.1); transform: translateX(100%); transition: transform .25s ease; z-index: 1001; display: flex; flex-direction: column; }
+        .sideCart { position: fixed; top: 0; right: 0; width: 380px; max-width: 90vw; height: 100vh; background: #fff;
+                    box-shadow: -8px 0 24px rgba(0,0,0,.1); transform: translateX(100%); transition: transform .25s ease;
+                    z-index: 1001; display: flex; flex-direction: column; }
         .sideCart.open { transform: translateX(0); }
         .sideCartHeader { display: flex; justify-content: space-between; align-items: center; padding: 16px; font-weight: 700; border-bottom: 1px solid #eee; }
+        .closeBtn { background: transparent; border: none; font-size: 24px; cursor: pointer; line-height: 1; }
+
         .sideCartBody { padding: 8px 16px; overflow-y: auto; flex: 1; }
         .empty { color: #6b7280; padding: 16px 0; }
+
         .lineItem { display: grid; grid-template-columns: 72px 1fr; gap: 12px; align-items: center; padding: 12px 0; border-bottom: 1px solid #f1f5f9; }
         .thumb img, .ph { width: 72px; height: 72px; border-radius: 8px; object-fit: cover; background: #f3f4f6; }
         .liInfo { display: flex; flex-direction: column; gap: 8px; }
         .liName { font-size: 14px; font-weight: 600; }
         .liPrice { font-size: 13px; color: #374151; }
+
         .liQty { margin-top: 2px; }
-        .liQtyBox { display: grid; grid-template-columns: 40px 56px 40px; align-items: center; height: 36px; border: 1px solid #d1d5db; border-radius: 6px; background: #fff; overflow: hidden; width: 136px; }
+        .liQtyBox { display: grid; grid-template-columns: 40px 56px 40px; align-items: center; height: 36px;
+                    border: 1px solid #d1d5db; border-radius: 6px; background: #fff; overflow: hidden; width: 136px; }
         .liBtn { all: unset; height: 100%; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 18px; color: #111827; }
         .liBtn:disabled { color: #cbd5e1; cursor: not-allowed; }
         .liQtyNum { text-align: center; font-weight: 700; }
+
         .sideCartFooter { border-top: 1px solid #eee; padding: 12px 16px 16px; }
         .subtotal { font-weight: 700; margin-bottom: 10px; }
         .checkoutBtn { background: #000; color: #fff; }
