@@ -30,7 +30,7 @@ export default function HeroSection() {
     <>
       {/* ── ヘッダー（言語メニュー） ───────────────────────── */}
       <header aria-label="Language selector" style={styles.headerBar}>
-        <LangBtn code="ja" label="JA" />
+        {/*<LangBtn code="ja" label="JA" />*/}
         <LangBtn code="en" label="EN" />
         <LangBtn code="ms" label="MS" />
         <LangBtn code="zh" label="ZH" />

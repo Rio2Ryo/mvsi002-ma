@@ -10,7 +10,7 @@ import {
 
 const I18nContext = createContext({
   t: (k) => k,
-  lang: "ja",
+  lang: "en",           // ← 既定を en に
   setLang: () => {},
 });
 
@@ -21,28 +21,45 @@ function safeGet(obj, path) {
   return path.split(".").reduce((o, k) => (o && o[k] != null ? o[k] : null), obj);
 }
 
-// 言語推定（localStorage > <html lang> > navigator.language）
+// 言語推定（URL先頭 > localStorage > <html lang> > navigator.language）
 function detectInitialLang() {
+  // 1) /en/ /ms/ /zh/ を優先
+  try {
+    if (typeof window !== "undefined") {
+      const segs = window.location.pathname.split("/").filter(Boolean);
+      const maybe = (segs[0] || "").toLowerCase();
+      if (SUPPORTED.includes(maybe)) return maybe;
+    }
+  } catch {}
+
+  // 2) localStorage
   try {
     const saved = typeof window !== "undefined" ? localStorage.getItem(LS_KEY) : null;
     if (SUPPORTED.includes(saved)) return saved;
   } catch {}
+
+  // 3) <html lang>
   if (typeof document !== "undefined") {
     const htmlLang = (document.documentElement.lang || "").toLowerCase();
     if (SUPPORTED.includes(htmlLang)) return htmlLang;
   }
+
+  // 4) navigator.language
   if (typeof navigator !== "undefined") {
     const nav = (navigator.language || "").toLowerCase();
     if (nav.startsWith("en")) return "en";
     if (nav.startsWith("ms")) return "ms";
-    if (nav.startsWith("zh")) return "zh"; // zh-CN/zh-TWなどはひとまずzhに集約
+    if (nav.startsWith("zh")) return "zh"; // zh-CN/zh-TW などは zh に集約
+    if (nav.startsWith("ja")) return "ja";
   }
-  return "ja";
+
+  // 5) 最終フォールバックは英語
+  return "en";
 }
 
 export function I18nProvider({ children }) {
-  // ① 初回SSRは必ず "ja" に固定（水和ズレ防止）
-  const [lang, setLangState] = useState("ja");
+  // ① 初回SSRは "en" に固定（水和ズレ防止 & 既定言語を英語に）
+  const [lang, setLangState] = useState("en");
   const [messages, setMessages] = useState({});
 
   // ② クライアントで希望言語に切替
@@ -50,7 +67,7 @@ export function I18nProvider({ children }) {
     if (typeof window === "undefined") return;
     const initial = detectInitialLang();
     setLangState(initial);
-    document.documentElement.lang = initial;
+    document.documentElement.lang = initial || "en";
   }, []);
 
   // ③ 言語切替ごとに辞書を動的ロード（/src/locales/{lang}.json）
@@ -63,16 +80,16 @@ export function I18nProvider({ children }) {
         if (!cancelled) {
           setMessages(dict || {});
           try { localStorage.setItem(LS_KEY, lang); } catch {}
-          document.documentElement.lang = lang;
+          document.documentElement.lang = lang || "en";
         }
       } catch (e) {
-        // 辞書が見つからなければ ja にフォールバック
-        const mod = await import(`../locales/ja.json`);
+        // 辞書が見つからなければ en にフォールバック
+        const mod = await import(`../locales/en.json`);
         const dict = mod.default || mod;
         if (!cancelled) {
           setMessages(dict || {});
-          setLangState("ja");
-          document.documentElement.lang = "ja";
+          setLangState("en");
+          document.documentElement.lang = "en";
         }
       }
     })();
@@ -102,7 +119,7 @@ export function I18nProvider({ children }) {
 
   const setLang = (next) => {
     const n = String(next).toLowerCase();
-    setLangState(SUPPORTED.includes(n) ? n : "ja");
+    setLangState(SUPPORTED.includes(n) ? n : "en");  // ← 無効値は en へ
   };
 
   const value = useMemo(() => ({ t, lang, setLang }), [t, lang]);
