@@ -29,6 +29,7 @@ export default function HeroSection() {
   return (
     <>
       {/* ── ヘッダー（言語メニュー） ───────────────────────── */}
+      {/* fixed をやめ absolute にすることで、ページと一緒にスクロールアウトします */}
       <header aria-label="Language selector" style={styles.headerBar}>
         {/*<LangBtn code="ja" label="JA" />*/}
         <LangBtn code="en" label="EN" />
@@ -95,7 +96,6 @@ export default function HeroSection() {
           <div style={styles.overlay} />
         </div>
 
-
         {/* コンテンツ（本文） */}
         <div style={styles.contentWrapper}>
           <div style={styles.content}>
@@ -149,7 +149,7 @@ export default function HeroSection() {
                 </button>
               </div>
 
-              {/* ▼ あなたが指定した3つのSVGアイコン（そのまま組み込み） */}
+              {/* ▼ SVGアイコン */}
               <div style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: "40px", marginTop: "32px" }}>
                 <div style={styles.iconBlock}>
                   <div style={styles.iconCircle}>
@@ -230,10 +230,10 @@ export default function HeroSection() {
 const styles = {
   /* ── ヘッダーと言語ボタン ────────────────────── */
   headerBar: {
-    position: "fixed",
+    position: "absolute",       // ← fixed をやめる
     top: "12px",
     left: "12px",
-    zIndex: 10000,
+    zIndex: 4,                   // contentWrapper(z=3)より上、overlay(z=2)より上
     display: "flex",
     gap: "8px",
     background: "rgba(0,0,0,0.35)",
@@ -263,7 +263,7 @@ const styles = {
   /* ── ロゴ配置 ─────────────────────────────── */
   logoWrap: {
     position: "absolute",
-    zIndex: 5, // overlay(2)・content(3) より上
+    zIndex: 5,
     top: "64px",
     left: "50%",
     transform: "translateX(-50%)",
@@ -317,7 +317,7 @@ const styles = {
   iconCircle: { width: "64px", height: "64px", background: "rgba(255,255,255,0.1)", borderRadius: "9999px", backdropFilter: "blur(4px)", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 0.75rem" },
   iconText: { fontSize: "0.75rem", color: "#aaa" },
   limitedBadge: { position: "absolute", top: "2.25rem", right: "2.25rem", background: "linear-gradient(to right, #B8860B, #D4C4B0)", color: "#fff", padding: "0.5rem 1rem", borderRadius: "9999px", fontSize: "0.75rem", fontWeight: 500, transform: "rotate(12deg)", boxShadow: "0 4px 16px rgba(0,0,0,0.2)", zIndex: 9999 },
-  scrollIndicator: { position: "fixed", bottom: "2rem", right: "2rem", zIndex: 20 },
+  scrollIndicator: { position: "fixed", bottom: "2rem", right: "2rem", zIndex: 20 }, // ← これも消したければ absolute に
   scrollLine: { width: "1px", height: "2rem", background: "rgba(180,180,180,0.5)", position: "relative", overflow: "hidden" },
   scrollDot: { position: "absolute", top: 0, width: "100%", height: "0.5rem", background: "rgba(255,255,255,0.8)", animation: "bounce 2s infinite" },
 };
