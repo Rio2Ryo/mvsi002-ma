@@ -153,7 +153,7 @@ export default function ProductSection() {
 
                 <h3
                   style={{
-                    fontSize: "1.25rem",
+                    fontSize: "1.45rem",
                     fontWeight: "300",
                     color: "#1f2937",
                     marginBottom: "0.5rem"
