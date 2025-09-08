@@ -1,11 +1,22 @@
 "use client";
 import { useEffect, useState } from "react";
-import Image from "next/image";
+// import Image from "next/image"; // 未使用なら消してOK
 import { useI18n } from "../lib/i18n";
 
 export default function HeroSection() {
   const [isVisible, setIsVisible] = useState(false);
   const { t, lang, setLang } = useI18n();
+
+  // 1) クリック一発で反映させるハンドラ
+  const handleLang = (code) => {
+    if (!code || code === lang) return;
+    // コンテキスト更新
+    setLang(code);
+    // 2) <html lang> 同期（他のスクリプト/SEO用にも有効）
+    try { document.documentElement.lang = code; } catch {}
+    // 永続化している場合は任意（なければ削除可）
+    try { localStorage.setItem("siteLang", code); } catch {}
+  };
 
   // 翻訳ヘルパ（未翻訳キーはフォールバック表示）
   const tx = (key, fb) => {
@@ -17,10 +28,11 @@ export default function HeroSection() {
 
   const LangBtn = ({ code, label }) => (
     <button
-      onClick={() => setLang(code)}
+      onClick={() => handleLang(code)}       
       aria-pressed={lang === code}
       title={label}
       style={{ ...styles.langBtn, ...(lang === code ? styles.langBtnActive : {}) }}
+      type="button"
     >
       {label}
     </button>
@@ -29,7 +41,6 @@ export default function HeroSection() {
   return (
     <>
       {/* ── ヘッダー（言語メニュー） ───────────────────────── */}
-      {/* fixed をやめ absolute にすることで、ページと一緒にスクロールアウトします */}
       <header aria-label="Language selector" style={styles.headerBar}>
         {/*<LangBtn code="ja" label="JA" />*/}
         <LangBtn code="en" label="EN" />
@@ -42,7 +53,8 @@ export default function HeroSection() {
         {tx("hero.limited", "限定販売中")}
       </div>
 
-      <section style={styles.section}>
+      {/* 3) 言語ごとに key を変えて強制再マウント → 1クリックで確実反映 */}
+      <section key={lang} style={styles.section}>
         {/* 背景（下層） */}
         <div style={styles.backgroundContainer}>
           <div style={styles.baseBackground} />
@@ -138,12 +150,14 @@ export default function HeroSection() {
                 <button
                   onClick={() => document.getElementById("product")?.scrollIntoView({ behavior: "smooth" })}
                   style={styles.ctaButton}
+                  type="button"
                 >
                   <span style={styles.ctaText}>{tx("hero.buy", "購入する")}</span>
                 </button>
                 <button
                   onClick={() => document.getElementById("features")?.scrollIntoView({ behavior: "smooth" })}
                   style={styles.secondaryButton}
+                  type="button"
                 >
                   {tx("hero.details", "詳細を見る")}
                 </button>
@@ -212,11 +226,9 @@ export default function HeroSection() {
             0%,100% { transform: scale(1); }
             50% { transform: scale(1.02); }
           }
-
-          /* ✅ モバイル用フォントサイズ調整 */
           @media (max-width: 768px) {
             h1 { font-size: 2.2rem !important; line-height: 1.3 !important; }
-            h2 { font-size: 1.3rem !important; line-height: 1.3 !important; }
+            h2 { font-size: 1.3rem !重要; line-height: 1.3 !重要; }
             :global(.limitedBadge) { display: none !important; }
             :global(.ctaContainer) { flex-direction: column !important; gap: 0.5rem !important; }
             :global(.ctaContainer > button) { width: 100% !important; }
@@ -228,12 +240,11 @@ export default function HeroSection() {
 }
 
 const styles = {
-  /* ── ヘッダーと言語ボタン ────────────────────── */
   headerBar: {
-    position: "absolute",       // ← fixed をやめる
+    position: "absolute",
     top: "12px",
     left: "12px",
-    zIndex: 4,                   // contentWrapper(z=3)より上、overlay(z=2)より上
+    zIndex: 4,
     display: "flex",
     gap: "8px",
     background: "rgba(0,0,0,0.35)",
@@ -259,18 +270,7 @@ const styles = {
     fontWeight: 700,
     background: "linear-gradient(90deg,#B8860B,#D4C4B0)",
   },
-
-  /* ── ロゴ配置 ─────────────────────────────── */
-  logoWrap: {
-    position: "absolute",
-    zIndex: 5,
-    top: "64px",
-    left: "50%",
-    transform: "translateX(-50%)",
-    pointerEvents: "none",
-  },
-
-  /* ── 既存スタイル ───────────────────────────── */
+  logoWrap: { position: "absolute", zIndex: 5, top: "64px", left: "50%", transform: "translateX(-50%)", pointerEvents: "none" },
   section: { position: "relative", minHeight: "100vh", overflow: "hidden", backgroundColor: "#000" },
   backgroundContainer: { position: "absolute", inset: 0, zIndex: 1 },
   baseBackground: { position: "absolute", inset: 0, background: "linear-gradient(to bottom right, #1a1a1a, #0a0a0a, black)" },
@@ -278,17 +278,12 @@ const styles = {
   glowCircleOuter: { position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)", width: "800px", height: "800px" },
   glowCircleInner1: { position: "absolute", inset: 0, borderRadius: "50%", background: "linear-gradient(to right, rgba(255,255,255,0.2), rgba(212,196,176,0.3), transparent)", filter: "blur(48px)" },
   glowCircleInner2: { position: "absolute", inset: 0, borderRadius: "50%", background: "linear-gradient(to bottom right, rgba(184,134,11,0.2), transparent, rgba(212,196,176,0.1))", filter: "blur(32px)", animation: "pulse 3s infinite" },
-  textureOverlay: {
-    position: "absolute",
-    inset: 0,
-    opacity: 0.4,
-    backgroundImage: `
+  textureOverlay: { position: "absolute", inset: 0, opacity: 0.4, backgroundImage: `
       radial-gradient(ellipse 800px 400px at 50% 0%, rgba(255,255,255,0.1) 0%, transparent 40%),
       radial-gradient(circle at 25% 50%, rgba(184, 134, 11, 0.15) 0%, transparent 35%),
       radial-gradient(circle at 75% 50%, rgba(212, 196, 176, 0.1) 0%, transparent 35%),
       linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.1) 50%, rgba(0,0,0,0.3) 100%)
-    `,
-  },
+    ` },
   highlightOverlay: { position: "absolute", top: 0, left: 0, right: 0, height: "50%", background: "linear-gradient(to bottom, rgba(255,255,255,0.05), transparent)" },
   particles: { position: "absolute", inset: 0 },
   particle: { position: "absolute", borderRadius: "50%", background: "white", opacity: 0.1 },
@@ -317,7 +312,7 @@ const styles = {
   iconCircle: { width: "64px", height: "64px", background: "rgba(255,255,255,0.1)", borderRadius: "9999px", backdropFilter: "blur(4px)", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 0.75rem" },
   iconText: { fontSize: "0.75rem", color: "#aaa" },
   limitedBadge: { position: "absolute", top: "2.25rem", right: "2.25rem", background: "linear-gradient(to right, #B8860B, #D4C4B0)", color: "#fff", padding: "0.5rem 1rem", borderRadius: "9999px", fontSize: "0.75rem", fontWeight: 500, transform: "rotate(12deg)", boxShadow: "0 4px 16px rgba(0,0,0,0.2)", zIndex: 9999 },
-  scrollIndicator: { position: "fixed", bottom: "2rem", right: "2rem", zIndex: 20 }, // ← これも消したければ absolute に
+  scrollIndicator: { position: "fixed", bottom: "2rem", right: "2rem", zIndex: 20 },
   scrollLine: { width: "1px", height: "2rem", background: "rgba(180,180,180,0.5)", position: "relative", overflow: "hidden" },
   scrollDot: { position: "absolute", top: 0, width: "100%", height: "0.5rem", background: "rgba(255,255,255,0.8)", animation: "bounce 2s infinite" },
 };
