@@ -229,7 +229,7 @@ export default function ProductSection() {
                 {/* ★ JSONの name_* が反映される */}
                 <h3
                   style={{
-                    fontSize: "1.3rem",
+                    fontSize: "1.45rem",
                     fontWeight: "300",
                     color: "#1f2937",
                     marginBottom: "0.5rem",
