@@ -5,11 +5,15 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useI18n } from "../lib/i18n";
 
+// JSONの多言語フィールドを優先して返すヘルパー
+// 例: pickLang(rec, "price", "en") => rec.price_en || rec.price || null
+const pickLang = (rec, base, lang) => rec?.[`${base}_${lang}`] ?? rec?.[base] ?? null;
+
 export default function ProductSection() {
   const [selectedSize, setSelectedSize] = useState("2,000mg");
   const [jsonData, setJsonData] = useState(null);
 
-  const { t } = useI18n();
+  const { t, lang } = useI18n(); // ← 言語コードを使う
   const tx = (k, fb) => {
     const v = t ? t(k) : undefined;
     return v && v !== k ? v : fb;
@@ -19,7 +23,7 @@ export default function ProductSection() {
   const rawId = router.query?.itemId;
   const itemId = Array.isArray(rawId) ? rawId[0] : rawId;
 
-  // 既存のカード定義（フォールバック値）
+  // 既存のカード定義（JSONが無い時のフォールバック）
   const allProducts = useMemo(
     () => [
       {
@@ -56,7 +60,7 @@ export default function ProductSection() {
       },
     ],
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [t] // 翻訳切替時に再評価
+    [t]
   );
 
   // JSON読み込み（public/<itemId>_products.json）
@@ -80,41 +84,41 @@ export default function ProductSection() {
     };
   }, [itemId]);
 
-  // JSONをマージして最終表示データを生成
+  // JSONをマージして最終表示データを生成（★ここで name_en / price_ms などを優先）
   const products = useMemo(() => {
     if (!itemId) return [];
-    return allProducts.map((p, idx) => {
+    return allProducts.map((p) => {
       const slug = `${p.slugPrefix}-${itemId}`;
-      const match = (jsonData || []).find((j) => j.slug === slug);
+      const rec = (jsonData || []).find((j) => j.slug === slug) || {};
 
-      // JSON側が値を持っていれば上書き（価格/画像など）。タイトルや説明も置換可能。
-      const mergedTitle = match?.name ?? p.title;
-      const mergedDesc = match?.description ?? p.description;
+      // 多言語フィールドを最優先
+      const title       = pickLang(rec, "name", lang)        ?? p.title;
+      const description = pickLang(rec, "description", lang) ?? p.description;
+      const priceDisp   = pickLang(rec, "price", lang)       ?? (rec.price ?? p.price);
+      const oprice1     = pickLang(rec, "originalprice",  lang) ?? (rec.originalprice  ?? p.originalPrice);
+      const oprice2     = pickLang(rec, "originalprice2", lang) ?? (rec.originalprice2 ?? p.originalPrice2);
 
-      // features は辞書キーでの多言語 + JSON差し替えの両対応
-      const baseFeatures = p.features || [];
-      const jsonFeature1 = match?.feature1;
-      const jsonFeature2 = match?.feature2;
-      const jsonFeature3 = match?.feature3;
-      const finalFeatures = [
-        jsonFeature1 ?? baseFeatures[0],
-        jsonFeature2 ?? baseFeatures[1],
-        jsonFeature3 ?? baseFeatures[2],
-      ].filter(Boolean);
+      // features 側も JSONに feature1_* があれば差し替え（無ければ既存を使用）
+      const feat1 = pickLang(rec, "feature1", lang);
+      const feat2 = pickLang(rec, "feature2", lang);
+      const feat3 = pickLang(rec, "feature3", lang);
+      const features = [feat1, feat2, feat3].some(Boolean)
+        ? [feat1, feat2, feat3].filter(Boolean)
+        : p.features;
 
       return {
         ...p,
         slug,
-        title: mergedTitle,
-        description: mergedDesc,
-        features: finalFeatures,
-        price: match?.price ?? p.price,
-        originalPrice: match?.originalprice ?? p.originalPrice,
-        originalPrice2: match?.originalprice2 ?? p.originalPrice2,
-        itemPic: match?.ItemPic ?? p.fallbackImg,
+        title,
+        description,
+        features,
+        itemPic: rec.ItemPic ?? p.fallbackImg,
+        priceDisplay: priceDisp,
+        original1Display: oprice1,
+        original2Display: oprice2,
       };
     });
-  }, [allProducts, jsonData, itemId]);
+  }, [allProducts, jsonData, itemId, lang]);
 
   return (
     <section
@@ -170,7 +174,7 @@ export default function ProductSection() {
             const internalHref = `/item/${itemId}/${product.slug}`;
             return (
               <div
-                key={product.size}
+                key={product.slug}
                 onClick={() => setSelectedSize(product.size)}
                 style={{
                   backgroundColor: "#fff",
@@ -222,6 +226,7 @@ export default function ProductSection() {
                   />
                 </div>
 
+                {/* ★ JSONの name_* が反映される */}
                 <h3
                   style={{
                     fontSize: "1.25rem",
@@ -232,43 +237,49 @@ export default function ProductSection() {
                 >
                   {product.title}
                 </h3>
+
+                {/* ★ JSONの description_* が反映される */}
                 <p
                   style={{ fontSize: "0.875rem", color: "#6b7280", marginBottom: "1rem" }}
                 >
                   {product.description}
                 </p>
 
-                <div
-                  style={{
-                    fontSize: "0.875rem",
-                    color: "#6b7280",
-                    marginBottom: "1.5rem",
-                  }}
-                >
-                  {product.features?.map((f, i) => (
-                    <p
-                      key={i}
-                      style={{
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center",
-                        gap: "0.5rem",
-                      }}
-                    >
-                      <span
+                {/* 特徴（あれば） */}
+                {product.features?.length > 0 && (
+                  <div
+                    style={{
+                      fontSize: "0.875rem",
+                      color: "#6b7280",
+                      marginBottom: "1.5rem",
+                    }}
+                  >
+                    {product.features.map((f, i) => (
+                      <p
+                        key={i}
                         style={{
-                          width: "6px",
-                          height: "6px",
-                          backgroundColor: "#b8860b",
-                          borderRadius: "50%",
+                          display: "flex",
+                          justifyContent: "center",
+                          alignItems: "center",
+                          gap: "0.5rem",
                         }}
-                      />
-                      {f}
-                    </p>
-                  ))}
-                </div>
+                      >
+                        <span
+                          style={{
+                            width: "6px",
+                            height: "6px",
+                            backgroundColor: "#b8860b",
+                            borderRadius: "50%",
+                          }}
+                        />
+                        {f}
+                      </p>
+                    ))}
+                  </div>
+                )}
 
                 <div style={{ marginBottom: "1rem" }}>
+                  {/* ★ JSONの price_* が反映される */}
                   <p
                     className="price"
                     style={{
@@ -278,7 +289,7 @@ export default function ProductSection() {
                       color: product.popular ? "#b8860b" : "#1f2937",
                     }}
                   >
-                    {product.price}
+                    {product.priceDisplay}
                   </p>
                   <p style={{ fontSize: "0.75rem", color: "#9ca3af" }}>
                     {tx("lineup.taxIncluded", "(税込)")}
